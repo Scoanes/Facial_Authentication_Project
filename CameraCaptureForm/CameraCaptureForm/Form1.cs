@@ -10,14 +10,15 @@ using System.Windows.Forms;
 
 using Emgu.CV;
 using Emgu.CV.Structure;
+using System.IO;
 
 namespace CameraCaptureForm
 {
     public partial class Form1 : Form
     {
         // Declaring constants
-        static string haarFaceFile = @"C:\Users\User\Documents\GitHub\Facial_Authentication_Project\CameraCaptureForm\CameraCaptureForm\Resources\haarcascade_frontalface_default.xml";
-        static string haarEyeFile = @"C:\Users\User\Documents\GitHub\Facial_Authentication_Project\CameraCaptureForm\CameraCaptureForm\Resources\haarcascade_eye.xml";
+        static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
+        static string haarEyeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_eye.xml");
 
         VideoCapture cameraCapture;
 
