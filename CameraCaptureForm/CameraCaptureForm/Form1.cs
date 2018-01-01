@@ -25,8 +25,14 @@ namespace CameraCaptureForm
 
             // Setting up default form contents
 
+            // adding both user controls to the panel
             pnl_Main.Controls.Add(ucMainPage.Instance);
             ucMainPage.Instance.Dock = DockStyle.Fill;
+
+            pnl_Main.Controls.Add(ucEnrolPage.Instance);
+            ucEnrolPage.Instance.Dock = DockStyle.Fill;
+
+            // setting default to main page
             ucMainPage.Instance.BringToFront();
 
             this.isMainPage = true;
@@ -39,15 +45,8 @@ namespace CameraCaptureForm
             if (isMainPage)
             {
                 // Swap to Enrol Page
-                // dispose of all user controls in panel
-                foreach (Control control in pnl_Main.Controls)
-                {
-                    control.Dispose();
-                }
 
                 // change the panel contents
-                pnl_Main.Controls.Add(ucEnrolPage.Instance);
-                ucEnrolPage.Instance.Dock = DockStyle.Fill;
                 ucEnrolPage.Instance.BringToFront();
 
                 // update button text and vars
@@ -57,15 +56,8 @@ namespace CameraCaptureForm
             else
             {
                 // Swap to Main Page
-                // dispose of all user controls in panel
-                foreach (Control control in pnl_Main.Controls)
-                {
-                    control.Dispose();
-                }
 
                 // change the panel contents
-                pnl_Main.Controls.Add(ucMainPage.Instance);
-                ucMainPage.Instance.Dock = DockStyle.Fill;
                 ucMainPage.Instance.BringToFront();
 
                 // update button text and vars
