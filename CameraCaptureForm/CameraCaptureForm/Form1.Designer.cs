@@ -28,60 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btn_StartCapture = new System.Windows.Forms.Button();
-            this.btn_StopCapture = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pnl_Main = new System.Windows.Forms.Panel();
+            this.btn_userControlSwitch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pnl_Main
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(61, 71);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1012, 466);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pnl_Main.Location = new System.Drawing.Point(0, 1);
+            this.pnl_Main.Name = "pnl_Main";
+            this.pnl_Main.Size = new System.Drawing.Size(910, 627);
+            this.pnl_Main.TabIndex = 0;
             // 
-            // btn_StartCapture
+            // btn_userControlSwitch
             // 
-            this.btn_StartCapture.Location = new System.Drawing.Point(61, 12);
-            this.btn_StartCapture.Name = "btn_StartCapture";
-            this.btn_StartCapture.Size = new System.Drawing.Size(119, 35);
-            this.btn_StartCapture.TabIndex = 1;
-            this.btn_StartCapture.Text = "Start Capture";
-            this.btn_StartCapture.UseVisualStyleBackColor = true;
-            this.btn_StartCapture.Click += new System.EventHandler(this.btn_StartCapture_Click);
-            // 
-            // btn_StopCapture
-            // 
-            this.btn_StopCapture.Location = new System.Drawing.Point(214, 12);
-            this.btn_StopCapture.Name = "btn_StopCapture";
-            this.btn_StopCapture.Size = new System.Drawing.Size(133, 35);
-            this.btn_StopCapture.TabIndex = 2;
-            this.btn_StopCapture.Text = "Stop Capture";
-            this.btn_StopCapture.UseVisualStyleBackColor = true;
-            this.btn_StopCapture.Click += new System.EventHandler(this.btn_StopCapture_Click);
+            this.btn_userControlSwitch.Location = new System.Drawing.Point(12, 647);
+            this.btn_userControlSwitch.Name = "btn_userControlSwitch";
+            this.btn_userControlSwitch.Size = new System.Drawing.Size(111, 35);
+            this.btn_userControlSwitch.TabIndex = 4;
+            this.btn_userControlSwitch.UseVisualStyleBackColor = true;
+            this.btn_userControlSwitch.Click += new System.EventHandler(this.btn_userControlSwitch_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1144, 578);
-            this.Controls.Add(this.btn_StopCapture);
-            this.Controls.Add(this.btn_StartCapture);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(912, 694);
+            this.Controls.Add(this.btn_userControlSwitch);
+            this.Controls.Add(this.pnl_Main);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btn_StartCapture;
-        private System.Windows.Forms.Button btn_StopCapture;
+        private System.Windows.Forms.Panel pnl_Main;
+        private System.Windows.Forms.Button btn_userControlSwitch;
     }
 }
 

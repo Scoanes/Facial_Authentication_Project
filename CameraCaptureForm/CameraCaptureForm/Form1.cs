@@ -16,62 +16,61 @@ namespace CameraCaptureForm
 {
     public partial class Form1 : Form
     {
-        // Declaring constants
-        static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
-        static string haarEyeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_eye.xml");
 
-        VideoCapture cameraCapture;
-
-        // Creating classifiers here
-        CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
-        CascadeClassifier eyeClassifier = new CascadeClassifier(haarEyeFile);
+        bool isMainPage;
 
         public Form1()
         {
             InitializeComponent();
+
+            // Setting up default form contents
+
+            pnl_Main.Controls.Add(ucMainPage.Instance);
+            ucMainPage.Instance.Dock = DockStyle.Fill;
+            ucMainPage.Instance.BringToFront();
+
+            this.isMainPage = true;
+            btn_userControlSwitch.Text = "Enrol User";
         }
 
-        private void btn_StartCapture_Click(object sender, EventArgs e)
+        private void btn_userControlSwitch_Click(object sender, EventArgs e)
         {
-            if(cameraCapture == null)
+            // if statement here which changes the panel contents
+            if (isMainPage)
             {
-                cameraCapture = new VideoCapture();
+                // Swap to Enrol Page
+                // dispose of all user controls in panel
+                foreach (Control control in pnl_Main.Controls)
+                {
+                    control.Dispose();
+                }
+
+                // change the panel contents
+                pnl_Main.Controls.Add(ucEnrolPage.Instance);
+                ucEnrolPage.Instance.Dock = DockStyle.Fill;
+                ucEnrolPage.Instance.BringToFront();
+
+                // update button text and vars
+                btn_userControlSwitch.Text = "Main Page";
+                isMainPage = false;
             }
-
-            cameraCapture.ImageGrabbed += CameraCapture_ImageGrabbed;
-            cameraCapture.Start();
-        }
-
-        private void CameraCapture_ImageGrabbed(object sender, EventArgs e)
-        {
-            // Getting the image from the camera
-            Mat capturedImage = new Mat();
-            cameraCapture.Retrieve(capturedImage);
-            var convertedCapture = capturedImage.ToImage<Bgr, byte>();
-
-            // Face detection
-            var greyImage = convertedCapture.Convert<Gray, byte>();
-            var allFaces = faceClassifier.DetectMultiScale(greyImage, 1.1, 10);
-            var allEyes = eyeClassifier.DetectMultiScale(greyImage, 1.1, 10);
-
-            foreach(var face in allFaces)
+            else
             {
-                convertedCapture.Draw(face, new Bgr(Color.Green), 2);
-            }
+                // Swap to Main Page
+                // dispose of all user controls in panel
+                foreach (Control control in pnl_Main.Controls)
+                {
+                    control.Dispose();
+                }
 
-            foreach (var eye in allEyes)
-            {
-                convertedCapture.Draw(eye, new Bgr(Color.Purple), 2);
-            }
+                // change the panel contents
+                pnl_Main.Controls.Add(ucMainPage.Instance);
+                ucMainPage.Instance.Dock = DockStyle.Fill;
+                ucMainPage.Instance.BringToFront();
 
-            pictureBox1.Image = convertedCapture.Bitmap;
-        }
-
-        private void btn_StopCapture_Click(object sender, EventArgs e)
-        {
-            if(cameraCapture != null)
-            {
-                cameraCapture = null;
+                // update button text and vars
+                btn_userControlSwitch.Text = "Enrol User";
+                isMainPage = true;
             }
         }
     }
