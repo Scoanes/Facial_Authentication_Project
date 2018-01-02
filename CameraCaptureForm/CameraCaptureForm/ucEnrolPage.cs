@@ -44,6 +44,7 @@ namespace CameraCaptureForm
         static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
 
         VideoCapture cameraCapture;
+        Image frameCopy;
         Rectangle[] allFaces;
         Rectangle [] facesFromFrame;
         int count = 0;
@@ -74,6 +75,7 @@ namespace CameraCaptureForm
         {
             // only want to update the faces from the frame when captured
             count = 0;
+            frameCopy = pb_CameraFeed.Image;
             facesFromFrame = allFaces;
             faceDisplayCoordinator(count);
         }
@@ -82,7 +84,7 @@ namespace CameraCaptureForm
         {
             // all we want to do here is increment the count number and call the coordinator
             count++;
-            if(count == facesFromFrame.Length + 1)
+            if(count == facesFromFrame.Length)
             {
                 count = 0;
             }
@@ -95,7 +97,7 @@ namespace CameraCaptureForm
             count--;
             if (count < 0)
             {
-                count = facesFromFrame.Length;
+                count = facesFromFrame.Length - 1;
             }
             faceDisplayCoordinator(count);
         }
@@ -130,7 +132,7 @@ namespace CameraCaptureForm
 
         private Image displayFace(int faceIndex, Rectangle[] facesToDisplay)
         {
-            Bitmap faceImage = new Bitmap(pb_CameraFeed.Image);
+            Bitmap faceImage = new Bitmap(frameCopy);
             return faceImage.Clone(facesToDisplay[faceIndex], faceImage.PixelFormat);
         }
     }
