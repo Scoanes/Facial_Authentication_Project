@@ -73,8 +73,9 @@ namespace CameraCaptureForm
         private void btn_capture_Click(object sender, EventArgs e)
         {
             // only want to update the faces from the frame when captured
+            count = 0;
             facesFromFrame = allFaces;
-            faceDisplayCoordinator(0);
+            faceDisplayCoordinator(count);
         }
 
         private void btn_NextFace_Click(object sender, EventArgs e)
