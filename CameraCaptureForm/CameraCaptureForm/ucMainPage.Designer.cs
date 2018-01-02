@@ -39,7 +39,7 @@
             // 
             this.pb_CameraFeed.Location = new System.Drawing.Point(16, 49);
             this.pb_CameraFeed.Name = "pb_CameraFeed";
-            this.pb_CameraFeed.Size = new System.Drawing.Size(692, 473);
+            this.pb_CameraFeed.Size = new System.Drawing.Size(876, 473);
             this.pb_CameraFeed.TabIndex = 0;
             this.pb_CameraFeed.TabStop = false;
             // 
@@ -55,7 +55,7 @@
             // 
             // btn_Stop
             // 
-            this.btn_Stop.Location = new System.Drawing.Point(419, 559);
+            this.btn_Stop.Location = new System.Drawing.Point(351, 559);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(111, 35);
             this.btn_Stop.TabIndex = 5;
