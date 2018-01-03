@@ -19,8 +19,7 @@ namespace CameraCaptureForm
         // Declaring constants
         static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
 
-        VideoCapture cameraCapture;
-        Image frameCopy;
+        VideoCapture cameraCaptureEnrol;
         Rectangle[] allFaces;
         Rectangle[] facesFromFrame;
         int count = 0;
@@ -47,16 +46,38 @@ namespace CameraCaptureForm
             InitializeComponent();
             
             // starts the camera feed when constructed
-            cameraCapture = new VideoCapture();
-            cameraCapture.ImageGrabbed += CameraCapture_ImageGrabbed;
-            cameraCapture.Start();
+            cameraCaptureEnrol = new VideoCapture();
+            cameraCaptureEnrol.ImageGrabbed += CameraCapture_ImageGrabbed;
+            cameraCaptureEnrol.Start();
+        }
+
+        public void EnrolPageStop()
+        {
+            if (cameraCaptureEnrol != null)
+            {
+                // Stopping the camera capturing frames and reset image to null
+                cameraCaptureEnrol.Stop();
+                pb_FaceOutput.Image = null;
+            }
+        }
+
+        public void EnrolPageStart()
+        {
+            // starting the camera capture again
+            cameraCaptureEnrol.Start();
+
+            // setting the buttons to default state
+            btn_capture.Enabled = true;
+            btn_EnrolUser.Enabled = false;
+            btn_NextFace.Enabled = false;
+            btn_PrevFace.Enabled = false;
         }
 
         private void CameraCapture_ImageGrabbed(object sender, EventArgs e)
         {
             // Getting the image from the camera
             Mat capturedImage = new Mat();
-            cameraCapture.Retrieve(capturedImage);
+            cameraCaptureEnrol.Retrieve(capturedImage);
             var convertedCapture = capturedImage.ToImage<Bgr, byte>();
 
             // Face detection
@@ -75,7 +96,6 @@ namespace CameraCaptureForm
         {
             // only want to update the faces from the frame when captured
             count = 0;
-            frameCopy = pb_CameraFeed.Image;
             facesFromFrame = allFaces;
             faceDisplayCoordinator(count);
         }
@@ -135,7 +155,10 @@ namespace CameraCaptureForm
 
         private Image displayFace(int faceIndex, Rectangle[] facesToDisplay)
         {
-            Bitmap faceImage = new Bitmap(frameCopy);
+            // have to do a new retrieve that hasn't had the rectangle drawn on it
+            Mat cleanFrame = new Mat();
+            cameraCaptureEnrol.Retrieve(cleanFrame);
+            Bitmap faceImage = new Bitmap(cleanFrame.Bitmap);
             return faceImage.Clone(facesToDisplay[faceIndex], faceImage.PixelFormat);
         }
     }

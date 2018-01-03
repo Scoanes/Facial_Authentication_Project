@@ -16,8 +16,19 @@ namespace CameraCaptureForm
 {
     public partial class ucMainPage : UserControl
     {
+        // Declaring constants
+        static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
+        static string haarEyeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_eye.xml");
+
+        VideoCapture cameraCaptureMain;
+
+        // Creating classifiers here
+        CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
+        //CascadeClassifier eyeClassifier = new CascadeClassifier(haarEyeFile);
+
         // singleton instance for user control class
         private static ucMainPage instance;
+
         public static ucMainPage Instance
         {
             get
@@ -33,66 +44,65 @@ namespace CameraCaptureForm
         public ucMainPage()
         {
             InitializeComponent();
+            pb_CameraFeed.InitialImage = null;
         }
 
-        // Declaring constants
-        static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
-        static string haarEyeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_eye.xml");
+        public void mainPageReset()
+        {
+            if(cameraCaptureMain != null)
+            {
+                cameraCaptureMain.Stop();
 
-        VideoCapture cameraCapture;
+                pb_CameraFeed.Image = new Bitmap(pb_CameraFeed.ClientSize.Height, pb_CameraFeed.ClientSize.Width);
 
-        // Creating classifiers here
-        CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
-        CascadeClassifier eyeClassifier = new CascadeClassifier(haarEyeFile);
+                btn_Start.Enabled = true;
+                btn_Stop.Enabled = false;
+            }
+        }
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            if (cameraCapture == null)
+            if (cameraCaptureMain == null)
             {
-                cameraCapture = new VideoCapture();
+                cameraCaptureMain = new VideoCapture();
+
             }
 
-            cameraCapture.ImageGrabbed += CameraCapture_ImageGrabbed;
-            cameraCapture.Start();
+            cameraCaptureMain.ImageGrabbed += CameraCapture_ImageGrabbed;
+            cameraCaptureMain.Start();
 
             btn_Start.Enabled = false;
             btn_Stop.Enabled = true;
+        }
+
+        private void btn_Stop_Click(object sender, EventArgs e)
+        {
+            mainPageReset();
         }
 
         private void CameraCapture_ImageGrabbed(object sender, EventArgs e)
         {
             // Getting the image from the camera
             Mat capturedImage = new Mat();
-            cameraCapture.Retrieve(capturedImage);
+            cameraCaptureMain.Retrieve(capturedImage);
             var convertedCapture = capturedImage.ToImage<Bgr, byte>();
 
             // Face detection
             var greyImage = convertedCapture.Convert<Gray, byte>();
             var allFaces = faceClassifier.DetectMultiScale(greyImage, 1.1, 10);
-            var allEyes = eyeClassifier.DetectMultiScale(greyImage, 1.1, 10);
+            //var allEyes = eyeClassifier.DetectMultiScale(greyImage, 1.1, 10);
 
             foreach (var face in allFaces)
             {
                 convertedCapture.Draw(face, new Bgr(Color.Green), 2);
             }
-
+            /*
             foreach (var eye in allEyes)
             {
                 convertedCapture.Draw(eye, new Bgr(Color.Purple), 2);
             }
-
+            */
             pb_CameraFeed.Image = convertedCapture.Bitmap;
-        }
-
-        private void btn_Stop_Click(object sender, EventArgs e)
-        {
-            if (cameraCapture != null)
-            {
-                cameraCapture.Stop();
-            }
-
-            btn_Start.Enabled = true;
-            btn_Stop.Enabled = false;
         }
     }
 }

@@ -53,11 +53,12 @@ namespace CameraCaptureForm
                 isMainPage = false;
 
                 // close down any objects in the main page
+                ucMainPage.Instance.mainPageReset();
+                ucEnrolPage.Instance.EnrolPageStart();
             }
             else
             {
                 // Swap to Main Page
-
                 // change the panel contents
                 ucMainPage.Instance.BringToFront();
 
@@ -66,6 +67,7 @@ namespace CameraCaptureForm
                 isMainPage = true;
 
                 // close down any objects in the enrol page
+                ucEnrolPage.Instance.EnrolPageStop();
             }
         }
     }
