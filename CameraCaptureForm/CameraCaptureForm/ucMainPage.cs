@@ -54,6 +54,9 @@ namespace CameraCaptureForm
 
             cameraCapture.ImageGrabbed += CameraCapture_ImageGrabbed;
             cameraCapture.Start();
+
+            btn_Start.Enabled = false;
+            btn_Stop.Enabled = true;
         }
 
         private void CameraCapture_ImageGrabbed(object sender, EventArgs e)
@@ -85,8 +88,11 @@ namespace CameraCaptureForm
         {
             if (cameraCapture != null)
             {
-                cameraCapture = null;
+                cameraCapture.Stop();
             }
+
+            btn_Start.Enabled = true;
+            btn_Stop.Enabled = false;
         }
     }
 }

@@ -45,13 +45,14 @@ namespace CameraCaptureForm
             if (isMainPage)
             {
                 // Swap to Enrol Page
-
                 // change the panel contents
                 ucEnrolPage.Instance.BringToFront();
 
                 // update button text and vars
                 btn_userControlSwitch.Text = "Main Page";
                 isMainPage = false;
+
+                // close down any objects in the main page
             }
             else
             {
@@ -63,6 +64,8 @@ namespace CameraCaptureForm
                 // update button text and vars
                 btn_userControlSwitch.Text = "Enrol User";
                 isMainPage = true;
+
+                // close down any objects in the enrol page
             }
         }
     }

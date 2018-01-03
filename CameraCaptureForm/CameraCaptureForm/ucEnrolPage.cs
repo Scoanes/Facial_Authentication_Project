@@ -16,6 +16,18 @@ namespace CameraCaptureForm
 {
     public partial class ucEnrolPage : UserControl
     {
+        // Declaring constants
+        static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
+
+        VideoCapture cameraCapture;
+        Image frameCopy;
+        Rectangle[] allFaces;
+        Rectangle[] facesFromFrame;
+        int count = 0;
+
+        // Creating classifiers here
+        CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
+
         // singleton instance for user control class
         private static ucEnrolPage instance;
         public static ucEnrolPage Instance
@@ -39,18 +51,6 @@ namespace CameraCaptureForm
             cameraCapture.ImageGrabbed += CameraCapture_ImageGrabbed;
             cameraCapture.Start();
         }
-
-        // Declaring constants
-        static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
-
-        VideoCapture cameraCapture;
-        Image frameCopy;
-        Rectangle[] allFaces;
-        Rectangle [] facesFromFrame;
-        int count = 0;
-
-        // Creating classifiers here
-        CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
 
         private void CameraCapture_ImageGrabbed(object sender, EventArgs e)
         {
@@ -109,12 +109,15 @@ namespace CameraCaptureForm
                 // check for 0 faces detected
                 case 0:
                     // error showing no faces detected
-                    Console.WriteLine("No faces detected fool");
+                    MessageBox.Show("No faces were detected", "Error When Capturing Frame", MessageBoxButtons.OK);
                     break;
                 case 1:
                     // no need to enable the next/prev buttons
                     btn_EnrolUser.Enabled = true;
                     tBox_UserName.Enabled = true;
+                    // but will disable in case they are left on
+                    btn_NextFace.Enabled = false;
+                    btn_PrevFace.Enabled = false;
 
                     pb_FaceOutput.Image = displayFace(0, facesFromFrame);
                     break;
