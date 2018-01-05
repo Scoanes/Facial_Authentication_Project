@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using System.IO;
+using FaceAuthenticators;
 
 namespace CameraCaptureForm
 {
@@ -20,6 +21,7 @@ namespace CameraCaptureForm
         static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
 
         VideoCapture cameraCaptureEnrol;
+        Mat cleanFrame = new Mat();
         Rectangle[] allFaces;
         Rectangle[] facesFromFrame;
         int count = 0;
@@ -95,6 +97,7 @@ namespace CameraCaptureForm
         private void btn_capture_Click(object sender, EventArgs e)
         {
             // only want to update the faces from the frame when captured
+            cameraCaptureEnrol.Retrieve(cleanFrame);
             count = 0;
             facesFromFrame = allFaces;
             faceDisplayCoordinator(count);
@@ -156,10 +159,13 @@ namespace CameraCaptureForm
         private Image displayFace(int faceIndex, Rectangle[] facesToDisplay)
         {
             // have to do a new retrieve that hasn't had the rectangle drawn on it
-            Mat cleanFrame = new Mat();
-            cameraCaptureEnrol.Retrieve(cleanFrame);
             Bitmap faceImage = new Bitmap(cleanFrame.Bitmap);
             return faceImage.Clone(facesToDisplay[faceIndex], faceImage.PixelFormat);
+        }
+
+        private void btn_EnrolUser_Click(object sender, EventArgs e)
+        {
+            EigenfaceAuthenticator.TrainEigenfaceAutrhenticator();
         }
     }
 }

@@ -150,5 +150,11 @@
   <ItemGroup>
     <Folder Include="dlls\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FaceAuthenticators\FaceAuthenticators.csproj">
+      <Project>{b9020f7c-9b1e-4eca-a54c-84309fd81b9e}</Project>
+      <Name>FaceAuthenticators</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
