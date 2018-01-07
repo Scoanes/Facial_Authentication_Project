@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-using Emgu.CV;
+﻿using Emgu.CV;
 using Emgu.CV.Structure;
-using System.IO;
 using FaceAuthenticators;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace CameraCaptureForm
 {
@@ -19,6 +12,8 @@ namespace CameraCaptureForm
     {
         // Declaring constants
         static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
+
+        static string enrolLocation = @"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation";
 
         VideoCapture cameraCaptureEnrol;
         Mat cleanFrame = new Mat();
@@ -103,6 +98,21 @@ namespace CameraCaptureForm
             faceDisplayCoordinator(count);
         }
 
+        private void btn_EnrolUser_Click(object sender, EventArgs e)
+        {
+            var faceImage = getFaceFromFeed(count, facesFromFrame);
+            //faceImage.SetResolution(EigenfaceAuthenticator.imageWidth, EigenfaceAuthenticator.imageHeight);
+            //faceImage.Save(Path.Combine(enrolLocation, tBox_UserName.Text + ".jpg"));
+            
+            Image<Bgr, byte> userToEnrol = new Image<Bgr, byte>(EigenfaceAuthenticator.imageWidth, EigenfaceAuthenticator.imageHeight)
+            {
+                Bitmap = faceImage
+            };
+            
+            //userToEnrol.Resize(EigenfaceAuthenticator.imageWidth, EigenfaceAuthenticator.imageHeight, Emgu.CV.CvEnum.Inter.Linear);
+            userToEnrol.Save(Path.Combine(enrolLocation, tBox_UserName.Text + ".jpg"));
+        }
+
         private void btn_NextFace_Click(object sender, EventArgs e)
         {
             // all we want to do here is increment the count number and call the coordinator
@@ -142,7 +152,7 @@ namespace CameraCaptureForm
                     btn_NextFace.Enabled = false;
                     btn_PrevFace.Enabled = false;
 
-                    pb_FaceOutput.Image = displayFace(0, facesFromFrame);
+                    pb_FaceOutput.Image = getFaceFromFeed(0, facesFromFrame);
                     break;
                 default:
                     // enable the next/prev buttons for choosing the face
@@ -151,21 +161,27 @@ namespace CameraCaptureForm
                     btn_NextFace.Enabled = true;
                     btn_PrevFace.Enabled = true;
 
-                    pb_FaceOutput.Image = displayFace(count, facesFromFrame);
+                    pb_FaceOutput.Image = getFaceFromFeed(count, facesFromFrame);
                     break;
             }
         }
 
-        private Image displayFace(int faceIndex, Rectangle[] facesToDisplay)
+        private Bitmap getFaceFromFeed(int faceIndex, Rectangle[] facesToDisplay)
         {
             // have to do a new retrieve that hasn't had the rectangle drawn on it
             Bitmap faceImage = new Bitmap(cleanFrame.Bitmap);
-            return faceImage.Clone(facesToDisplay[faceIndex], faceImage.PixelFormat);
-        }
 
-        private void btn_EnrolUser_Click(object sender, EventArgs e)
-        {
-            EigenfaceAuthenticator.TrainEigenfaceAutrhenticator();
+            // create copy as we are altering properties of it that we don't want in the master copy
+            var areaOfFace = facesToDisplay[faceIndex];
+
+            // these changes are here because the face detector doesn't capture the entire face correctly
+            // all these do is add extra padding to height and width to ensure the entire face is captured
+            areaOfFace.X -= 25;
+            areaOfFace.Y -= 50;
+            areaOfFace.Height = EigenfaceAuthenticator.imageHeight;
+            areaOfFace.Width = EigenfaceAuthenticator.imageWidth;
+            
+            return faceImage.Clone(areaOfFace, faceImage.PixelFormat);
         }
     }
 }

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-using Emgu.CV;
+﻿using Emgu.CV;
 using Emgu.CV.Structure;
+using System;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
+using FaceAuthenticators;
 
 namespace CameraCaptureForm
 {
@@ -44,6 +38,7 @@ namespace CameraCaptureForm
         public ucMainPage()
         {
             InitializeComponent();
+            EigenfaceAuthenticator.TrainEigenfaceAuthenticator();
             pb_CameraFeed.InitialImage = null;
         }
 
@@ -62,12 +57,14 @@ namespace CameraCaptureForm
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
+            // create cameraCapture object if not already created
             if (cameraCaptureMain == null)
             {
                 cameraCaptureMain = new VideoCapture();
 
             }
 
+            // sets the function that captures the camera feed and starts the capture
             cameraCaptureMain.ImageGrabbed += CameraCapture_ImageGrabbed;
             cameraCaptureMain.Start();
 
@@ -102,6 +99,8 @@ namespace CameraCaptureForm
                 convertedCapture.Draw(eye, new Bgr(Color.Purple), 2);
             }
             */
+
+            // sets the camera output as the image
             pb_CameraFeed.Image = convertedCapture.Bitmap;
         }
     }
