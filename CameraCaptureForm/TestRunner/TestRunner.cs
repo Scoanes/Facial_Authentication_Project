@@ -19,47 +19,40 @@ namespace TestRunner
 
         static void Main()
         {
-            // create our randomizer
-            Random randomizer = new Random();
-            int[] elementsToRemove = new int[numOfTestImagesPerPerson];
-
-            // create an array of index's to be removed
-            for (int i = 0; i < numOfTestImagesPerPerson; i++)
-            {
-                elementsToRemove[i] = randomizer.Next(0, numOfImagesPerPerson);
-            }
-
             // create the recogniser objects
             FaceRecognizer eigenfaceRecognizer = new EigenFaceRecognizer();
 
-            // get the training and test data
+            // Declare training and testing images/labels
             var trainingImages = new List<Mat>();
             var trainingLabels = new List<int>();
             var testImages = new List<Mat>();
             var testLabels = new List<int>();
 
-            GetAllTrainingAndTestData(testImagesRootFolder, elementsToRemove, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels);
+            // here we get the images and labels for the training and testing, already spit randomly
+            GetAllTrainingAndTestData(testImagesRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels);
 
             // need to convert both of these into a datatype the Train method accepts
             var vectorOfTrainingImages = new VectorOfMat(trainingImages.ToArray());
             var vectorOfTrainingLabels = new VectorOfInt(trainingLabels.ToArray());
 
-            // Train the recogniser on the images, and time it using the stopwatch class
-            Stopwatch trainingTimer = new Stopwatch();
-            trainingTimer.Start();
-            eigenfaceRecognizer.Train(vectorOfTrainingImages, vectorOfTrainingLabels);
-            trainingTimer.Stop();
-
-            // need to convert test images into a format the predict method accepts
-            var vectorOfTestImages = new VectorOfMat(testImages.ToArray());
-
-            GetTestResults(eigenfaceRecognizer, vectorOfTestImages, testLabels);
+            // call general function that deals with the testing of each of the FaceRecognizer sub classes
+            TestRecognizer(eigenfaceRecognizer, vectorOfTrainingImages, vectorOfTrainingLabels, testImages, testLabels);
         }
 
-        private static void GetAllTrainingAndTestData(string rootFolderLocation, int[] testIndexValues, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels)
+        private static void GetAllTrainingAndTestData(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels)
         {
+            // create our randomizer
+            Random randomizer = new Random();
+            int[] testIndexValues = new int[numOfTestImagesPerPerson];
+
+            // create an array of index's to be removed
+            for (int i = 0; i < numOfTestImagesPerPerson; i++)
+            {
+                testIndexValues[i] = randomizer.Next(0, numOfImagesPerPerson);
+            }
+
             // go through top level directory for each test person
-            foreach(var directory in Directory.GetDirectories(rootFolderLocation))
+            foreach (var directory in Directory.GetDirectories(rootFolderLocation))
             {
                 int iter = 0;
                 foreach (var imageFile in Directory.GetFiles(directory))
@@ -85,6 +78,20 @@ namespace TestRunner
                     iter++;
                 }
             }
+        }
+        
+        private static void TestRecognizer(FaceRecognizer recognizer, VectorOfMat trainImages, VectorOfInt trainLabels, List<Mat> testImages, List<int> testLabels)
+        {
+            // Train the recogniser on the images, and time it using the stopwatch class
+            Stopwatch trainingTimer = new Stopwatch();
+            trainingTimer.Start();
+            recognizer.Train(trainImages, trainLabels);
+            trainingTimer.Stop();
+
+            // need to convert test images into a format the predict method accepts
+            var vectorOfTestImages = new VectorOfMat(testImages.ToArray());
+
+            GetTestResults(recognizer, vectorOfTestImages, testLabels);
         }
 
         private static void GetTestResults(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels)
