@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraCaptureForm", "CameraCaptureForm\CameraCaptureForm.csproj", "{97552B40-286A-4C6B-8D94-4D1C2B8D2244}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationGUI", "CameraCaptureForm\ApplicationGUI.csproj", "{97552B40-286A-4C6B-8D94-4D1C2B8D2244}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceAuthenticators", "FaceAuthenticators\FaceAuthenticators.csproj", "{B9020F7C-9B1E-4ECA-A54C-84309FD81B9E}"
 EndProject
