@@ -1,35 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Emgu.CV;
+﻿using Emgu.CV;
 using Emgu.CV.Face;
-using System.IO;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 
 namespace TestRunner
 {
     public class TestRunner
     {
-        private static string imageLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestImages");
-        private static int numOfTestElements = 2;
-        private static int numOfElementsPerPerson = 15;
-        private static int numOfTrainImagesPerPerson = numOfElementsPerPerson - numOfTestElements;
-        private static int numOfDifferentTestPeople = Directory.GetDirectories(imageLocation).Length;
+        private static string testImagesRootFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestImages");
+        private static int numOfTestImagesPerPerson = 2;
+        private static int numOfImagesPerPerson = 15;
+        private static int numOfTrainImagesPerPerson = numOfImagesPerPerson - numOfTestImagesPerPerson;
+        private static int numOfDifferentTestPeople = Directory.GetDirectories(testImagesRootFolder).Length;
 
         static void Main()
         {
             // create our randomizer
             Random randomizer = new Random();
-            int[] elementsToRemove = new int[numOfTestElements];
+            int[] elementsToRemove = new int[numOfTestImagesPerPerson];
 
             // create an array of index's to be removed
-            for (int i = 0; i < numOfTestElements; i++)
+            for (int i = 0; i < numOfTestImagesPerPerson; i++)
             {
-                elementsToRemove[i] = randomizer.Next(0, numOfElementsPerPerson);
+                elementsToRemove[i] = randomizer.Next(0, numOfImagesPerPerson);
             }
 
             // create the recogniser objects
@@ -41,24 +38,22 @@ namespace TestRunner
             var testImages = new List<Mat>();
             var testLabels = new List<int>();
 
-            GetAllTrainingAndTestData(imageLocation, elementsToRemove, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels);
+            GetAllTrainingAndTestData(testImagesRootFolder, elementsToRemove, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels);
 
             // need to convert both of these into a datatype the Train method accepts
             var vectorOfTrainingImages = new VectorOfMat(trainingImages.ToArray());
             var vectorOfTrainingLabels = new VectorOfInt(trainingLabels.ToArray());
 
-            // Train the recogniser on the images
+            // Train the recogniser on the images, and time it using the stopwatch class
+            Stopwatch trainingTimer = new Stopwatch();
+            trainingTimer.Start();
             eigenfaceRecognizer.Train(vectorOfTrainingImages, vectorOfTrainingLabels);
+            trainingTimer.Stop();
 
-            // need to convert both of these into a datatype the Train method accepts
+            // need to convert test images into a format the predict method accepts
             var vectorOfTestImages = new VectorOfMat(testImages.ToArray());
-            var vectorOfTestLabels = new VectorOfInt(testLabels.ToArray());
 
-            // Test the Recognizer
-            for(int i = 0; i < vectorOfTestImages.Size; i++)
-            {
-                eigenfaceRecognizer.Predict(vectorOfTestImages[i]);
-            }
+            GetTestResults(eigenfaceRecognizer, vectorOfTestImages, testLabels);
         }
 
         private static void GetAllTrainingAndTestData(string rootFolderLocation, int[] testIndexValues, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels)
@@ -90,6 +85,46 @@ namespace TestRunner
                     iter++;
                 }
             }
+        }
+
+        private static void GetTestResults(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels)
+        {
+            // setting up our counters for correct and incorrect predictions
+            int correctAmount = 0, incorrectAmount = 0, totalTestImages = testLabels.Count;
+
+            // Test the Recognizer
+            for (int i = 0; i < vectorOfTestImages.Size; i++)
+            {
+                // get our predicted result
+                var preictionResult = recognizer.Predict(vectorOfTestImages[i]);
+
+                // if prediction is correct
+                if (preictionResult.Label == testLabels[i])
+                {
+                    correctAmount++;
+                }
+                else
+                {
+                    incorrectAmount++;
+                }
+            }
+
+            // calculate percentages of correct/incorrect predictions
+            double correctPercentage = (correctAmount / totalTestImages) * 100;
+            double incorrectPercentage = (incorrectAmount / totalTestImages) * 100;
+
+            // output results to a file on disk
+            string fileText = "Test results for recognizer: " + recognizer.ToString() + Environment.NewLine;
+            fileText += "Test results on the following directory of test images: " + testImagesRootFolder + Environment.NewLine;
+            fileText += "Total number of images in directory: " + (numOfDifferentTestPeople * numOfImagesPerPerson) +
+                " Spread across " + numOfDifferentTestPeople + " different test subjects" + Environment.NewLine;
+            fileText += "Total number of training images used for each person: " + numOfTrainImagesPerPerson + Environment.NewLine;
+            fileText += "Total number of test images used for each person: " + numOfTestImagesPerPerson + Environment.NewLine;
+            fileText += "---------- TEST RESULTS ----------" + Environment.NewLine;
+            fileText += "Total Correct: " + correctAmount + " (" + correctPercentage + "%)" + Environment.NewLine;
+            fileText += "Total Incorrect: " + incorrectAmount + " (" + incorrectPercentage + "%)" + Environment.NewLine;
+
+            File.WriteAllText(Path.Combine(testImagesRootFolder, "testResults.txt"), fileText);
         }
     }
 }
