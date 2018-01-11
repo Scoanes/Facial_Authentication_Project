@@ -12,7 +12,7 @@ namespace TestRunner
     public class TestRunner
     {
         private static string testImagesRootFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestImages");
-        private static int numOfTestImagesPerPerson = 2;
+        private static int numOfTestImagesPerPerson = 5;
         private static int numOfImagesPerPerson = 15;
         private static int numOfTrainImagesPerPerson = numOfImagesPerPerson - numOfTestImagesPerPerson;
         private static int numOfDifferentTestPeople = Directory.GetDirectories(testImagesRootFolder).Length;
@@ -51,6 +51,11 @@ namespace TestRunner
                 testIndexValues[i] = randomizer.Next(0, numOfImagesPerPerson);
             }
 
+            // For future work - Include sub directories here for each of the different test cases stated in test plan
+            // E.G: Illumination, Pose, Scale, etc...
+            // Use these subclasses to define each set of tests with the different test candidates being set in each of
+            // these subclasses, should be passed as an argument for the method
+
             // go through top level directory for each test person
             foreach (var directory in Directory.GetDirectories(rootFolderLocation))
             {
@@ -61,13 +66,11 @@ namespace TestRunner
                     {
                         testImages.Add(new Image<Gray, byte>(imageFile).Mat);
                         testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
-                        //testIndexValues[0] += numOfTrainImagesPerPerson;
                     }
                     else if (iter == testIndexValues[1])
                     {
                         testImages.Add(new Image<Gray, byte>(imageFile).Mat);
                         testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
-                        //testIndexValues[1] += numOfTrainImagesPerPerson;
                     }
                     else
                     {
