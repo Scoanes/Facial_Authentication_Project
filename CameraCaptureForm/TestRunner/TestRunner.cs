@@ -43,12 +43,16 @@ namespace TestRunner
         {
             // create our randomizer
             Random randomizer = new Random();
-            int[] testIndexValues = new int[numOfTestImagesPerPerson];
+            List<int> testIndexValues = new List<int>();
 
             // create an array of index's to be removed
-            for (int i = 0; i < numOfTestImagesPerPerson; i++)
+            while(testIndexValues.Count < numOfTestImagesPerPerson)
             {
-                testIndexValues[i] = randomizer.Next(0, numOfImagesPerPerson);
+                int numToAdd = randomizer.Next(0, numOfImagesPerPerson);
+                if (!testIndexValues.Contains(numToAdd))
+                {
+                    testIndexValues.Add(numToAdd);
+                }
             }
 
             // For future work - Include sub directories here for each of the different test cases stated in test plan
@@ -62,12 +66,7 @@ namespace TestRunner
                 int iter = 0;
                 foreach (var imageFile in Directory.GetFiles(directory))
                 {
-                    if (iter == testIndexValues[0])
-                    {
-                        testImages.Add(new Image<Gray, byte>(imageFile).Mat);
-                        testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
-                    }
-                    else if (iter == testIndexValues[1])
+                    if (testIndexValues.Contains(iter))
                     {
                         testImages.Add(new Image<Gray, byte>(imageFile).Mat);
                         testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
