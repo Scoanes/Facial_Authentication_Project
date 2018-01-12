@@ -104,7 +104,7 @@ namespace CameraCaptureForm
             //faceImage.SetResolution(EigenfaceAuthenticator.imageWidth, EigenfaceAuthenticator.imageHeight);
             //faceImage.Save(Path.Combine(enrolLocation, tBox_UserName.Text + ".jpg"));
             
-            Image<Bgr, byte> userToEnrol = new Image<Bgr, byte>(EigenfaceAuthenticator.imageWidth, EigenfaceAuthenticator.imageHeight)
+            Image<Bgr, byte> userToEnrol = new Image<Bgr, byte>(RecognizerUtility.imageWidth, RecognizerUtility.imageHeight)
             {
                 Bitmap = faceImage
             };
@@ -178,8 +178,8 @@ namespace CameraCaptureForm
             // all these do is add extra padding to height and width to ensure the entire face is captured
             areaOfFace.X -= 25;
             areaOfFace.Y -= 50;
-            areaOfFace.Height = EigenfaceAuthenticator.imageHeight;
-            areaOfFace.Width = EigenfaceAuthenticator.imageWidth;
+            areaOfFace.Height = RecognizerUtility.imageHeight;
+            areaOfFace.Width = RecognizerUtility.imageWidth;
             
             return faceImage.Clone(areaOfFace, faceImage.PixelFormat);
         }

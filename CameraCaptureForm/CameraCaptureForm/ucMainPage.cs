@@ -38,7 +38,8 @@ namespace CameraCaptureForm
         public ucMainPage()
         {
             InitializeComponent();
-            EigenfaceAuthenticator.TrainEigenfaceAuthenticator();
+            EigenfaceAuthenticator eigenRecognizer = new EigenfaceAuthenticator();
+            eigenRecognizer.TrainEigenfaceAuthenticator();
             pb_CameraFeed.InitialImage = null;
         }
 

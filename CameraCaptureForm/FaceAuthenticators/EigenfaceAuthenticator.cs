@@ -1,5 +1,6 @@
 ﻿using Emgu.CV;
 using Emgu.CV.Structure;
+using System.Collections.Generic;
 using System.IO;
 
 namespace FaceAuthenticators
@@ -10,8 +11,7 @@ namespace FaceAuthenticators
         {
 
         }
-
-        // Creates the eigenfaces
+        
         public void TrainEigenfaceAuthenticator()
         {
             // generate the matrix of image vectors
@@ -50,12 +50,42 @@ namespace FaceAuthenticators
             //CvInvoke.SVDecomp(test, eigenValues, eigenVectors, other, SvdFlag.Default);
 
             // need to multiply the eigenVectors with the original image dataset to create our eigenfaces
-            RecognizerUtility.CalculateEigenFace(faceMatrix, eigenVectors, 4);
+            CalculateEigenFace(faceMatrix, eigenVectors, 4);
         }
 
-        public void predictImage()
+        public void PredictImage()
         {
 
+        }
+
+        public static void CalculateEigenFace(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
+        {
+            // eigenvectors are alaready in order, so first eigenvector will be first eigenface
+            int numberOfColumns = faceMatrix[0].Length;
+            var eigenVectorMatrix = eigenVectors.Data;
+            var faceVectorArray = faceMatrix.ToArray();
+            var eigenFaceVector = new byte[numberOfColumns];
+
+            // used to calcualte the i'th eigenvector
+            for (int i = 0; i < numberToCreate; i++)
+            {
+                var eigenVectorRow = RecognizerUtility.GetMatrixRow(eigenVectorMatrix, i);
+
+                for (int column = 0; column < numberOfColumns; column++)
+                {
+                    // we want the column of the faceVectorData and the Row of the eigenVectors
+                    var faceVectorColumn = RecognizerUtility.GetMatrixColumn(faceVectorArray, column);
+
+                    eigenFaceVector[column] = (byte)RecognizerUtility.CalculateVectorProduct(faceVectorColumn, eigenVectorRow);
+                }
+
+                Image<Gray, byte> eigenFaceJpeg = new Image<Gray, byte>(RecognizerUtility.imageWidth, RecognizerUtility.imageHeight)
+                {
+                    Bytes = eigenFaceVector
+                };
+
+                eigenFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "EigenFace" + i + ".jpg"));
+            }
         }
     }
 }

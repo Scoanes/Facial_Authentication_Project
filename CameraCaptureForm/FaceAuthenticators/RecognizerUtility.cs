@@ -6,8 +6,9 @@ using System.IO;
 
 namespace FaceAuthenticators
 {
-    class RecognizerUtility
-    {// Emgu CV requires these to be divisible by 4
+    public class RecognizerUtility
+    {
+        // Emgu CV requires these to be divisible by 4
         public static int imageHeight = 300;
         public static int imageWidth = 252;
         public static string rootFolder = @"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation";
@@ -174,36 +175,6 @@ namespace FaceAuthenticators
                 totalValue = 0;
             }
             return totalValue;
-        }
-
-        public static void CalculateEigenFace(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
-        {
-            // eigenvectors are alaready in order, so first eigenvector will be first eigenface
-            int numberOfColumns = faceMatrix[0].Length;
-            var eigenVectorMatrix = eigenVectors.Data;
-            var faceVectorArray = faceMatrix.ToArray();
-            var eigenFaceVector = new byte[numberOfColumns];
-
-            // used to calcualte the i'th eigenvector
-            for (int i = 0; i < numberToCreate; i++)
-            {
-                var eigenVectorRow = GetMatrixRow(eigenVectorMatrix, i);
-
-                for (int column = 0; column < numberOfColumns; column++)
-                {
-                    // we want the column of the faceVectorData and the Row of the eigenVectors
-                    var faceVectorColumn = GetMatrixColumn(faceVectorArray, column);
-
-                    eigenFaceVector[column] = (byte)CalculateVectorProduct(faceVectorColumn, eigenVectorRow);
-                }
-
-                Image<Gray, byte> eigenFaceJpeg = new Image<Gray, byte>(imageWidth, imageHeight)
-                {
-                    Bytes = eigenFaceVector
-                };
-
-                eigenFaceJpeg.Save(Path.Combine(rootFolder, "EigenFace" + i + ".jpg"));
-            }
         }
     }
 }
