@@ -11,21 +11,59 @@ namespace FaceAuthenticators
 {
     public class EigenfaceAuthenticator
     {
-        // Emgu CV requires these to be divisable by 4
+        // Emgu CV requires these to be divisible by 4
         public static int imageHeight = 300;
         public static int imageWidth = 252;
+        private static string rootFolder = @"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation";
 
         // Creates the eigenfaces
         public static void TrainEigenfaceAuthenticator()
         {
-            // get the faces to train on
-            //string rootFolder = @"C:\Users\RockInTheBox\Documents\University\Project\DatabaseImages\s01";
-            string rootFolder = @"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation";
+            // generate the matrix of image vectors
+            var faceMatrix = GetAllImagesVectors(rootFolder);
 
+            // generate the mean or average face
+            var averageFace = GetAverageFace(faceMatrix);
+
+            Image<Gray, byte> averageFaceJpeg = new Image<Gray, byte>(imageWidth, imageHeight)
+            {
+                Bytes = averageFace
+            };
+
+            averageFaceJpeg.Save(Path.Combine(rootFolder, "AverageFace.jpg"));
+
+            // minus the average face from each image
+            foreach(var face in faceMatrix)
+            {
+                for(int i = 0; i < face.Length; i++)
+                {
+                    face[i] -= averageFace[i];
+                }
+            }
+
+            // Create the face matrix for covariance matrix
+            var covMatrix = new Matrix<float>(CreateCovarianceMatrix(faceMatrix));
+
+            // I have to create a vector to put into the matrix, Emgu will output 0's otherwise!
+            var eigValVector = new float[covMatrix.Width];
+            var eigenValues = new Matrix<float>(eigValVector);
+            var eigenVectors = new Matrix<float>(covMatrix.Size);
+
+            CvInvoke.Eigen(covMatrix, eigenValues, eigenVectors);
+
+            //var other = new Matrix<float>(test.Size);
+            //CvInvoke.SVDecomp(test, eigenValues, eigenVectors, other, SvdFlag.Default);
+
+            // need to multiply the eigenVectors with the original image dataset to create our eigenfaces
+            CalculateEigenFace(faceMatrix, eigenVectors, 4);
+        }
+
+        private static List<int[]> GetAllImagesVectors(string folderLocaiton)
+        {
             List<int[]> faceMatrix = new List<int[]>();
 
             // loop through the directory getting each file
-            foreach(var file in Directory.GetFiles(rootFolder))
+            foreach (var file in Directory.GetFiles(rootFolder))
             {
                 Image<Gray, byte> imageFile = new Image<Gray, byte>(file);
                 var pixelData = imageFile.Data;
@@ -49,52 +87,23 @@ namespace FaceAuthenticators
                 // adding the unfolded image to the 'matrix'
                 faceMatrix.Add(imageVector);
             }
-            
-            // create a matrix of all face vectors
 
-            // PCA on the matrix
-            var averageFace = getAverageFace(faceMatrix);
-
-            Image<Gray, byte> averageFaceJpeg = new Image<Gray, byte>(imageWidth, imageHeight)
-            {
-                Bytes = averageFace
-            };
-
-            averageFaceJpeg.Save(Path.Combine(rootFolder, "AverageFace.jpg"));
-
-            // minus the average face from each image
-            foreach(var face in faceMatrix)
-            {
-                for(int i = 0; i < face.Length; i++)
-                {
-                    face[i] -= averageFace[i];
-                }
-            }
-
-            
-
-            // Create the face matrix for covariance matrix
-            var covMatrix = createCovarianceMatrix(faceMatrix);
-            
-
-            // Refold to create the Eigenfaces
-
-            Console.WriteLine("");
+            return faceMatrix;
         }
 
-        private static byte[] getAverageFace(List<int[]> faceMatrix)
+        private static byte[] GetAverageFace(List<int[]> faceMatrix)
         {
             var arrays = faceMatrix.ToArray();
             byte[] averageFace = new byte[imageWidth * imageHeight];
 
             for (int i = 0; i < averageFace.Length; i++)
             {
-                averageFace[i] = getAverageArrayValue(arrays, i);
+                averageFace[i] = GetAverageArrayValue(arrays, i);
             }
             return averageFace;
         }
 
-        private static byte getAverageArrayValue(int[][] arrays, int index)
+        private static byte GetAverageArrayValue(int[][] arrays, int index)
         {
             int totalValue = 0;
 
@@ -106,7 +115,7 @@ namespace FaceAuthenticators
             return (byte) averagePixelValue;
         }
 
-        private static int[,] createCovarianceMatrix(List<int[]> matrix)
+        private static float[,] CreateCovarianceMatrix(List<int[]> matrix)
         {
             // convert list into 2D array
             var originalMatrix = matrix.ToArray();
@@ -130,7 +139,7 @@ namespace FaceAuthenticators
             }
 
             // multiply the 2
-            int[,] finalCovMatrix = new int[transposeHeight, transposeHeight];
+            float[,] finalCovMatrix = new float[transposeHeight, transposeHeight];
 
             // take first row from orig and times each element with corres element in first column of transpose
             // then first row from orig with next colmn... etc
@@ -139,15 +148,15 @@ namespace FaceAuthenticators
             {
                 for (int column = 0; column < transposeHeight; column++)
                 {
-                    var currentRow = getMatrixRow(originalMatrix, row);
-                    finalCovMatrix[row, column] = calculateVectorProduct(getMatrixColumn(transposedMatrix, column), currentRow);
+                    var currentRow = GetMatrixRow(originalMatrix, row);
+                    finalCovMatrix[row, column] = CalculateVectorProduct(GetMatrixColumn(transposedMatrix, column), currentRow);
                 }
             }
 
             return finalCovMatrix;
         }
 
-        private static int[] getMatrixRow(int [][] matrix, int index)
+        private static int[] GetMatrixRow(int [][] matrix, int index)
         {
             int[] matrixRow = new int[matrix[index].Length];
             
@@ -159,7 +168,20 @@ namespace FaceAuthenticators
             return matrixRow;
         }
 
-        private static int[] getMatrixColumn(int [][] matrix, int index)
+        private static float[] GetMatrixRow(float[,] eigenVectorMatrix, int index)
+        {
+            var arraySize = eigenVectorMatrix.GetLength(0);
+            float[] matrixRow = new float[arraySize];
+
+            for (int i = 0; i < arraySize; i++)
+            {
+                matrixRow[i] = eigenVectorMatrix[index, i];
+            }
+
+            return matrixRow;
+        }
+
+        private static int[] GetMatrixColumn(int [][] matrix, int index)
         {
             int[] matrixColumn = new int[matrix.Length];
 
@@ -171,7 +193,7 @@ namespace FaceAuthenticators
             return matrixColumn;
         }
 
-        private static int calculateVectorProduct(int[] column, int[] row)
+        private static int CalculateVectorProduct(int[] column, int[] row)
         {
             int totalValue = 0;
 
@@ -181,6 +203,53 @@ namespace FaceAuthenticators
             }
 
             return totalValue;
+        }
+
+        private static float CalculateVectorProduct(int[] column, float[] row)
+        {
+            float totalValue = 0;
+
+            for (int i = 0; i < column.Length; i++)
+            {
+                totalValue += (column[i] * row[i]);
+            }
+
+            // VERY TEMP
+            if(totalValue < 0)
+            {
+                totalValue = 0;
+            }
+            return totalValue;
+        }
+
+        private static void CalculateEigenFace(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
+        {
+            // eigenvectors are alaready in order, so first eigenvector will be first eigenface
+            int numberOfColumns = faceMatrix[0].Length;
+            var eigenVectorMatrix = eigenVectors.Data;
+            var faceVectorArray = faceMatrix.ToArray();
+            var eigenFaceVector = new byte[numberOfColumns];
+
+            // used to calcualte the i'th eigenvector
+            for(int i = 0; i < numberToCreate; i++)
+            {
+                var eigenVectorRow = GetMatrixRow(eigenVectorMatrix, i);
+
+                for (int column = 0; column < numberOfColumns; column++)
+                {
+                    // we want the column of the faceVectorData and the Row of the eigenVectors
+                    var faceVectorColumn = GetMatrixColumn(faceVectorArray, column);
+
+                    eigenFaceVector[column] = (byte)CalculateVectorProduct(faceVectorColumn, eigenVectorRow);
+                }
+
+                Image<Gray, byte> eigenFaceJpeg = new Image<Gray, byte>(imageWidth, imageHeight)
+                {
+                    Bytes = eigenFaceVector
+                };
+
+                eigenFaceJpeg.Save(Path.Combine(rootFolder, "EigenFace" + i + ".jpg"));
+            }
         }
     }
 }
