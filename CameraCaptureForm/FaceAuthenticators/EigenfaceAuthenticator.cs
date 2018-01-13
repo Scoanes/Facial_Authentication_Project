@@ -49,12 +49,13 @@ namespace FaceAuthenticators
             //var other = new Matrix<float>(test.Size);
             //CvInvoke.SVDecomp(test, eigenValues, eigenVectors, other, SvdFlag.Default);
 
+            // TODO - possible change this to a % value
             int eigenVectorsCreated = 4;
 
             // need to multiply the eigenVectors with the original image dataset to create our eigenfaces
-            CalculateEigenFace(faceMatrix, eigenVectors, eigenVectorsCreated);
+            var eigenfaceMatrix = CalculateEigenFaces(faceMatrix, eigenVectors, eigenVectorsCreated);
 
-            var weightVector = CalculateWeights(eigenValues, eigenVectorsCreated);
+            var weightVector = CalculateWeights(faceMatrix, eigenfaceMatrix);
         }
 
         public void PredictImage()
@@ -62,18 +63,19 @@ namespace FaceAuthenticators
 
         }
 
-        private void CalculateEigenFace(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
+        private List<byte[]> CalculateEigenFaces(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
         {
             // eigenvectors are alaready in order, so first eigenvector will be first eigenface
             int numberOfColumns = faceMatrix[0].Length;
             var eigenVectorMatrix = eigenVectors.Data;
             var faceVectorArray = faceMatrix.ToArray();
-            var eigenFaceVector = new byte[numberOfColumns];
+            List<byte[]> eigenFaceMatrix = new List<byte[]>();
 
             // used to calcualte the i'th eigenvector
             for (int i = 0; i < numberToCreate; i++)
             {
                 var eigenVectorRow = RecognizerUtility.GetMatrixRow(eigenVectorMatrix, i);
+                var eigenFaceVector = new byte[numberOfColumns];
 
                 for (int column = 0; column < numberOfColumns; column++)
                 {
@@ -83,6 +85,8 @@ namespace FaceAuthenticators
                     eigenFaceVector[column] = (byte)RecognizerUtility.CalculateVectorProduct(faceVectorColumn, eigenVectorRow);
                 }
 
+                eigenFaceMatrix.Add(eigenFaceVector);
+
                 Image<Gray, byte> eigenFaceJpeg = new Image<Gray, byte>(RecognizerUtility.imageWidth, RecognizerUtility.imageHeight)
                 {
                     Bytes = eigenFaceVector
@@ -90,23 +94,31 @@ namespace FaceAuthenticators
 
                 eigenFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "EigenFace" + i + ".jpg"));
             }
+
+            return eigenFaceMatrix;
         }
 
-        private float[] CalculateWeights(Matrix<float> eigenValues, int numberToCreate)
+        private List<int[]> CalculateWeights(List<int[]> normalizedFaceMatrix, List<byte[]> eigenFaces)
         {
-            // we assume that the eigenvalues are already sorted and data will be in a single dimension array
-            float[,] eigenValueArray = eigenValues.Data;
-            float[] weightArray = new float[numberToCreate];
+            List<int[]> weightMatrix = new List<int[]>();
+            byte[][] eigenFaceMatrix = eigenFaces.ToArray();
+            int[][] normalizedMatrix = normalizedFaceMatrix.ToArray();
 
-            // for some reason sum only returns double, not float
-            float totalValues = (float)eigenValues.Sum;
-
-            for(int i = 0; i < weightArray.Length; i++)
+            // loop though each (normalized) training image and multiply it with each eigenface to generate our weights
+            for(int i = 0; i < normalizedMatrix.Length; i++)
             {
-                weightArray[i] = (eigenValueArray[i, 0] / totalValues);
-            }
+                int[] weightArray = new int[eigenFaceMatrix.Length];
+                var normalizedImageVector = RecognizerUtility.GetMatrixRow(normalizedMatrix, i);
 
-            return weightArray;
+                for(int eigCount = 0; eigCount < eigenFaceMatrix.Length; eigCount++)
+                {
+                    weightArray[eigCount] = RecognizerUtility.CalculateVectorProduct(normalizedImageVector, RecognizerUtility.GetMatrixRow(eigenFaceMatrix, eigCount));
+                }
+
+                weightMatrix.Add(weightArray);
+            }
+            
+            return weightMatrix;
         }
     }
 }

@@ -136,6 +136,18 @@ namespace FaceAuthenticators
             return matrixRow;
         }
 
+        internal static int[] GetMatrixRow(byte[][] matrix, int index)
+        {
+            int[] matrixRow = new int[matrix[index].Length];
+
+            for (int i = 0; i < matrix[index].Length; i++)
+            {
+                matrixRow[i] = matrix[index][i];
+            }
+
+            return matrixRow;
+        }
+
         public static int[] GetMatrixColumn(int[][] matrix, int index)
         {
             int[] matrixColumn = new int[matrix.Length];
