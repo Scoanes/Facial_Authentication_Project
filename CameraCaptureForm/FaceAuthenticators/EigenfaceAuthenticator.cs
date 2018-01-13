@@ -49,8 +49,12 @@ namespace FaceAuthenticators
             //var other = new Matrix<float>(test.Size);
             //CvInvoke.SVDecomp(test, eigenValues, eigenVectors, other, SvdFlag.Default);
 
+            int eigenVectorsCreated = 4;
+
             // need to multiply the eigenVectors with the original image dataset to create our eigenfaces
-            CalculateEigenFace(faceMatrix, eigenVectors, 4);
+            CalculateEigenFace(faceMatrix, eigenVectors, eigenVectorsCreated);
+
+            var weightVector = CalculateWeights(eigenValues, eigenVectorsCreated);
         }
 
         public void PredictImage()
@@ -58,7 +62,7 @@ namespace FaceAuthenticators
 
         }
 
-        public static void CalculateEigenFace(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
+        private void CalculateEigenFace(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
         {
             // eigenvectors are alaready in order, so first eigenvector will be first eigenface
             int numberOfColumns = faceMatrix[0].Length;
@@ -86,6 +90,23 @@ namespace FaceAuthenticators
 
                 eigenFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "EigenFace" + i + ".jpg"));
             }
+        }
+
+        private float[] CalculateWeights(Matrix<float> eigenValues, int numberToCreate)
+        {
+            // we assume that the eigenvalues are already sorted and data will be in a single dimension array
+            float[,] eigenValueArray = eigenValues.Data;
+            float[] weightArray = new float[numberToCreate];
+
+            // for some reason sum only returns double, not float
+            float totalValues = (float)eigenValues.Sum;
+
+            for(int i = 0; i < weightArray.Length; i++)
+            {
+                weightArray[i] = (eigenValueArray[i, 0] / totalValues);
+            }
+
+            return weightArray;
         }
     }
 }

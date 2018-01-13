@@ -169,10 +169,10 @@ namespace FaceAuthenticators
                 totalValue += (column[i] * row[i]);
             }
 
-            // VERY TEMP
+            // TODO: Check this is correct
             if (totalValue < 0)
             {
-                totalValue = 0;
+                totalValue = Math.Abs(totalValue);
             }
             return totalValue;
         }
