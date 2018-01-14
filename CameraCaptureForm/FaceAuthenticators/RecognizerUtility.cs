@@ -136,9 +136,9 @@ namespace FaceAuthenticators
             return matrixRow;
         }
 
-        internal static int[] GetMatrixRow(byte[][] matrix, int index)
+        internal static float[] GetMatrixRow(float[][] matrix, int index)
         {
-            int[] matrixRow = new int[matrix[index].Length];
+            float[] matrixRow = new float[matrix[index].Length];
 
             for (int i = 0; i < matrix[index].Length; i++)
             {
@@ -181,11 +181,13 @@ namespace FaceAuthenticators
                 totalValue += (column[i] * row[i]);
             }
 
+            /*
             // TODO: Check this is correct
             if (totalValue < 0)
             {
                 totalValue = Math.Abs(totalValue);
             }
+            */
             return totalValue;
         }
     }

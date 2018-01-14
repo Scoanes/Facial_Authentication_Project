@@ -1,5 +1,7 @@
 ﻿using Emgu.CV;
+using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -28,9 +30,9 @@ namespace FaceAuthenticators
             averageFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "AverageFace.jpg"));
 
             // minus the average face from each image
-            foreach(var face in faceMatrix)
+            for(int i =0; i < averageFace.Length; i++)
             {
-                for(int i = 0; i < face.Length; i++)
+                foreach(var face in faceMatrix)
                 {
                     face[i] -= averageFace[i];
                 }
@@ -46,11 +48,11 @@ namespace FaceAuthenticators
 
             CvInvoke.Eigen(covMatrix, eigenValues, eigenVectors);
 
-            //var other = new Matrix<float>(test.Size);
-            //CvInvoke.SVDecomp(test, eigenValues, eigenVectors, other, SvdFlag.Default);
+            //var other = new Matrix<float>(covMatrix.Size);
+            //CvInvoke.SVDecomp(covMatrix, eigenValues, eigenVectors, other, SvdFlag.Default);
 
             // TODO - possible change this to a % value
-            int eigenVectorsCreated = 4;
+            int eigenVectorsCreated = 3;
 
             // need to multiply the eigenVectors with the original image dataset to create our eigenfaces
             var eigenfaceMatrix = CalculateEigenFaces(faceMatrix, eigenVectors, eigenVectorsCreated);
@@ -63,33 +65,47 @@ namespace FaceAuthenticators
 
         }
 
-        private List<byte[]> CalculateEigenFaces(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
+        private List<float[]> CalculateEigenFaces(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
         {
             // eigenvectors are alaready in order, so first eigenvector will be first eigenface
             int numberOfColumns = faceMatrix[0].Length;
             var eigenVectorMatrix = eigenVectors.Data;
             var faceVectorArray = faceMatrix.ToArray();
-            List<byte[]> eigenFaceMatrix = new List<byte[]>();
+            List<float[]> eigenFaceMatrix = new List<float[]>();
 
             // used to calcualte the i'th eigenvector
             for (int i = 0; i < numberToCreate; i++)
             {
                 var eigenVectorRow = RecognizerUtility.GetMatrixRow(eigenVectorMatrix, i);
-                var eigenFaceVector = new byte[numberOfColumns];
+                var eigenFaceVector = new float[numberOfColumns];
 
                 for (int column = 0; column < numberOfColumns; column++)
                 {
                     // we want the column of the faceVectorData and the Row of the eigenVectors
                     var faceVectorColumn = RecognizerUtility.GetMatrixColumn(faceVectorArray, column);
+                    var eigenPixelValue = RecognizerUtility.CalculateVectorProduct(faceVectorColumn, eigenVectorRow);
 
-                    eigenFaceVector[column] = (byte)RecognizerUtility.CalculateVectorProduct(faceVectorColumn, eigenVectorRow);
+                    // scalar value is 255/2 (half of max value for a byte)
+                    float scalarValue = (float)127.5;
+
+                    eigenPixelValue += scalarValue;
+                    if (eigenPixelValue > 255)
+                    {
+                        eigenPixelValue = 255;
+                    }
+                    else if (eigenPixelValue < 0)
+                    {
+                        eigenPixelValue = 0;
+                    }
+
+                    eigenFaceVector[column] = eigenPixelValue;
                 }
 
                 eigenFaceMatrix.Add(eigenFaceVector);
 
                 Image<Gray, byte> eigenFaceJpeg = new Image<Gray, byte>(RecognizerUtility.imageWidth, RecognizerUtility.imageHeight)
                 {
-                    Bytes = eigenFaceVector
+                    Bytes = Array.ConvertAll(eigenFaceVector, item => (byte)item)
                 };
 
                 eigenFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "EigenFace" + i + ".jpg"));
@@ -98,16 +114,16 @@ namespace FaceAuthenticators
             return eigenFaceMatrix;
         }
 
-        private List<int[]> CalculateWeights(List<int[]> normalizedFaceMatrix, List<byte[]> eigenFaces)
+        private List<float[]> CalculateWeights(List<int[]> normalizedFaceMatrix, List<float[]> eigenFaces)
         {
-            List<int[]> weightMatrix = new List<int[]>();
-            byte[][] eigenFaceMatrix = eigenFaces.ToArray();
+            List<float[]> weightMatrix = new List<float[]>();
+            float[][] eigenFaceMatrix = eigenFaces.ToArray();
             int[][] normalizedMatrix = normalizedFaceMatrix.ToArray();
 
             // loop though each (normalized) training image and multiply it with each eigenface to generate our weights
             for(int i = 0; i < normalizedMatrix.Length; i++)
             {
-                int[] weightArray = new int[eigenFaceMatrix.Length];
+                float[] weightArray = new float[eigenFaceMatrix.Length];
                 var normalizedImageVector = RecognizerUtility.GetMatrixRow(normalizedMatrix, i);
 
                 for(int eigCount = 0; eigCount < eigenFaceMatrix.Length; eigCount++)
