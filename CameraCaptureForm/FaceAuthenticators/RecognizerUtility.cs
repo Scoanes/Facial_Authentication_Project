@@ -21,29 +21,37 @@ namespace FaceAuthenticators
             foreach (var file in Directory.GetFiles(folderLocation))
             {
                 Image<Gray, byte> imageFile = new Image<Gray, byte>(file);
-                var pixelData = imageFile.Data;
 
-                // unfold them
-                var imageVector = new int[imageWidth * imageHeight];
-                int count = 0;
-
-                for (int row = imageFile.Rows - 1; row >= 0; row--)
-                {
-                    for (int column = imageFile.Cols - 1; column >= 0; column--)
-                    {
-                        imageVector[count] = pixelData[row, column, 0];
-                        count++;
-                    }
-                }
-
-                // need to reverse the image vector before adding
-                Array.Reverse(imageVector);
+                var imageVector = ImageToVector(imageFile);
 
                 // adding the unfolded image to the 'matrix'
                 faceMatrix.Add(imageVector);
             }
 
             return faceMatrix;
+        }
+
+        public static int[] ImageToVector(Image<Gray, byte> imageToConvert)
+        {
+            var pixelData = imageToConvert.Data;
+
+            // unfold them
+            var imageVector = new int[imageWidth * imageHeight];
+            int count = 0;
+
+            for (int row = imageToConvert.Rows - 1; row >= 0; row--)
+            {
+                for (int column = imageToConvert.Cols - 1; column >= 0; column--)
+                {
+                    imageVector[count] = pixelData[row, column, 0];
+                    count++;
+                }
+            }
+
+            // need to reverse the image vector before adding
+            Array.Reverse(imageVector);
+
+            return imageVector;
         }
 
         public static byte[] GetAverageFace(List<int[]> faceMatrix)

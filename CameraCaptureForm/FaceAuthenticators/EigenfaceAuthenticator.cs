@@ -9,6 +9,10 @@ namespace FaceAuthenticators
 {
     public class EigenfaceAuthenticator
     {
+        private byte[] averageFace;
+        private List<float[]> eigenfaceMatrix;
+        private List<float[]> weightVector;
+
         public EigenfaceAuthenticator()
         {
 
@@ -20,7 +24,7 @@ namespace FaceAuthenticators
             var faceMatrix = RecognizerUtility.GetAllImagesVectors(RecognizerUtility.rootFolder);
 
             // generate the mean or average face
-            var averageFace = RecognizerUtility.GetAverageFace(faceMatrix);
+            this.averageFace = RecognizerUtility.GetAverageFace(faceMatrix);
 
             Image<Gray, byte> averageFaceJpeg = new Image<Gray, byte>(RecognizerUtility.imageWidth, RecognizerUtility.imageHeight)
             {
@@ -55,14 +59,31 @@ namespace FaceAuthenticators
             int eigenVectorsCreated = 3;
 
             // need to multiply the eigenVectors with the original image dataset to create our eigenfaces
-            var eigenfaceMatrix = CalculateEigenFaces(faceMatrix, eigenVectors, eigenVectorsCreated);
+            this.eigenfaceMatrix = CalculateEigenFaces(faceMatrix, eigenVectors, eigenVectorsCreated);
 
-            var weightVector = CalculateWeights(faceMatrix, eigenfaceMatrix);
+            this.weightVector = CalculateWeightMatrix(faceMatrix);
+
+            // This is just temp for now
+            PredictImage(new Image<Gray, byte>(@"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation\glasses.jpg"));
         }
 
-        public void PredictImage()
+        public void PredictImage(Image<Gray, byte> inputImage)
         {
+            // vectorize the image
+            int[] imageVector = RecognizerUtility.ImageToVector(inputImage);
 
+            // subtract the mean image
+            for (int i = 0; i < averageFace.Length; i++)
+            {
+                imageVector[i] -= averageFace[i];
+            }
+
+            // calculate the weights of the image
+            var imageWeights = CalculateImageWeights(imageVector);
+
+            // calculate the euclidean distance from the other weights
+
+            // choose closest
         }
 
         private List<float[]> CalculateEigenFaces(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
@@ -114,27 +135,64 @@ namespace FaceAuthenticators
             return eigenFaceMatrix;
         }
 
-        private List<float[]> CalculateWeights(List<int[]> normalizedFaceMatrix, List<float[]> eigenFaces)
+        private List<float[]> CalculateWeightMatrix(List<int[]> normalizedFaceMatrix)
         {
             List<float[]> weightMatrix = new List<float[]>();
-            float[][] eigenFaceMatrix = eigenFaces.ToArray();
             int[][] normalizedMatrix = normalizedFaceMatrix.ToArray();
 
             // loop though each (normalized) training image and multiply it with each eigenface to generate our weights
             for(int i = 0; i < normalizedMatrix.Length; i++)
             {
-                float[] weightArray = new float[eigenFaceMatrix.Length];
+                float[] weightArray = new float[eigenfaceMatrix.Count];
                 var normalizedImageVector = RecognizerUtility.GetMatrixRow(normalizedMatrix, i);
 
-                for(int eigCount = 0; eigCount < eigenFaceMatrix.Length; eigCount++)
-                {
-                    weightArray[eigCount] = RecognizerUtility.CalculateVectorProduct(normalizedImageVector, RecognizerUtility.GetMatrixRow(eigenFaceMatrix, eigCount));
-                }
-
-                weightMatrix.Add(weightArray);
+                weightMatrix.Add(CalculateImageWeights(normalizedImageVector));
             }
             
             return weightMatrix;
+        }
+
+        private float[] CalculateImageWeights(int[] imageVector)
+        {
+            float[][] eigenFaceMatrix = eigenfaceMatrix.ToArray();
+            float[] weightArray = new float[eigenFaceMatrix.Length];
+
+            for (int eigCount = 0; eigCount < eigenFaceMatrix.Length; eigCount++)
+            {
+                weightArray[eigCount] = RecognizerUtility.CalculateVectorProduct(imageVector, RecognizerUtility.GetMatrixRow(eigenFaceMatrix, eigCount));
+            }
+
+            return weightArray;
+        }
+
+        private void CalculateClosestVector(float[] imageWeights)
+        {
+            double lowestVal = double.MaxValue;
+            int indexOfLowest;
+
+            for(int i = 0; i < weightVector.Count; i++)
+            {
+                var distance = CalculateEuclideanDistance(imageWeights, weightVector[i]);
+
+                if(distance < lowestVal)
+                {
+                    indexOfLowest = i;
+                }
+            }
+        }
+
+        private double CalculateEuclideanDistance(float[] firstImage, float[] secondImage)
+        {
+            // Assert firstImage is equal length to secondImage!
+
+            double totalDistance = 0;
+
+            for(int i = 0; i < firstImage.Length; i++)
+            {
+                totalDistance += Math.Pow((firstImage[i] - secondImage[i]), 2);
+            }
+
+            return Math.Sqrt(totalDistance);
         }
     }
 }
