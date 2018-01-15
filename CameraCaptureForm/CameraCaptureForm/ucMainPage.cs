@@ -13,6 +13,7 @@ namespace CameraCaptureForm
         // Declaring constants
         static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
         static string haarEyeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_eye.xml");
+        static EigenfaceAuthenticator eigenRecognizer = new EigenfaceAuthenticator();
 
         VideoCapture cameraCaptureMain;
 
@@ -38,7 +39,6 @@ namespace CameraCaptureForm
         public ucMainPage()
         {
             InitializeComponent();
-            EigenfaceAuthenticator eigenRecognizer = new EigenfaceAuthenticator();
             eigenRecognizer.TrainEigenfaceAuthenticator();
             pb_CameraFeed.InitialImage = null;
         }
@@ -90,16 +90,30 @@ namespace CameraCaptureForm
             var allFaces = faceClassifier.DetectMultiScale(greyImage, 1.1, 10);
             //var allEyes = eyeClassifier.DetectMultiScale(greyImage, 1.1, 10);
 
-            foreach (var face in allFaces)
+            for(int i = 0; i < allFaces.Length; i++)
             {
-                convertedCapture.Draw(face, new Bgr(Color.Green), 2);
+                convertedCapture.Draw(allFaces[i], new Bgr(Color.Green), 2);
+
+                // update the rectange to fir the accepted size
+                allFaces[i].X -= 25;
+                allFaces[i].Y -= 50;
+                allFaces[i].Height = RecognizerUtility.imageHeight;
+                allFaces[i].Width = RecognizerUtility.imageWidth;
+
+                // Copy the image from the feed into the recognizer and get the predicted name
+                convertedCapture.ROI = allFaces[i];
+                var nameToDisplay = eigenRecognizer.PredictImage(convertedCapture.Clone().Convert<Gray, byte>());
+                CvInvoke.cvResetImageROI(convertedCapture);
+
+                // Display the name of the prediction
+                using (Graphics graphics = Graphics.FromImage(convertedCapture.Bitmap))
+                {
+                    using (Font arialFont = new Font("Arial", 10))
+                    {
+                        graphics.DrawString(nameToDisplay, arialFont, Brushes.Blue, allFaces[i].X + 25, allFaces[i].Y + 25);
+                    }
+                }
             }
-            /*
-            foreach (var eye in allEyes)
-            {
-                convertedCapture.Draw(eye, new Bgr(Color.Purple), 2);
-            }
-            */
 
             // sets the camera output as the image
             pb_CameraFeed.Image = convertedCapture.Bitmap;

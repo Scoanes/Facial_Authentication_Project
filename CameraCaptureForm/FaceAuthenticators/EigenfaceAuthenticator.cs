@@ -10,6 +10,8 @@ namespace FaceAuthenticators
     public class EigenfaceAuthenticator
     {
         private byte[] averageFace;
+        private List<string> imageLabels = new List<string>();
+        private List<int[]> faceMatrix = new List<int[]>();
         private List<float[]> eigenfaceMatrix;
         private List<float[]> weightVector;
 
@@ -21,7 +23,7 @@ namespace FaceAuthenticators
         public void TrainEigenfaceAuthenticator()
         {
             // generate the matrix of image vectors
-            var faceMatrix = RecognizerUtility.GetAllImagesVectors(RecognizerUtility.rootFolder);
+            RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootFolder, ref faceMatrix, ref imageLabels);
 
             // generate the mean or average face
             this.averageFace = RecognizerUtility.GetAverageFace(faceMatrix);
@@ -62,16 +64,13 @@ namespace FaceAuthenticators
             this.eigenfaceMatrix = CalculateEigenFaces(faceMatrix, eigenVectors, eigenVectorsCreated);
 
             this.weightVector = CalculateWeightMatrix(faceMatrix);
-
-            // This is just temp for now
-            PredictImage(new Image<Gray, byte>(@"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation\glasses.jpg"));
         }
 
-        public void PredictImage(Image<Gray, byte> inputImage)
+        public string PredictImage(Image<Gray, byte> inputImage)
         {
             // vectorize the image
             int[] imageVector = RecognizerUtility.ImageToVector(inputImage);
-
+            
             // subtract the mean image
             for (int i = 0; i < averageFace.Length; i++)
             {
@@ -82,8 +81,10 @@ namespace FaceAuthenticators
             var imageWeights = CalculateImageWeights(imageVector);
 
             // calculate the euclidean distance from the other weights
+            var indexOfName = CalculateClosestVector(imageWeights);
 
             // choose closest
+            return imageLabels[indexOfName];
         }
 
         private List<float[]> CalculateEigenFaces(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
@@ -106,6 +107,7 @@ namespace FaceAuthenticators
                     var faceVectorColumn = RecognizerUtility.GetMatrixColumn(faceVectorArray, column);
                     var eigenPixelValue = RecognizerUtility.CalculateVectorProduct(faceVectorColumn, eigenVectorRow);
 
+                    // TODO - Check that I don't need to do anything with input Images
                     // scalar value is 255/2 (half of max value for a byte)
                     float scalarValue = (float)127.5;
 
@@ -165,10 +167,10 @@ namespace FaceAuthenticators
             return weightArray;
         }
 
-        private void CalculateClosestVector(float[] imageWeights)
+        private int CalculateClosestVector(float[] imageWeights)
         {
             double lowestVal = double.MaxValue;
-            int indexOfLowest;
+            int indexOfLowest = 0;
 
             for(int i = 0; i < weightVector.Count; i++)
             {
@@ -176,9 +178,12 @@ namespace FaceAuthenticators
 
                 if(distance < lowestVal)
                 {
+                    lowestVal = distance;
                     indexOfLowest = i;
                 }
             }
+
+            return indexOfLowest;
         }
 
         private double CalculateEuclideanDistance(float[] firstImage, float[] secondImage)

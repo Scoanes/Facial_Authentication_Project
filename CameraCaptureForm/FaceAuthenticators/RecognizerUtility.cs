@@ -13,22 +13,26 @@ namespace FaceAuthenticators
         public static int imageWidth = 252;
         public static string rootFolder = @"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation";
 
-        public static List<int[]> GetAllImagesVectors(string folderLocation)
+        public static void GetAllImageVectorsAndLabels(string folderLocation, ref List<int[]> faceMatrix, ref List<string> faceLabels)
         {
-            List<int[]> faceMatrix = new List<int[]>();
+            // Decided to keep the vector and label grabbing in 1 method, so no chance of mismatch of order
 
-            // loop through the directory getting each file
-            foreach (var file in Directory.GetFiles(folderLocation))
+            // We loop through the root directory and get images from each folder, using the folder as the name
+            foreach (var directory in Directory.GetDirectories(folderLocation))
             {
-                Image<Gray, byte> imageFile = new Image<Gray, byte>(file);
+                // loop through the directory getting each file
+                foreach (var file in Directory.GetFiles(directory))
+                {
+                    Image<Gray, byte> imageFile = new Image<Gray, byte>(file);
 
-                var imageVector = ImageToVector(imageFile);
+                    var imageVector = ImageToVector(imageFile);
 
-                // adding the unfolded image to the 'matrix'
-                faceMatrix.Add(imageVector);
+                    // adding the unfolded image to the 'matrix'
+                    faceMatrix.Add(imageVector);
+                    // adding the folder name to the label 'matrix'
+                    faceLabels.Add(Path.GetFileName(Path.GetDirectoryName(file)));
+                }
             }
-
-            return faceMatrix;
         }
 
         public static int[] ImageToVector(Image<Gray, byte> imageToConvert)
