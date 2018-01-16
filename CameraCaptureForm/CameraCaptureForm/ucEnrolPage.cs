@@ -32,6 +32,9 @@ namespace CameraCaptureForm
         public ucEnrolPage()
         {
             InitializeComponent();
+
+            // Initialize out other Variables
+            CleanFrame = new Mat();
             
             // starts the camera feed when constructed
             cameraCaptureEnrol = new VideoCapture();
