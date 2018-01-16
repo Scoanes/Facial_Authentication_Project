@@ -53,7 +53,7 @@ namespace CameraCaptureForm
                 isMainPage = false;
 
                 // close down any objects in the main page
-                ucMainPage.Instance.mainPageReset();
+                ucMainPage.Instance.MainPageReset();
                 ucEnrolPage.Instance.EnrolPageStart();
             }
             else

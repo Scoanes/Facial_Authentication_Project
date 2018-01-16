@@ -15,6 +15,11 @@ namespace FaceAuthenticators
         private List<float[]> eigenfaceMatrix;
         private List<float[]> weightVector;
 
+        public override string ToString()
+        {
+            return "Eigenface Recognizer - Own Implementation";
+        }
+
         public EigenfaceAuthenticator()
         {
 

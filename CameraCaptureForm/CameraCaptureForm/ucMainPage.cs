@@ -32,7 +32,7 @@ namespace CameraCaptureForm
             pb_CameraFeed.InitialImage = null;
         }
 
-        public void mainPageReset()
+        public void MainPageReset()
         {
             if(cameraCaptureMain != null)
             {
@@ -64,7 +64,7 @@ namespace CameraCaptureForm
 
         private void btn_Stop_Click(object sender, EventArgs e)
         {
-            mainPageReset();
+            MainPageReset();
         }
 
         private void CameraCapture_ImageGrabbed(object sender, EventArgs e)
