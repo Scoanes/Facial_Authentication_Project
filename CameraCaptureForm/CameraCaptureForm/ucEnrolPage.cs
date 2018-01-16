@@ -13,8 +13,6 @@ namespace CameraCaptureForm
         // Declaring constants
         static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
 
-        static string enrolLocation = @"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation";
-
         VideoCapture cameraCaptureEnrol;
         Mat cleanFrame = new Mat();
         Rectangle[] allFaces;
@@ -100,27 +98,42 @@ namespace CameraCaptureForm
 
         private void btn_EnrolUser_Click(object sender, EventArgs e)
         {
+            // Gets the detected face from the camera feed
             var faceImage = getFaceFromFeed(count, facesFromFrame);
-            //faceImage.SetResolution(EigenfaceAuthenticator.imageWidth, EigenfaceAuthenticator.imageHeight);
-            //faceImage.Save(Path.Combine(enrolLocation, tBox_UserName.Text + ".jpg"));
             
+            // Creates the image to be saved to disk
             Image<Bgr, byte> userToEnrol = new Image<Bgr, byte>(RecognizerUtility.imageWidth, RecognizerUtility.imageHeight)
             {
                 Bitmap = faceImage
             };
-            
-            //userToEnrol.Resize(EigenfaceAuthenticator.imageWidth, EigenfaceAuthenticator.imageHeight, Emgu.CV.CvEnum.Inter.Linear);
-            userToEnrol.Save(Path.Combine(enrolLocation, tBox_UserName.Text + ".jpg"));
+
+            var filePath = Path.Combine(RecognizerUtility.rootFolder, tBox_UserName.Text.ToLower());
+
+            // check to see if the user already has a folder, creates one if not
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            // Get the current number of images in the directory
+            var currentCount = Directory.GetFiles(filePath).Length;
+            currentCount++;
+
+            // Finally, save the image
+            userToEnrol.Save(Path.Combine(filePath, currentCount + ".jpg"));
         }
 
         private void btn_NextFace_Click(object sender, EventArgs e)
         {
             // all we want to do here is increment the count number and call the coordinator
             count++;
-            if(count == facesFromFrame.Length)
+
+            // extra safety check here to make sure we don't go out of bounds
+            if (count == facesFromFrame.Length)
             {
                 count = 0;
             }
+
             faceDisplayCoordinator(count);
         }
 
@@ -128,10 +141,13 @@ namespace CameraCaptureForm
         {
             // all we want to do here is decrement the count number and call the coordinator
             count--;
+
+            // extra safety check here to make sure we don't go out of bounds
             if (count < 0)
             {
                 count = facesFromFrame.Length - 1;
             }
+
             faceDisplayCoordinator(count);
         }
 

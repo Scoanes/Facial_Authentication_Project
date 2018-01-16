@@ -83,7 +83,7 @@ namespace FaceAuthenticators
             // calculate the euclidean distance from the other weights
             var indexOfName = CalculateClosestVector(imageWeights);
 
-            // choose closest
+            // Return the name of the closest label
             return imageLabels[indexOfName];
         }
 
