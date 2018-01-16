@@ -1,19 +1,26 @@
 ﻿using Emgu.CV;
 using Emgu.CV.Structure;
+using FaceAuthenticators;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace CameraCaptureForm
 {
     public partial class ucEnrolPage : UserControl
     {
-        private VideoCapture cameraCaptureEnrol;
-        private Rectangle[] facesFromFrame;
+        // Declaring constants
+        static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
+
+        VideoCapture cameraCaptureEnrol;
+        Mat cleanFrame = new Mat();
+        Rectangle[] allFaces;
+        Rectangle[] facesFromFrame;
         int count = 0;
 
-        public static Mat CleanFrame { get; set; }
-        public static Rectangle[] AllFaces { get; set; }
+        // Creating classifiers here
+        CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
 
         // singleton instance for user control class
         private static ucEnrolPage instance;
@@ -71,25 +78,52 @@ namespace CameraCaptureForm
             cameraCaptureEnrol.Retrieve(capturedImage);
             var convertedCapture = capturedImage.ToImage<Bgr, byte>();
 
-            // setting the Image
-            pb_CameraFeed.Image = BackendGuiUtility.DetectFaces(convertedCapture);
+            // Face detection
+            var greyImage = convertedCapture.Convert<Gray, byte>();
+            allFaces = faceClassifier.DetectMultiScale(greyImage, 1.1, 10);
+
+            foreach (var face in allFaces)
+            {
+                convertedCapture.Draw(face, new Bgr(Color.Green), 2);
+            }
+
+            pb_CameraFeed.Image = convertedCapture.Bitmap;
         }
 
         private void btn_capture_Click(object sender, EventArgs e)
         {
             // only want to update the faces from the frame when captured
-            cameraCaptureEnrol.Retrieve(CleanFrame);
+            cameraCaptureEnrol.Retrieve(cleanFrame);
             count = 0;
-            facesFromFrame = AllFaces;
-            FaceDisplayCoordinator(count);
+            facesFromFrame = allFaces;
+            faceDisplayCoordinator(count);
         }
 
         private void btn_EnrolUser_Click(object sender, EventArgs e)
         {
             // Gets the detected face from the camera feed
-            var faceImage = BackendGuiUtility.getFaceFromFeed(count, facesFromFrame);
+            var faceImage = getFaceFromFeed(count, facesFromFrame);
+            
+            // Creates the image to be saved to disk
+            Image<Bgr, byte> userToEnrol = new Image<Bgr, byte>(RecognizerUtility.imageWidth, RecognizerUtility.imageHeight)
+            {
+                Bitmap = faceImage
+            };
 
-            BackendGuiUtility.SaveUserImage(faceImage, tBox_UserName.Text);
+            var filePath = Path.Combine(RecognizerUtility.rootFolder, tBox_UserName.Text.ToLower());
+
+            // check to see if the user already has a folder, creates one if not
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            // Get the current number of images in the directory
+            var currentCount = Directory.GetFiles(filePath).Length;
+            currentCount++;
+
+            // Finally, save the image
+            userToEnrol.Save(Path.Combine(filePath, currentCount + ".jpg"));
         }
 
         private void btn_NextFace_Click(object sender, EventArgs e)
@@ -103,7 +137,7 @@ namespace CameraCaptureForm
                 count = 0;
             }
 
-            FaceDisplayCoordinator(count);
+            faceDisplayCoordinator(count);
         }
 
         private void btn_PrevFace_Click(object sender, EventArgs e)
@@ -117,10 +151,10 @@ namespace CameraCaptureForm
                 count = facesFromFrame.Length - 1;
             }
 
-            FaceDisplayCoordinator(count);
+            faceDisplayCoordinator(count);
         }
 
-        private void FaceDisplayCoordinator(int count)
+        private void faceDisplayCoordinator(int count)
         {
             switch (facesFromFrame.Length)
             {
@@ -137,7 +171,7 @@ namespace CameraCaptureForm
                     btn_NextFace.Enabled = false;
                     btn_PrevFace.Enabled = false;
 
-                    pb_FaceOutput.Image = BackendGuiUtility.getFaceFromFeed(0, facesFromFrame);
+                    pb_FaceOutput.Image = getFaceFromFeed(0, facesFromFrame);
                     break;
                 default:
                     // enable the next/prev buttons for choosing the face
@@ -146,9 +180,27 @@ namespace CameraCaptureForm
                     btn_NextFace.Enabled = true;
                     btn_PrevFace.Enabled = true;
 
-                    pb_FaceOutput.Image = BackendGuiUtility.getFaceFromFeed(count, facesFromFrame);
+                    pb_FaceOutput.Image = getFaceFromFeed(count, facesFromFrame);
                     break;
             }
+        }
+
+        private Bitmap getFaceFromFeed(int faceIndex, Rectangle[] facesToDisplay)
+        {
+            // have to do a new retrieve that hasn't had the rectangle drawn on it
+            Bitmap faceImage = new Bitmap(cleanFrame.Bitmap);
+
+            // create copy as we are altering properties of it that we don't want in the master copy
+            var areaOfFace = facesToDisplay[faceIndex];
+
+            // these changes are here because the face detector doesn't capture the entire face correctly
+            // all these do is add extra padding to height and width to ensure the entire face is captured
+            areaOfFace.X -= 25;
+            areaOfFace.Y -= 50;
+            areaOfFace.Height = RecognizerUtility.imageHeight;
+            areaOfFace.Width = RecognizerUtility.imageWidth;
+            
+            return faceImage.Clone(areaOfFace, faceImage.PixelFormat);
         }
     }
 }
