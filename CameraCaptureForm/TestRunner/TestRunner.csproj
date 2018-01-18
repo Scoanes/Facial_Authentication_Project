@@ -310,6 +310,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CameraCaptureForm\ApplicationGUI.csproj">
+      <Project>{97552b40-286a-4c6b-8d94-4d1c2b8d2244}</Project>
+      <Name>ApplicationGUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FaceAuthenticators\FaceAuthenticators.csproj">
+      <Project>{b9020f7c-9b1e-4eca-a54c-84309fd81b9e}</Project>
+      <Name>FaceAuthenticators</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
