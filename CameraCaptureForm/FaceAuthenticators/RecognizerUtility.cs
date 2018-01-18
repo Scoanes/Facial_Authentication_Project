@@ -17,7 +17,7 @@ namespace FaceAuthenticators
         {
             // Decided to keep the vector and label grabbing in 1 method, so no chance of mismatch of order
 
-            // We loop through the root directory and get images from each folder, using the folder as the name
+            // loop through the root directory and get images from each folder, using the folder as the name
             foreach (var directory in Directory.GetDirectories(folderLocation))
             {
                 // loop through the directory getting each file

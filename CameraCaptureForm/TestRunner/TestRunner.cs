@@ -21,6 +21,10 @@ namespace TestRunner
         private static int numOfTrainImagesPerPerson = numOfImagesPerPerson - numOfTestImagesPerPerson;
         private static int numOfDifferentTestPeople = Directory.GetDirectories(testImagesRootFolder).Length;
 
+        // Stopwatch metrics
+        private static TimeSpan trainingTime;
+        private static TimeSpan testingTime;
+
         static void Main()
         {
             // create the recogniser objects
@@ -33,17 +37,17 @@ namespace TestRunner
             var testLabels = new List<int>();
 
             // TEMP!
-            TrimImagesToSize();
+            //TrimImagesToSize();
 
             // here we get the images and labels for the training and testing, already spit randomly
-            GetAllTrainingAndTestData(testImagesRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels);
+            GetAllTrainingAndTestData(trimmedTestImagesRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels);
 
             // need to convert both of these into a datatype the Train method accepts
             var vectorOfTrainingImages = new VectorOfMat(trainingImages.ToArray());
             var vectorOfTrainingLabels = new VectorOfInt(trainingLabels.ToArray());
 
             // call general function that deals with the testing of each of the FaceRecognizer sub classes
-            TestRecognizer(eigenfaceRecognizer, vectorOfTrainingImages, vectorOfTrainingLabels, testImages, testLabels);
+            TrainAndTestRecognizer(eigenfaceRecognizer, vectorOfTrainingImages, vectorOfTrainingLabels, testImages, testLabels);
         }
 
         private static void GetAllTrainingAndTestData(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels)
@@ -89,7 +93,7 @@ namespace TestRunner
             }
         }
         
-        private static void TestRecognizer(FaceRecognizer recognizer, VectorOfMat trainImages, VectorOfInt trainLabels, List<Mat> testImages, List<int> testLabels)
+        private static void TrainAndTestRecognizer(FaceRecognizer recognizer, VectorOfMat trainImages, VectorOfInt trainLabels, List<Mat> testImages, List<int> testLabels)
         {
             // Train the recogniser on the images, and time it using the stopwatch class
             Stopwatch trainingTimer = new Stopwatch();
@@ -97,6 +101,8 @@ namespace TestRunner
             trainingTimer.Start();
             recognizer.Train(trainImages, trainLabels);
             trainingTimer.Stop();
+
+            trainingTime = trainingTimer.Elapsed;
 
             // need to convert test images into a format the predict method accepts
             var vectorOfTestImages = new VectorOfMat(testImages.ToArray());
@@ -108,12 +114,15 @@ namespace TestRunner
         {
             // setting up our counters for correct and incorrect predictions
             int correctAmount = 0, incorrectAmount = 0, totalTestImages = testLabels.Count;
+            Stopwatch testingTimer = new Stopwatch();
 
             // Test the Recognizer
             for (int i = 0; i < vectorOfTestImages.Size; i++)
             {
                 // get our predicted result
+                testingTimer.Start();
                 var preictionResult = recognizer.Predict(vectorOfTestImages[i]);
+                testingTimer.Stop();
 
                 // if prediction is correct
                 if (preictionResult.Label == testLabels[i])
@@ -125,6 +134,7 @@ namespace TestRunner
                     incorrectAmount++;
                 }
             }
+            testingTime = testingTimer.Elapsed;
 
             OutputResultsToDisk(recognizer, correctAmount, incorrectAmount, totalTestImages);
         }
@@ -143,6 +153,8 @@ namespace TestRunner
             fileText += "Total number of training images used for each person: " + numOfTrainImagesPerPerson + Environment.NewLine;
             fileText += "Total number of test images used for each person: " + numOfTestImagesPerPerson + Environment.NewLine;
             fileText += "---------- TEST RESULTS ----------" + Environment.NewLine;
+            fileText += "Total elapsed time for training the recogniser: " + trainingTime + Environment.NewLine;
+            fileText += "Total elapsed time for predicting all test images: " + testingTime + Environment.NewLine;
             fileText += "Total Correct: " + correctAmount + " (" + correctPercentage + "%)" + Environment.NewLine;
             fileText += "Total Incorrect: " + incorrectAmount + " (" + incorrectPercentage + "%)" + Environment.NewLine;
 

@@ -106,7 +106,7 @@ namespace FaceAuthenticators
             // used to calcualte the i'th eigenvector
             while((cumulativeSum / eigenValueSum) < percentEigenfaceCreated)
             {
-                //cumulativeSum += eigenValueArray[counter];
+                cumulativeSum += eigenValueArray[counter, 0];
                 var eigenVectorRow = RecognizerUtility.GetMatrixRow(eigenVectorMatrix, counter);
                 var eigenFaceVector = new float[numberOfColumns];
 
