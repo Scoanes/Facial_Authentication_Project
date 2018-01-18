@@ -15,14 +15,16 @@ namespace FaceAuthenticators
         private List<float[]> eigenfaceMatrix;
         private List<float[]> weightVector;
 
+        public double percentEigenfaceCreated { get; set; }
+
         public override string ToString()
         {
             return "Eigenface Recognizer - Own Implementation";
         }
 
-        public EigenfaceAuthenticator()
+        public EigenfaceAuthenticator(double percentEigenfaceCreated = 0.95)
         {
-
+            this.percentEigenfaceCreated = percentEigenfaceCreated;
         }
         
         public void TrainEigenfaceAuthenticator()
@@ -62,11 +64,8 @@ namespace FaceAuthenticators
             //var other = new Matrix<float>(covMatrix.Size);
             //CvInvoke.SVDecomp(covMatrix, eigenValues, eigenVectors, other, SvdFlag.Default);
 
-            // TODO - possible change this to a % value
-            int eigenVectorsCreated = 3;
-
             // need to multiply the eigenVectors with the original image dataset to create our eigenfaces
-            this.eigenfaceMatrix = CalculateEigenFaces(faceMatrix, eigenVectors, eigenVectorsCreated);
+            this.eigenfaceMatrix = CalculateEigenFaces(faceMatrix, eigenVectors, eigenValues);
 
             this.weightVector = CalculateWeightMatrix(faceMatrix);
         }
@@ -92,18 +91,23 @@ namespace FaceAuthenticators
             return imageLabels[indexOfName];
         }
 
-        private List<float[]> CalculateEigenFaces(List<int[]> faceMatrix, Matrix<float> eigenVectors, int numberToCreate)
+        private List<float[]> CalculateEigenFaces(List<int[]> faceMatrix, Matrix<float> eigenVectors, Matrix<float> eigenValues)
         {
             // eigenvectors are alaready in order, so first eigenvector will be first eigenface
             int numberOfColumns = faceMatrix[0].Length;
             var eigenVectorMatrix = eigenVectors.Data;
             var faceVectorArray = faceMatrix.ToArray();
+            var eigenValueArray = eigenValues.Data;
+            var eigenValueSum = eigenValues.Sum;
+            float cumulativeSum = 0;
+            int counter = 0;
             List<float[]> eigenFaceMatrix = new List<float[]>();
 
             // used to calcualte the i'th eigenvector
-            for (int i = 0; i < numberToCreate; i++)
+            while((cumulativeSum / eigenValueSum) < percentEigenfaceCreated)
             {
-                var eigenVectorRow = RecognizerUtility.GetMatrixRow(eigenVectorMatrix, i);
+                //cumulativeSum += eigenValueArray[counter];
+                var eigenVectorRow = RecognizerUtility.GetMatrixRow(eigenVectorMatrix, counter);
                 var eigenFaceVector = new float[numberOfColumns];
 
                 for (int column = 0; column < numberOfColumns; column++)
@@ -111,8 +115,7 @@ namespace FaceAuthenticators
                     // we want the column of the faceVectorData and the Row of the eigenVectors
                     var faceVectorColumn = RecognizerUtility.GetMatrixColumn(faceVectorArray, column);
                     var eigenPixelValue = RecognizerUtility.CalculateVectorProduct(faceVectorColumn, eigenVectorRow);
-
-                    // TODO - Check that I don't need to do anything with input Images
+                    
                     // scalar value is 255/2 (half of max value for a byte)
                     float scalarValue = (float)127.5;
 
@@ -136,7 +139,8 @@ namespace FaceAuthenticators
                     Bytes = Array.ConvertAll(eigenFaceVector, item => (byte)item)
                 };
 
-                eigenFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "EigenFace" + i + ".jpg"));
+                eigenFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "EigenFace" + counter + ".jpg"));
+                counter++;
             }
 
             return eigenFaceMatrix;

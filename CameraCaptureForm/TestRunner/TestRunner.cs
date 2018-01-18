@@ -93,6 +93,7 @@ namespace TestRunner
         {
             // Train the recogniser on the images, and time it using the stopwatch class
             Stopwatch trainingTimer = new Stopwatch();
+
             trainingTimer.Start();
             recognizer.Train(trainImages, trainLabels);
             trainingTimer.Stop();
@@ -125,6 +126,11 @@ namespace TestRunner
                 }
             }
 
+            OutputResultsToDisk(recognizer, correctAmount, incorrectAmount, totalTestImages);
+        }
+
+        private static void OutputResultsToDisk(FaceRecognizer recognizer, int correctAmount, int incorrectAmount, int totalTestImages)
+        {
             // calculate percentages of correct/incorrect predictions
             double correctPercentage = (correctAmount / totalTestImages) * 100;
             double incorrectPercentage = (incorrectAmount / totalTestImages) * 100;
