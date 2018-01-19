@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="TestRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="concrt140.dll">

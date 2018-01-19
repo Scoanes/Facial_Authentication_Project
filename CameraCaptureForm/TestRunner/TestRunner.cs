@@ -37,7 +37,7 @@ namespace TestRunner
             var testLabels = new List<int>();
 
             // TEMP!
-            //TrimImagesToSize();
+            //TrimImagesToSize(trimmedTestImagesRootFolder);
 
             // here we get the images and labels for the training and testing, already spit randomly
             GetAllTrainingAndTestData(trimmedTestImagesRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels);
@@ -161,69 +161,6 @@ namespace TestRunner
             File.WriteAllText(Path.Combine(testImagesRootFolder, "testResults.txt"), fileText);
         }
 
-        private static void TrimImagesToSize()
-        {
-            // This function is only used when trimming images to the same dimension
-            // we will assume that each face in the images are centered
-
-            string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
-            CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
-            int xPoint = 0, yPoint = 0;
-            Mat imageFileRoi;
-
-            foreach (var file in Directory.GetFiles(testImagesRootFolder, "*.jpg", SearchOption.AllDirectories))
-            {
-                // Create our image file
-                var imageFile = new Mat(file);
-
-                // get folder name and file name to preserve the structure of the images
-                var directoryName = Path.GetFileName(Path.GetDirectoryName(file));
-                var fileName = Path.GetFileName(file);
-
-                // See if we can detect any faces to get a more accurate face for testing
-                var greyImage = imageFile.ToImage<Gray, byte>();
-                var allFaces = faceClassifier.DetectMultiScale(greyImage, 1.1, 10);
-
-                // if face detected
-                if(allFaces.Length == 1)
-                {
-                    xPoint = allFaces[0].X - 50;
-                    yPoint = allFaces[0].Y - 75;
-                }
-                else
-                {
-                    // Get centre point and offset the new area by midway point plus half of width and half of height
-                    yPoint = (imageFile.Rows / 2) - (RecognizerUtility.imageHeight / 2);
-                    xPoint = (imageFile.Cols / 2) - (RecognizerUtility.imageWidth / 2);
-                }
-
-                // create ROI of new area
-                var trimmedArea = new Rectangle(xPoint, yPoint, RecognizerUtility.imageWidth, RecognizerUtility.imageHeight);
-
-                // Introduced so if the ROI is not good for image will default to centre of image
-                try
-                {
-                    imageFileRoi = new Mat(imageFile, trimmedArea);
-                }
-                catch
-                {
-                    yPoint = (imageFile.Rows / 2) - (RecognizerUtility.imageHeight / 2);
-                    xPoint = (imageFile.Cols / 2) - (RecognizerUtility.imageWidth / 2);
-                    trimmedArea.X = xPoint;
-                    trimmedArea.Y = yPoint;
-                    imageFileRoi = new Mat(imageFile, trimmedArea);
-                }
-                
-
-                // before saving need to check directory exists and if not create it
-                if(!Directory.Exists(Path.Combine(trimmedTestImagesRootFolder, directoryName)))
-                {
-                    Directory.CreateDirectory(Path.Combine(trimmedTestImagesRootFolder, directoryName));
-                }
-
-                // save the ROI
-                imageFileRoi.Save(Path.Combine(trimmedTestImagesRootFolder, directoryName, fileName));
-            }
-        }
+        
     }
 }

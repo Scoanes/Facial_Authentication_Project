@@ -134,6 +134,7 @@ namespace FaceAuthenticators
 
                 eigenFaceMatrix.Add(eigenFaceVector);
 
+                // create image to save to disk
                 Image<Gray, byte> eigenFaceJpeg = new Image<Gray, byte>(RecognizerUtility.imageWidth, RecognizerUtility.imageHeight)
                 {
                     Bytes = Array.ConvertAll(eigenFaceVector, item => (byte)item)
