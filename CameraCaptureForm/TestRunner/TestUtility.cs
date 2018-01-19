@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestRunner
 {
-    public class TestUtility
+    public static class TestUtility
     {
+        // this class is used for calling one-off methods that are needed to populate testing images or
+        // ensure they are appropriate for testing (i.e correct size and type)
 
         public static void TrimImagesToSize(string inputImageRootFolder, string outputImageRootFolder)
         {
@@ -104,6 +104,53 @@ namespace TestRunner
 
                 // save the image as jpg
                 imageFile.Save(Path.Combine(outputPgmRootFolder, directoryName, fileName));
+            }
+        }
+
+        public static List<Image<Gray, byte>>[] GetKFold(List<Image<Gray, byte>> masterImageList, List<string> testingLabels, ref List<string>[] kFoldedLabels, int kFolds)
+        {
+            // we assume the list is already randomised
+            var kFoldedImageData = new List<Image<Gray, byte>>[kFolds];
+            int counter = 0, innerCount = 0;
+            
+            // initializes each list
+            for (int i = 0; i < kFolds; i++)
+            {
+                kFoldedImageData[i] = new List<Image<Gray, byte>>();
+                kFoldedLabels[i] = new List<string>();
+            }
+
+            // divide data as evenly as possible, each loop will use the small group as the test data
+            // with the rest of the data being used to train the authenticator
+            while (counter < masterImageList.Count)
+            {
+                kFoldedImageData[innerCount].Add(masterImageList[counter]);
+                kFoldedLabels[innerCount].Add(testingLabels[counter]);
+
+                counter++;
+
+                innerCount++;
+                if (innerCount > kFolds - 1)
+                {
+                    innerCount = 0;
+                }
+            }
+            
+            return kFoldedImageData;
+        }
+
+        public static void ShuffleList(ref List<int> indexArray)
+        {
+            Random randomizer = new Random();
+            int indexSize = indexArray.Count;
+
+            // create random location and swap
+            for (int i = 0; i < indexSize; i++)
+            {
+                int randomIndex = i + randomizer.Next(indexSize - i);
+                int temp = indexArray[randomIndex];
+                indexArray[randomIndex] = indexArray[i];
+                indexArray[i] = temp;
             }
         }
     }

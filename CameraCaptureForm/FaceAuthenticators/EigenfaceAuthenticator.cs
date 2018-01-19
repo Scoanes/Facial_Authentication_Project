@@ -15,20 +15,25 @@ namespace FaceAuthenticators
         private List<float[]> eigenfaceMatrix;
         private List<float[]> weightVector;
 
-        public double percentEigenfaceCreated { get; set; }
+        public double PercentEigenfaceCreated { get; set; }
+
+        public EigenfaceAuthenticator(double percentEigenfaceCreated = 0.95)
+        {
+            this.PercentEigenfaceCreated = percentEigenfaceCreated;
+        }
 
         public override string ToString()
         {
             return "Eigenface Recognizer - Own Implementation";
         }
 
-        public EigenfaceAuthenticator(double percentEigenfaceCreated = 0.95)
-        {
-            this.percentEigenfaceCreated = percentEigenfaceCreated;
-        }
-        
         public void TrainEigenfaceAuthenticator()
         {
+            // safety check to ensure the matrix of saved faces is cleared, so no issues occur with 
+            // training more than once on the same instance
+            faceMatrix.Clear();
+            imageLabels.Clear();
+
             // generate the matrix of image vectors
             RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootFolder, ref faceMatrix, ref imageLabels);
 
@@ -46,6 +51,58 @@ namespace FaceAuthenticators
             for(int i =0; i < averageFace.Length; i++)
             {
                 foreach(var face in faceMatrix)
+                {
+                    face[i] -= averageFace[i];
+                }
+            }
+
+            // Create the face matrix for covariance matrix
+            var covMatrix = new Matrix<float>(RecognizerUtility.CreateCovarianceMatrix(faceMatrix));
+
+            // I have to create a vector to put into the matrix, Emgu will output 0's otherwise!
+            var eigValVector = new float[covMatrix.Width];
+            var eigenValues = new Matrix<float>(eigValVector);
+            var eigenVectors = new Matrix<float>(covMatrix.Size);
+
+            CvInvoke.Eigen(covMatrix, eigenValues, eigenVectors);
+
+            //var other = new Matrix<float>(covMatrix.Size);
+            //CvInvoke.SVDecomp(covMatrix, eigenValues, eigenVectors, other, SvdFlag.Default);
+
+            // need to multiply the eigenVectors with the original image dataset to create our eigenfaces
+            this.eigenfaceMatrix = CalculateEigenFaces(faceMatrix, eigenVectors, eigenValues);
+
+            this.weightVector = CalculateWeightMatrix(faceMatrix);
+        }
+
+        public void TrainEigenfaceAuthenticator(List<Image<Gray, byte>> facesToTrain, List<string> trainingLabels)
+        {
+            // safety check to ensure the matrix of saved faces is cleared, so no issues occur with 
+            // training more than once on the same instance
+            faceMatrix.Clear();
+            imageLabels.Clear();
+            imageLabels = trainingLabels;
+
+            // need to convert the image list to a suitable format
+            foreach (var imageFile in facesToTrain)
+            {
+                faceMatrix.Add(RecognizerUtility.ImageToVector(imageFile));
+            }
+
+            // generate the mean or average face
+            this.averageFace = RecognizerUtility.GetAverageFace(faceMatrix);
+
+            Image<Gray, byte> averageFaceJpeg = new Image<Gray, byte>(RecognizerUtility.imageWidth, RecognizerUtility.imageHeight)
+            {
+                Bytes = averageFace
+            };
+
+            averageFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "AverageFace.jpg"));
+
+            // minus the average face from each image
+            for (int i = 0; i < averageFace.Length; i++)
+            {
+                foreach (var face in faceMatrix)
                 {
                     face[i] -= averageFace[i];
                 }
@@ -104,7 +161,7 @@ namespace FaceAuthenticators
             List<float[]> eigenFaceMatrix = new List<float[]>();
 
             // used to calcualte the i'th eigenvector
-            while((cumulativeSum / eigenValueSum) < percentEigenfaceCreated)
+            while((cumulativeSum / eigenValueSum) < PercentEigenfaceCreated)
             {
                 cumulativeSum += eigenValueArray[counter, 0];
                 var eigenVectorRow = RecognizerUtility.GetMatrixRow(eigenVectorMatrix, counter);

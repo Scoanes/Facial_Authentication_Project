@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 namespace TestRunner
 {
@@ -37,7 +38,9 @@ namespace TestRunner
             var testLabels = new List<int>();
 
             // TEMP!
-            //TrimImagesToSize(trimmedTestImagesRootFolder);
+            //TestUtility.PgmToJpgConversion(@"C:\Users\RockInTheBox\Documents\University\Project\DatabaseImages\Yale_pgm", @"C:\Users\RockInTheBox\Documents\University\Project\DatabaseImages\Yale_jpg");
+            //TestUtility.TrimImagesToSize(testImagesRootFolder, trimmedTestImagesRootFolder);
+            KFoldParamterTesting(trimmedTestImagesRootFolder, 10, 0.95);
 
             // here we get the images and labels for the training and testing, already spit randomly
             GetAllTrainingAndTestData(trimmedTestImagesRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels);
@@ -136,17 +139,17 @@ namespace TestRunner
             }
             testingTime = testingTimer.Elapsed;
 
-            OutputResultsToDisk(recognizer, correctAmount, incorrectAmount, totalTestImages);
+            OutputResultsToDisk(recognizer.ToString(), correctAmount, incorrectAmount, totalTestImages);
         }
 
-        private static void OutputResultsToDisk(FaceRecognizer recognizer, int correctAmount, int incorrectAmount, int totalTestImages)
+        private static void OutputResultsToDisk(string recognizerName, int correctAmount, int incorrectAmount, int totalTestImages)
         {
             // calculate percentages of correct/incorrect predictions
             double correctPercentage = (correctAmount / totalTestImages) * 100;
             double incorrectPercentage = (incorrectAmount / totalTestImages) * 100;
 
             // output results to a file on disk
-            string fileText = "Test results for recognizer: " + recognizer.ToString() + Environment.NewLine;
+            string fileText = "Test results for recognizer: " + recognizerName + Environment.NewLine;
             fileText += "Test results on the following directory of test images: " + testImagesRootFolder + Environment.NewLine;
             fileText += "Total number of images in directory: " + (numOfDifferentTestPeople * numOfImagesPerPerson) +
                 " Spread across " + numOfDifferentTestPeople + " different test subjects" + Environment.NewLine;
@@ -161,6 +164,66 @@ namespace TestRunner
             File.WriteAllText(Path.Combine(testImagesRootFolder, "testResults.txt"), fileText);
         }
 
-        
+        public static void KFoldParamterTesting(string dataRootLocation, int numberOfKFolds, double percentParameterValue)
+        {
+            // create our authenticator, with the parameter value
+            EigenfaceAuthenticator eigenfaceAuth = new EigenfaceAuthenticator(percentParameterValue);
+
+            var masterImageList = new List<Image<Gray, byte>>();
+            var masterTestLabelsList = new List<string>();
+
+            // Get all of the test data
+            foreach(var imageFile in Directory.GetFiles(dataRootLocation, "*.jpg", SearchOption.AllDirectories))
+            {
+                masterImageList.Add(new Image<Gray, byte>(imageFile));
+                masterTestLabelsList.Add(Path.GetFileName(Path.GetDirectoryName(imageFile)));
+            }
+
+            // randomise the order of the lists
+            var indexes = Enumerable.Range(0, masterImageList.Count).ToList();
+            TestUtility.ShuffleList(ref indexes);
+            var randomizedImageList = indexes.Select(index => masterImageList[index]).ToList();
+            var randomizedLabelList = indexes.Select(index => masterTestLabelsList[index]).ToList();
+
+            var kFoldedLabels = new List<string>[numberOfKFolds];
+
+            var kFoldedLists = TestUtility.GetKFold(randomizedImageList, randomizedLabelList,  ref kFoldedLabels, numberOfKFolds);
+
+            int totalCorrect = 0, totalIncorrect = 0;
+
+            for (int kFoldIter = 0; kFoldIter < numberOfKFolds; kFoldIter++)
+            {
+                var testingData = kFoldedLists[kFoldIter];
+                var testingLabels = kFoldedLabels[kFoldIter];
+                var trainingData = new List<Image<Gray, byte>>();
+                var trainingLabels = new List<string>();
+
+                // populate the training data list
+                for(int totalFolds = 0; totalFolds < numberOfKFolds; totalFolds++)
+                {
+                    // ensure that the testing data is not added to the list
+                    if(kFoldIter != totalFolds)
+                    {
+                        trainingData.AddRange(kFoldedLists[totalFolds]);
+                        trainingLabels.AddRange(kFoldedLabels[totalFolds]);
+                    }
+                }
+
+                // train the authenticator with the training data
+                eigenfaceAuth.TrainEigenfaceAuthenticator(trainingData, trainingLabels);
+
+                // test the authenticator with the test data
+                for(int testIter = 0; testIter < testingData.Count; testIter++)
+                {
+                    if (testingLabels[testIter].Equals(eigenfaceAuth.PredictImage(testingData[testIter]))){
+                        totalCorrect++;
+                    }
+                    else
+                    {
+                        totalIncorrect++;
+                    }
+                }
+            }
+        }
     }
 }
