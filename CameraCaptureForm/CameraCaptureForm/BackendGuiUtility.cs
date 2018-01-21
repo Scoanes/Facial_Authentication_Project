@@ -10,13 +10,13 @@ namespace CameraCaptureForm
     public class BackendGuiUtility
     {
         // Declaring constants
-        static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
+        public static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
         public static EigenfaceAuthenticator eigenRecognizer = new EigenfaceAuthenticator();
 
         // Creating classifiers here
         static CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
 
-        public static Bitmap getFaceFromFeed(int faceIndex, Rectangle[] facesToDisplay)
+        public static Bitmap GetFaceFromFeed(int faceIndex, Rectangle[] facesToDisplay)
         {
             // have to do a new retrieve that hasn't had the rectangle drawn on it
             Bitmap faceImage = new Bitmap(ucEnrolPage.CleanFrame.Bitmap);

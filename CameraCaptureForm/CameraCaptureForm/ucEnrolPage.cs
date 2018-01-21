@@ -87,7 +87,7 @@ namespace CameraCaptureForm
         private void btn_EnrolUser_Click(object sender, EventArgs e)
         {
             // Gets the detected face from the camera feed
-            var faceImage = BackendGuiUtility.getFaceFromFeed(count, facesFromFrame);
+            var faceImage = BackendGuiUtility.GetFaceFromFeed(count, facesFromFrame);
 
             BackendGuiUtility.SaveUserImage(faceImage, tBox_UserName.Text);
         }
@@ -137,7 +137,7 @@ namespace CameraCaptureForm
                     btn_NextFace.Enabled = false;
                     btn_PrevFace.Enabled = false;
 
-                    pb_FaceOutput.Image = BackendGuiUtility.getFaceFromFeed(0, facesFromFrame);
+                    pb_FaceOutput.Image = BackendGuiUtility.GetFaceFromFeed(0, facesFromFrame);
                     break;
                 default:
                     // enable the next/prev buttons for choosing the face
@@ -146,7 +146,7 @@ namespace CameraCaptureForm
                     btn_NextFace.Enabled = true;
                     btn_PrevFace.Enabled = true;
 
-                    pb_FaceOutput.Image = BackendGuiUtility.getFaceFromFeed(count, facesFromFrame);
+                    pb_FaceOutput.Image = BackendGuiUtility.GetFaceFromFeed(count, facesFromFrame);
                     break;
             }
         }

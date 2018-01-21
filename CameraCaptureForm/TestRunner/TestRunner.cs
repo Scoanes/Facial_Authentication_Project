@@ -53,6 +53,7 @@ namespace TestRunner
             TrainAndTestRecognizer(eigenfaceRecognizer, vectorOfTrainingImages, vectorOfTrainingLabels, testImages, testLabels);
         }
 
+        // have to use Mat rather than Image, Emgu doesn't do image dimensions properly with image but does with Mat
         private static void GetAllTrainingAndTestData(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels)
         {
             // create our randomizer
@@ -186,7 +187,6 @@ namespace TestRunner
             var randomizedLabelList = indexes.Select(index => masterTestLabelsList[index]).ToList();
 
             var kFoldedLabels = new List<string>[numberOfKFolds];
-
             var kFoldedLists = TestUtility.GetKFold(randomizedImageList, randomizedLabelList,  ref kFoldedLabels, numberOfKFolds);
 
             int totalCorrect = 0, totalIncorrect = 0;
@@ -224,6 +224,73 @@ namespace TestRunner
                     }
                 }
             }
+        }
+
+        public static void FaceDetectionTesting(string rootFaceDetectionTestLocation, int numberOfNeighbours = 3, double scaleFactor = 1.1)
+        {
+            // Create the classifier
+            CascadeClassifier faceClassifier = new CascadeClassifier(BackendGuiUtility.haarFaceFile);
+            
+            var imageList = new List<Image<Gray, byte>>();
+            var correctFaceNumber = new List<int>();
+            // folder names will be the number of people in image, so will use that as comparison
+            foreach (var directory in Directory.GetDirectories(rootFaceDetectionTestLocation))
+            {
+                foreach (var imageFile in Directory.GetFiles(directory))
+                {
+                    imageList.Add(new Image<Gray, byte>(imageFile));
+                    correctFaceNumber.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
+                }
+            }
+
+            // TODO: INCLUDE A STOPWATCH TO TIME EACH RUN, MEASURE TIME PERFORMANCE AS WELL AS ACCURACY
+            var correctAmount = 0;
+            var overPredicted = 0;
+            var underPredicted = 0;
+
+            for(int i = 0; i < imageList.Count; i++)
+            {
+                // get the detected amount
+                var numberOfDetectedFaces = faceClassifier.DetectMultiScale(imageList[i], scaleFactor, numberOfNeighbours).Length;
+
+                // compare with the actual amount, 0 is correct, > 0 is overestimages and < 0 is underestimated amount
+                var differenceOfFaces = numberOfDetectedFaces - correctFaceNumber[i];
+                
+                // correctly guessed the amount of faces
+                if(differenceOfFaces == 0)
+                {
+                    correctAmount += numberOfDetectedFaces;
+                }
+                // over predicted
+                else if (differenceOfFaces > 0)
+                {
+                    // correctly predicts the amount of faces, but does add the extra to over predicting
+                    overPredicted += differenceOfFaces;
+                    correctAmount += correctFaceNumber[i];
+                }
+                // under predicted
+                else if (differenceOfFaces < 0)
+                {
+                    // underpredicts but, adds the ones found as correct
+                    underPredicted += Math.Abs(differenceOfFaces);
+                    correctAmount += (correctFaceNumber[i] - Math.Abs(differenceOfFaces));
+                }
+            }
+
+            var totalTests = imageList.Count;
+            var correctPercentage = (correctAmount / totalTests) * 100;
+            var overPredPerctange = (overPredicted / totalTests) * 100;
+            var underPredPercentage = (underPredicted / totalTests) * 100;
+
+            string fileText = "Test results for face detector" + Environment.NewLine;
+            fileText += "Total amount of test images: " + totalTests;
+            fileText += "---------- TEST RESULTS ----------" + Environment.NewLine;
+            fileText += "Total elapsed time for detecting all faces: " + trainingTime + Environment.NewLine;
+            fileText += "Total Correct: " + correctAmount + " (" + correctPercentage + "%)" + Environment.NewLine;
+            fileText += "Total Over Predicted: " + overPredicted + " (" + overPredPerctange + "%)" + Environment.NewLine;
+            fileText += "Total Under Predicted: " + underPredicted + " (" + underPredPercentage + "%)" + Environment.NewLine;
+
+            File.WriteAllText(Path.Combine(rootFaceDetectionTestLocation, "faceDetectionResults.txt"), fileText);
         }
     }
 }
