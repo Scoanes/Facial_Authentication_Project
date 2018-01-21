@@ -248,10 +248,14 @@ namespace TestRunner
             var overPredicted = 0;
             var underPredicted = 0;
 
+            Stopwatch totalDetectionTime = new Stopwatch();
+
             for(int i = 0; i < imageList.Count; i++)
             {
                 // get the detected amount
+                totalDetectionTime.Start();
                 var numberOfDetectedFaces = faceClassifier.DetectMultiScale(imageList[i], scaleFactor, numberOfNeighbours).Length;
+                totalDetectionTime.Stop();
 
                 // compare with the actual amount, 0 is correct, > 0 is overestimages and < 0 is underestimated amount
                 var differenceOfFaces = numberOfDetectedFaces - correctFaceNumber[i];
@@ -285,7 +289,7 @@ namespace TestRunner
             string fileText = "Test results for face detector" + Environment.NewLine;
             fileText += "Total amount of test images: " + totalTests;
             fileText += "---------- TEST RESULTS ----------" + Environment.NewLine;
-            fileText += "Total elapsed time for detecting all faces: " + trainingTime + Environment.NewLine;
+            fileText += "Total elapsed time for detecting all faces: " + totalDetectionTime.Elapsed + Environment.NewLine;
             fileText += "Total Correct: " + correctAmount + " (" + correctPercentage + "%)" + Environment.NewLine;
             fileText += "Total Over Predicted: " + overPredicted + " (" + overPredPerctange + "%)" + Environment.NewLine;
             fileText += "Total Under Predicted: " + underPredicted + " (" + underPredPercentage + "%)" + Environment.NewLine;
