@@ -82,229 +82,1696 @@
     <Content Include="opencv_ffmpeg330_64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\01.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\01\02.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\02.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\01\03.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\03.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\01\04.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\04.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\01\12.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\05.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\01\13.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\06.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\01\14.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\07.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\01\15.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\08.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\04\01.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\09.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\04\02.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\10.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\04\03.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\11.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\04\04.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\12.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\04\05.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\13.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\20\01.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\14.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\20\02.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\01\15.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\20\03.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\01.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\20\04.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\02.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\20\05.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\03.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\35\01.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\04.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\35\02.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\05.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\35\03.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\06.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\35\04.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\07.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\35\05.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\08.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\44\09.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\09.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\44\10.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\10.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\44\11.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\11.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\44\12.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\12.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\44\13.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\13.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\44\14.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\14.jpg">
+    <Content Include="TestImages\Background_Noise\Group1\44\15.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\02\15.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\01\01.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\01.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\01\05.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\02.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\01\06.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\03.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\01\07.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\04.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\01\08.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\05.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\01\09.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\06.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\01\10.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\07.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\01\11.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\08.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\06.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\09.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\07.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\10.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\08.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\11.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\09.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\12.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\10.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\13.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\11.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\14.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\12.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\03\15.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\13.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\01.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\14.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\02.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\04\15.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\03.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\06.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\04.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\07.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\05.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\08.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\06.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\09.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\07.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\10.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\08.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\11.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\09.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\12.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\10.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\13.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\11.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\14.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\12.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\20\15.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\13.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\06.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\14.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\07.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\04\15.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\08.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\01.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\09.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\02.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\10.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\03.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\11.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\04.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\12.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\05.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\13.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\06.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\14.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\07.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\35\15.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\08.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\44\01.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\09.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\44\02.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\10.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\44\03.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\11.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\44\04.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\12.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\44\05.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\13.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\44\06.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\14.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\44\07.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestImages\05\15.jpg">
+    <Content Include="TestImages\Background_Noise\Group2\44\08.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\1\ExpanseHolden1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\1\FrankSinatra1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\1\neo1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\1\superhans1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\1\tigerwoodsmugshot1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\2\anchorman2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\2\peepshow2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\2\pulpfiction2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\2\shaunofthedead2.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\2\tenaciousd2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\4\anchormanCrew.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\4\hobbits4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\4\pinkfloyd4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\4\rivalAnchorman.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\4\takethat4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\6\allwayssunny6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\6\band6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\6\friends6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\6\random6.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Face_Detection\6\supertroopers6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+000E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+000E+90.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+000E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A+130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B22\yaleB22_P00A-130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+000E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+000E+90.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+000E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A+130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B23\yaleB23_P00A-130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+000E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+000E+90.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+000E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A+130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B29\yaleB29_P00A-130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+000E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+000E+90.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+000E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A+130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B32\yaleB32_P00A-130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+000E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+000E+90.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+000E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A+130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-010E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-015E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-020E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-025E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-035E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-035E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-050E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-050E-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-060E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-060E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-070E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-070E+45.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-070E-35.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-085E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-085E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-095E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-110E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-110E+40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-110E+65.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-110E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-120E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Testing\B39\yaleB39_P00A-130E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+000E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+000E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+000E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A+035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A-005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A-005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A-010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A-020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A-020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A-035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B22\yaleB22_P00A-035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+000E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+000E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+000E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A+035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A-005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A-005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A-010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A-020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A-020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A-035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B23\yaleB23_P00A-035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+000E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+000E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+000E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A+035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A-005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A-005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A-010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A-020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A-020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A-035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B29\yaleB29_P00A-035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+000E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+000E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+000E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A+035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A-005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A-005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A-010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A-020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A-020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A-035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B32\yaleB32_P00A-035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+000E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+000E+20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+000E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A+035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A-005E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A-005E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A-010E+00.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A-020E+10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A-020E-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A-035E+15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Illumination\Training\B39\yaleB39_P00A-035E-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\05.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\07.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\08.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\09.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\02\15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\03\02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\03\05.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\03\06.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\03\07.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\03\08.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\03\09.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\03\12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\03\14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\03\15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\05.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\06.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\07.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\08.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\09.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\23\13.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\07.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\08.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\09.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\13.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\27\14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\06.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\07.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\08.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\09.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\13.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Testing\45\15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\02\01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\02\03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\02\06.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\02\12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\02\13.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\03\01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\03\03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\03\04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\03\10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\03\11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\03\13.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\23\01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\23\02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\23\03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\23\14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\23\15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\27\02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\27\04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\27\05.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\27\06.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\27\15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\45\01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\45\05.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\45\11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\45\12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Pose\Training\45\14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\ireloz\ireloz.16.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\ireloz\ireloz.17.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\ireloz\ireloz.18.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\ireloz\ireloz.19.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\ireloz\ireloz.20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\mdcowl\mdcowl.16.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\mdcowl\mdcowl.17.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\mdcowl\mdcowl.18.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\mdcowl\mdcowl.19.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pgray\pgray.16.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pgray\pgray.17.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pgray\pgray.18.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pgray\pgray.19.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pgray\pgray.20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pmathi\pmathi.16.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pmathi\pmathi.17.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pmathi\pmathi.18.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pmathi\pmathi.19.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\pmathi\pmathi.20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\rswick\rwsick.16.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\rswick\rwsick.17.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\rswick\rwsick.18.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\rswick\rwsick.19.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Close\rswick\rwsick.20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\ireloz\ireloz.1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\ireloz\ireloz.2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\ireloz\ireloz.3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\ireloz\ireloz.4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\ireloz\ireloz.5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\mdcowl\mdcowl.1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\mdcowl\mdcowl.2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\mdcowl\mdcowl.3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\mdcowl\mdcowl.4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\mdcowl\mdcowl.5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\mdcowl\mdcowl.6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\mdcowl\mdcowl.7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pgray\pgray.1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pgray\pgray.2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pgray\pgray.3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pgray\pgray.4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pgray\pgray.5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pgray\pgray.6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pmathi\pmathi.1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pmathi\pmathi.2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pmathi\pmathi.3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pmathi\pmathi.4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\pmathi\pmathi.5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\rswick\rwsick.1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\rswick\rwsick.2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\rswick\rwsick.3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\rswick\rwsick.4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Far\rswick\rwsick.5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\ireloz\ireloz.11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\ireloz\ireloz.12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\ireloz\ireloz.13.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\ireloz\ireloz.14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\ireloz\ireloz.15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\mdcowl\mdcowl.11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\mdcowl\mdcowl.12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\mdcowl\mdcowl.13.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\mdcowl\mdcowl.14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\mdcowl\mdcowl.15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\pgray\pgray.10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\pgray\pgray.7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\pgray\pgray.8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\pgray\pgray.9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\pmathi\pmathi.6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\pmathi\pmathi.7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\pmathi\pmathi.8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\pmathi\pmathi.9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\rswick\rwsick.6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\rswick\rwsick.7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\rswick\rwsick.8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestImages\Scale\Middle\rswick\rwsick.9.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="vcruntime140.dll">

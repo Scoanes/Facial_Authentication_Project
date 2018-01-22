@@ -16,7 +16,7 @@ namespace TestRunner
     public class TestRunner
     {
         private static string testImagesRootFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestImages");
-        private static string trimmedTestImagesRootFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TrimmedTestImages");
+        private static string poseTestImagesRootFolder = Path.Combine(testImagesRootFolder, "Pose");
         private static int numOfTestImagesPerPerson = 5;
         private static int numOfImagesPerPerson = 15;
         private static int numOfTrainImagesPerPerson = numOfImagesPerPerson - numOfTestImagesPerPerson;
@@ -38,66 +38,96 @@ namespace TestRunner
             var testLabels = new List<int>();
 
             // TEMP!
-            //TestUtility.PgmToJpgConversion(@"C:\Users\RockInTheBox\Documents\University\Project\DatabaseImages\Yale_pgm", @"C:\Users\RockInTheBox\Documents\University\Project\DatabaseImages\Yale_jpg");
-            //TestUtility.TrimImagesToSize(testImagesRootFolder, trimmedTestImagesRootFolder);
-            KFoldParamterTesting(trimmedTestImagesRootFolder, 10, 0.95);
+            //KFoldParamterTesting(trimmedTestImagesRootFolder, 10, 0.95);
 
             // here we get the images and labels for the training and testing, already spit randomly
-            GetAllTrainingAndTestData(trimmedTestImagesRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels);
+            GetAllTrainingAndTestData(poseTestImagesRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, "Training", "Testing");
 
             // need to convert both of these into a datatype the Train method accepts
             var vectorOfTrainingImages = new VectorOfMat(trainingImages.ToArray());
             var vectorOfTrainingLabels = new VectorOfInt(trainingLabels.ToArray());
+            var vectorOfTestImages = new VectorOfMat(testImages.ToArray());
 
             // call general function that deals with the testing of each of the FaceRecognizer sub classes
-            TrainAndTestRecognizer(eigenfaceRecognizer, vectorOfTrainingImages, vectorOfTrainingLabels, testImages, testLabels);
+            TrainAndTimeRecognizer(eigenfaceRecognizer, vectorOfTrainingImages, vectorOfTrainingLabels);
+
+            // Now we test the trained recognizer on the test images
+            PredictTestData(eigenfaceRecognizer, vectorOfTestImages, testLabels);
         }
-
+        
         // have to use Mat rather than Image, Emgu doesn't do image dimensions properly with image but does with Mat
-        private static void GetAllTrainingAndTestData(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels)
+        private static void GetAllTrainingAndTestData(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels, 
+            string specificTrainDir = null, string specificTestDir = null)
         {
-            // create our randomizer
-            Random randomizer = new Random();
-            List<int> testIndexValues = new List<int>();
-
-            // create an array of index's to be removed
-            while(testIndexValues.Count < numOfTestImagesPerPerson)
+            // If the method had specified test/train directory
+            if(specificTrainDir != null && specificTestDir != null)
             {
-                int numToAdd = randomizer.Next(0, numOfImagesPerPerson);
-                if (!testIndexValues.Contains(numToAdd))
+                // go through top level directory for each test person in the train directory
+                foreach (var directory in Directory.GetDirectories(Path.Combine(rootFolderLocation, specificTrainDir)))
                 {
-                    testIndexValues.Add(numToAdd);
-                }
-            }
-
-            // For future work - Include sub directories here for each of the different test cases stated in test plan
-            // E.G: Illumination, Pose, Scale, etc...
-            // Use these subclasses to define each set of tests with the different test candidates being set in each of
-            // these subclasses, should be passed as an argument for the method
-
-            // go through top level directory for each test person
-            foreach (var directory in Directory.GetDirectories(rootFolderLocation))
-            {
-                int iter = 0;
-                foreach (var imageFile in Directory.GetFiles(directory))
-                {
-                    if (testIndexValues.Contains(iter))
-                    {
-                        testImages.Add(new Image<Gray, byte>(imageFile).Mat);
-                        testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
-                    }
-                    else
+                    foreach (var imageFile in Directory.GetFiles(directory))
                     {
                         trainImages.Add(new Image<Gray, byte>(imageFile).Mat);
                         trainLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
                     }
+                }
 
-                    iter++;
+                // go through top level directory for each test person in the test directory
+                foreach (var directory in Directory.GetDirectories(Path.Combine(rootFolderLocation, specificTestDir)))
+                {
+                    foreach (var imageFile in Directory.GetFiles(directory))
+                    {
+                        testImages.Add(new Image<Gray, byte>(imageFile).Mat);
+                        testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
+                    }
+                }
+            }
+            // if we want a randomized set of test/train images by not specifying a train/test directory
+            else
+            {
+                // create our randomizer
+                Random randomizer = new Random();
+                List<int> testIndexValues = new List<int>();
+
+                // create an array of index's to be removed
+                while (testIndexValues.Count < numOfTestImagesPerPerson)
+                {
+                    int numToAdd = randomizer.Next(0, numOfImagesPerPerson);
+                    if (!testIndexValues.Contains(numToAdd))
+                    {
+                        testIndexValues.Add(numToAdd);
+                    }
+                }
+
+                // For future work - Include sub directories here for each of the different test cases stated in test plan
+                // E.G: Illumination, Pose, Scale, etc...
+                // Use these subclasses to define each set of tests with the different test candidates being set in each of
+                // these subclasses, should be passed as an argument for the method
+
+                // go through top level directory for each test person
+                foreach (var directory in Directory.GetDirectories(rootFolderLocation))
+                {
+                    int iter = 0;
+                    foreach (var imageFile in Directory.GetFiles(directory))
+                    {
+                        if (testIndexValues.Contains(iter))
+                        {
+                            testImages.Add(new Image<Gray, byte>(imageFile).Mat);
+                            testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
+                        }
+                        else
+                        {
+                            trainImages.Add(new Image<Gray, byte>(imageFile).Mat);
+                            trainLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
+                        }
+
+                        iter++;
+                    }
                 }
             }
         }
         
-        private static void TrainAndTestRecognizer(FaceRecognizer recognizer, VectorOfMat trainImages, VectorOfInt trainLabels, List<Mat> testImages, List<int> testLabels)
+        private static void TrainAndTimeRecognizer(FaceRecognizer recognizer, VectorOfMat trainImages, VectorOfInt trainLabels)
         {
             // Train the recogniser on the images, and time it using the stopwatch class
             Stopwatch trainingTimer = new Stopwatch();
@@ -107,14 +137,9 @@ namespace TestRunner
             trainingTimer.Stop();
 
             trainingTime = trainingTimer.Elapsed;
-
-            // need to convert test images into a format the predict method accepts
-            var vectorOfTestImages = new VectorOfMat(testImages.ToArray());
-
-            GetTestResults(recognizer, vectorOfTestImages, testLabels);
         }
 
-        private static void GetTestResults(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels)
+        private static void PredictTestData(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels)
         {
             // setting up our counters for correct and incorrect predictions
             int correctAmount = 0, incorrectAmount = 0, totalTestImages = testLabels.Count;
@@ -242,8 +267,7 @@ namespace TestRunner
                     correctFaceNumber.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
                 }
             }
-
-            // TODO: INCLUDE A STOPWATCH TO TIME EACH RUN, MEASURE TIME PERFORMANCE AS WELL AS ACCURACY
+            
             var correctAmount = 0;
             var overPredicted = 0;
             var underPredicted = 0;
@@ -281,10 +305,10 @@ namespace TestRunner
                 }
             }
 
-            var totalTests = imageList.Count;
-            var correctPercentage = (correctAmount / totalTests) * 100;
-            var overPredPerctange = (overPredicted / totalTests) * 100;
-            var underPredPercentage = (underPredicted / totalTests) * 100;
+            var totalTests = correctFaceNumber.Sum();
+            double correctPercentage = (correctAmount / totalTests) * 100;
+            double overPredPerctange = (overPredicted / totalTests) * 100;
+            double underPredPercentage = (underPredicted / totalTests) * 100;
 
             string fileText = "Test results for face detector" + Environment.NewLine;
             fileText += "Total amount of test images: " + totalTests;
