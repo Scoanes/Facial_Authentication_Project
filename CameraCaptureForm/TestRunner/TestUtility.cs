@@ -13,6 +13,7 @@ namespace TestRunner
     {
         // this class is used for calling one-off methods that are needed to populate testing images or
         // ensure they are appropriate for testing (i.e correct size and type)
+        // also includes other small methods for things like file info gathering
 
         public static void TrimImagesToSize(string inputImageRootFolder, string outputImageRootFolder)
         {
@@ -152,6 +153,29 @@ namespace TestRunner
                 indexArray[randomIndex] = indexArray[i];
                 indexArray[i] = temp;
             }
+        }
+
+        public static string GetAzimuthFromYaleFile(string fileName)
+        {
+            return fileName.Split('A', 'E')[1];
+        }
+
+        public static string GetElevationFromYaleFile(string fileName)
+        {
+            return fileName.Split('E')[1];
+        }
+
+        public static void TryIncAtKeyValue(Dictionary<string, int[]> testResultDictionary, string keyVal, int locationValToInc)
+        {
+            // first off we need to create at key value if it doesn't already exist
+            if (!testResultDictionary.TryGetValue(keyVal, out int[] valueTest))
+            {
+                valueTest = new int[3];
+                testResultDictionary.Add(keyVal, valueTest);
+            }
+
+            // now it is created, we can incremement the index value
+            testResultDictionary[keyVal][locationValToInc]++;
         }
     }
 }

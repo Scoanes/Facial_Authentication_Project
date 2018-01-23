@@ -16,10 +16,6 @@ namespace TestRunner
     public class TestRunner
     {
         private static string testImagesRootFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestImages");
-        //private static int numOfTestImagesPerPerson = 5;
-        //private static int numOfImagesPerPerson = 15;
-        //private static int numOfTrainImagesPerPerson = numOfImagesPerPerson - numOfTestImagesPerPerson;
-        //private static int numOfDifferentTestPeople = Directory.GetDirectories(testImagesRootFolder).Length;
 
         // Stopwatch times for training/testing
         private static TimeSpan trainingTime;
@@ -30,7 +26,7 @@ namespace TestRunner
             // create the recogniser objects
             FaceRecognizer eigenfaceRecognizer = new EigenFaceRecognizer();
 
-            TestCaseRunner(eigenfaceRecognizer, "Pose");
+            TestCaseRunner(eigenfaceRecognizer, "Illumination");
 
             // TEMP!
             //KFoldParamterTesting(trimmedTestImagesRootFolder, 10, 0.95);
@@ -58,9 +54,10 @@ namespace TestRunner
             var trainingLabels = new List<int>();
             var testImages = new List<Mat>();
             var testLabels = new List<int>();
+            var testImageNames = new List<string>();
 
             // here we get the images and labels for the training and testing, already spit randomly
-            GetAllTrainingAndTestData(testCaseRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, trainingLocations, testingLocations);
+            GetAllTrainingAndTestData(testCaseRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, ref testImageNames, trainingLocations, testingLocations);
 
             // need to convert both of these into a datatype the Train method accepts
             var vectorOfTrainingImages = new VectorOfMat(trainingImages.ToArray());
@@ -70,13 +67,20 @@ namespace TestRunner
             // call general function that deals with the testing of each of the FaceRecognizer sub classes
             TrainAndTimeRecognizer(recognizer, vectorOfTrainingImages, vectorOfTrainingLabels);
 
-            // Now we test the trained recognizer on the test images
-            PredictTestData(recognizer, vectorOfTestImages, testLabels, testCaseRootFolder);
+            if(testCase == "Illumination")
+            {
+                PredictTestDataIllumination(recognizer, vectorOfTestImages, testLabels, testImageNames, testCaseRootFolder);
+            }
+            else
+            {
+                // Now we test the trained recognizer on the test images
+                PredictTestData(recognizer, vectorOfTestImages, testLabels, testCaseRootFolder);
+            }
         }
 
         // have to use Mat rather than Image, Emgu doesn't do image dimensions properly with image but does with Mat
-        private static void GetAllTrainingAndTestData(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels, 
-            string[] specificTrainDirs, string[] specificTestDirs)
+        private static void GetAllTrainingAndTestData(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels,
+            ref List<string> testImageNames, string[] specificTrainDirs, string[] specificTestDirs)
         {
             // go through top level directory for each test person in the train directory
             foreach (var trainDir in specificTrainDirs)
@@ -100,6 +104,7 @@ namespace TestRunner
                     {
                         testImages.Add(new Image<Gray, byte>(imageFile).Mat);
                         testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
+                        testImageNames.Add(Path.GetFileName(imageFile));
                     }
                 }
             }
@@ -161,6 +166,7 @@ namespace TestRunner
             trainingTime = trainingTimer.Elapsed;
         }
 
+        // all different prediction methods
         private static void PredictTestData(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels, string testDirectory)
         {
             // setting up our counters for correct and incorrect predictions
@@ -189,6 +195,37 @@ namespace TestRunner
 
             OutputResultsToDisk(recognizer.ToString(), testDirectory, correctAmount, incorrectAmount, totalTestImages);
         }
+
+        private static void PredictTestDataIllumination(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels, List<string> testImageNames, string testDirectory)
+        {
+            var testResults = new Dictionary<string, int[]>();
+            Stopwatch testingTimer = new Stopwatch();
+
+            // Test the Recognizer
+            for (int i = 0; i < vectorOfTestImages.Size; i++)
+            {
+                var fileAzimuth = TestUtility.GetAzimuthFromYaleFile(testImageNames[i]);
+                // get our predicted result
+                testingTimer.Start();
+                var preictionResult = recognizer.Predict(vectorOfTestImages[i]);
+                testingTimer.Stop();
+
+                // if prediction is correct
+                if (preictionResult.Label == testLabels[i])
+                {
+                    TestUtility.TryIncAtKeyValue(testResults, fileAzimuth, 0);
+                }
+                else
+                {
+                    TestUtility.TryIncAtKeyValue(testResults, fileAzimuth, 1);
+                }
+
+                // this should be already created by this point
+                testResults[fileAzimuth][2]++;
+            }
+
+            OutputResultsToDisk(recognizer.ToString(), testDirectory, testLabels.Count, testResults);
+        }
         
         private static void OutputResultsToDisk(string recognizerName, string testDirectory, int correctAmount, int incorrectAmount, int totalTestImages)
         {
@@ -199,10 +236,6 @@ namespace TestRunner
             // output results to a file on disk
             string fileText = "Test results for recognizer: " + recognizerName + Environment.NewLine;
             fileText += "Test results on the following directory of test images: " + testDirectory + Environment.NewLine;
-            //fileText += "Total number of images in directory: " + (numOfDifferentTestPeople * numOfImagesPerPerson) +
-            //    " Spread across " + numOfDifferentTestPeople + " different test subjects" + Environment.NewLine;
-            //fileText += "Total number of training images used for each person: " + numOfTrainImagesPerPerson + Environment.NewLine;
-            //fileText += "Total number of test images used for each person: " + numOfTestImagesPerPerson + Environment.NewLine;
             fileText += "---------- TEST RESULTS ----------" + Environment.NewLine;
             fileText += "Total elapsed time for training the recogniser: " + trainingTime + Environment.NewLine;
             fileText += "Total elapsed time for predicting all test images: " + testingTime + Environment.NewLine;
@@ -213,7 +246,7 @@ namespace TestRunner
         }
 
         private static void OutputResultsToDisk(string recognizerName, string testLocation, int totalTestImages,
-            List<Tuple<string, int>> testResults)
+            Dictionary<string, int[]> testResults)
         {
             // output results to a file on disk
             string fileText = "Test results for recognizer: " + recognizerName + Environment.NewLine;
@@ -223,10 +256,17 @@ namespace TestRunner
             fileText += "Total elapsed time for predicting all test images: " + testingTime + Environment.NewLine;
 
             // adding each test result to the output file and calculating the percentage
-            foreach(var testResultPair in testResults)
+            // key name of parameter
+            // value[0] correct predictions
+            // value[1] incorrect predictions
+            // value[2] total predictions for this parameter
+            foreach (var testResultPair in testResults)
             {
-                fileText += "Total " + testResultPair.Item1 + ": " + testResultPair.Item2 + " (" + 
-                    (((double)testResultPair.Item2 / totalTestImages) * 100) + "%)" + Environment.NewLine;
+                fileText += "Results for parameter: " + testResultPair.Key + Environment.NewLine;
+                fileText += "Total Correct: " + testResultPair.Value[0] + " (" + 
+                    (((double)testResultPair.Value[0] / testResultPair.Value[2]) * 100) + "%)" + Environment.NewLine;
+                fileText += "Total Incorrect: " + testResultPair.Value[1] + " (" +
+                    (((double)testResultPair.Value[1] / testResultPair.Value[2]) * 100) + "%)" + Environment.NewLine;
             }
 
             File.WriteAllText(Path.Combine(testLocation, "testResults.txt"), fileText);
