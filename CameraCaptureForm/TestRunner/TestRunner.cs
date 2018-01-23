@@ -16,8 +16,8 @@ namespace TestRunner
     public class TestRunner
     {
         private static string testImagesRootFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestImages");
-        private static int numOfTestImagesPerPerson = 5;
-        private static int numOfImagesPerPerson = 15;
+        //private static int numOfTestImagesPerPerson = 5;
+        //private static int numOfImagesPerPerson = 15;
         //private static int numOfTrainImagesPerPerson = numOfImagesPerPerson - numOfTestImagesPerPerson;
         //private static int numOfDifferentTestPeople = Directory.GetDirectories(testImagesRootFolder).Length;
 
@@ -42,6 +42,17 @@ namespace TestRunner
             // Declare the image location by using the testCase name
             var testCaseRootFolder = Path.Combine(testImagesRootFolder, testCase);
 
+            // Declaring the training and testing locations
+            // these are lists incase we want more than 1 folder to be a training location
+            string[] trainingLocations = new string[]
+            {
+                "Training"
+            };
+            string[] testingLocations = new string[]
+            {
+                "Testing"
+            };
+
             // Declare training and testing images/labels
             var trainingImages = new List<Mat>();
             var trainingLabels = new List<int>();
@@ -49,7 +60,7 @@ namespace TestRunner
             var testLabels = new List<int>();
 
             // here we get the images and labels for the training and testing, already spit randomly
-            GetAllTrainingAndTestData(testCaseRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, "Training", "Testing");
+            GetAllTrainingAndTestData(testCaseRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, trainingLocations, testingLocations);
 
             // need to convert both of these into a datatype the Train method accepts
             var vectorOfTrainingImages = new VectorOfMat(trainingImages.ToArray());
@@ -65,13 +76,12 @@ namespace TestRunner
 
         // have to use Mat rather than Image, Emgu doesn't do image dimensions properly with image but does with Mat
         private static void GetAllTrainingAndTestData(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels, 
-            string specificTrainDir = null, string specificTestDir = null)
+            string[] specificTrainDirs, string[] specificTestDirs)
         {
-            // If the method had specified test/train directory
-            if(specificTrainDir != null && specificTestDir != null)
+            // go through top level directory for each test person in the train directory
+            foreach (var trainDir in specificTrainDirs)
             {
-                // go through top level directory for each test person in the train directory
-                foreach (var directory in Directory.GetDirectories(Path.Combine(rootFolderLocation, specificTrainDir)))
+                foreach (var directory in Directory.GetDirectories(Path.Combine(rootFolderLocation, trainDir)))
                 {
                     foreach (var imageFile in Directory.GetFiles(directory))
                     {
@@ -79,9 +89,12 @@ namespace TestRunner
                         trainLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
                     }
                 }
+            }
 
-                // go through top level directory for each test person in the test directory
-                foreach (var directory in Directory.GetDirectories(Path.Combine(rootFolderLocation, specificTestDir)))
+            // go through top level directory for each test person in the test directory
+            foreach (var testDir in specificTestDirs)
+            {
+                foreach (var directory in Directory.GetDirectories(Path.Combine(rootFolderLocation, testDir)))
                 {
                     foreach (var imageFile in Directory.GetFiles(directory))
                     {
@@ -90,42 +103,48 @@ namespace TestRunner
                     }
                 }
             }
-            // if we want a randomized set of test/train images by not specifying a train/test directory
-            else
+        }
+
+        // this is called when you want a random split between training and test data
+        private static void GetAllTrainingAndTestDataRandomly(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels,
+            int numOfTestImagesPerPerson = 5)
+        {
+            // create our randomizer
+            Random randomizer = new Random();
+
+            // go through top level directory for each test person
+            foreach (var directory in Directory.GetDirectories(rootFolderLocation))
             {
-                // create our randomizer
-                Random randomizer = new Random();
+                int iter = 0;
+
+                // we will randomly generate our training/testing values each time, based on how many images per directory
                 List<int> testIndexValues = new List<int>();
+                var totalImages = Directory.GetFiles(directory).Length;
 
                 // create an array of index's to be removed
                 while (testIndexValues.Count < numOfTestImagesPerPerson)
                 {
-                    int numToAdd = randomizer.Next(0, numOfImagesPerPerson);
+                    int numToAdd = randomizer.Next(0, totalImages);
                     if (!testIndexValues.Contains(numToAdd))
                     {
                         testIndexValues.Add(numToAdd);
                     }
                 }
 
-                // go through top level directory for each test person
-                foreach (var directory in Directory.GetDirectories(rootFolderLocation))
+                foreach (var imageFile in Directory.GetFiles(directory))
                 {
-                    int iter = 0;
-                    foreach (var imageFile in Directory.GetFiles(directory))
+                    if (testIndexValues.Contains(iter))
                     {
-                        if (testIndexValues.Contains(iter))
-                        {
-                            testImages.Add(new Image<Gray, byte>(imageFile).Mat);
-                            testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
-                        }
-                        else
-                        {
-                            trainImages.Add(new Image<Gray, byte>(imageFile).Mat);
-                            trainLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
-                        }
-
-                        iter++;
+                        testImages.Add(new Image<Gray, byte>(imageFile).Mat);
+                        testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
                     }
+                    else
+                    {
+                        trainImages.Add(new Image<Gray, byte>(imageFile).Mat);
+                        trainLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
+                    }
+
+                    iter++;
                 }
             }
         }
@@ -170,13 +189,7 @@ namespace TestRunner
 
             OutputResultsToDisk(recognizer.ToString(), testDirectory, correctAmount, incorrectAmount, totalTestImages);
         }
-
-        // Illumination requires a more sophisticated prediction test function, to capture different variables in the test
-        private static void PredictIlluminationTestData(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels)
-        {
-
-        }
-
+        
         private static void OutputResultsToDisk(string recognizerName, string testDirectory, int correctAmount, int incorrectAmount, int totalTestImages)
         {
             // calculate percentages of correct/incorrect predictions
@@ -213,7 +226,7 @@ namespace TestRunner
             foreach(var testResultPair in testResults)
             {
                 fileText += "Total " + testResultPair.Item1 + ": " + testResultPair.Item2 + " (" + 
-                    (double)((testResultPair.Item2 / totalTestImages) * 100) + "%)" + Environment.NewLine;
+                    (((double)testResultPair.Item2 / totalTestImages) * 100) + "%)" + Environment.NewLine;
             }
 
             File.WriteAllText(Path.Combine(testLocation, "testResults.txt"), fileText);
