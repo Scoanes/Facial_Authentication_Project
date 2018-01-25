@@ -24,16 +24,20 @@ namespace TestRunner
         static void Main()
         {
             // create the recogniser objects
-            FaceRecognizer eigenfaceRecognizer = new EigenFaceRecognizer();
+            //EigenfaceAuthenticator eigenfaceRecognizer = new EigenfaceAuthenticator();
+            FaceRecognizer emguEigenfaceRecognizer = new EigenFaceRecognizer();
 
-            TestCaseRunner(eigenfaceRecognizer, "Illumination");
+            //EmguTestCaseRunner(emguEigenfaceRecognizer, "Scale");
+            //EigenfaceTestCaseRunner(eigenfaceRecognizer, "Pose");
 
             // TEMP!
-            //KFoldParamterTesting(trimmedTestImagesRootFolder, 10, 0.95);
+            var testCaseRootFolder = Path.Combine(testImagesRootFolder, "Background_Noise");
+            RecognizerUtility.rootFolder = testCaseRootFolder;
+            KFoldParamterTesting(testCaseRootFolder, 10, 0.45);
         }
 
         // Takes the root directory of the test case, defining what test case it will run
-        public static void TestCaseRunner(FaceRecognizer recognizer, string testCase)
+        public static void EmguTestCaseRunner(FaceRecognizer recognizer, string testCase)
         {
             // Declare the image location by using the testCase name
             var testCaseRootFolder = Path.Combine(testImagesRootFolder, testCase);
@@ -42,11 +46,11 @@ namespace TestRunner
             // these are lists incase we want more than 1 folder to be a training location
             string[] trainingLocations = new string[]
             {
-                "Training"
+                "Group2"
             };
             string[] testingLocations = new string[]
             {
-                "Testing"
+                "Group1"
             };
 
             // Declare training and testing images/labels
@@ -65,16 +69,63 @@ namespace TestRunner
             var vectorOfTestImages = new VectorOfMat(testImages.ToArray());
 
             // call general function that deals with the testing of each of the FaceRecognizer sub classes
-            TrainAndTimeRecognizer(recognizer, vectorOfTrainingImages, vectorOfTrainingLabels);
+            TrainAndTimeEmguRecognizer(recognizer, vectorOfTrainingImages, vectorOfTrainingLabels);
 
             if(testCase == "Illumination")
             {
-                PredictTestDataIllumination(recognizer, vectorOfTestImages, testLabels, testImageNames, testCaseRootFolder);
+                PredictEmguTestDataIllumination(recognizer, vectorOfTestImages, testLabels, testImageNames, testCaseRootFolder);
             }
             else
             {
                 // Now we test the trained recognizer on the test images
-                PredictTestData(recognizer, vectorOfTestImages, testLabels, testCaseRootFolder);
+                PredictEmguTestData(recognizer, vectorOfTestImages, testLabels, testCaseRootFolder);
+            }
+        }
+
+        public static void EigenfaceTestCaseRunner(EigenfaceAuthenticator recognizer, string testCase)
+        {
+            // Declare the image location by using the testCase name
+            var testCaseRootFolder = Path.Combine(testImagesRootFolder, testCase);
+            RecognizerUtility.rootFolder = testCaseRootFolder;
+
+            // Declaring the training and testing locations
+            // these are lists incase we want more than 1 folder to be a training location
+            string[] trainingLocations = new string[]
+            {
+                "Group1"
+            };
+            string[] testingLocations = new string[]
+            {
+                "Group2"
+            };
+
+            // Declare training and testing images/labels
+            var trainingImages = new List<Mat>();
+            var trainingLabels = new List<int>();
+            var testImages = new List<Mat>();
+            var testLabels = new List<int>();
+            var testImageNames = new List<string>();
+
+            // here we get the images and labels for the training and testing, already spit randomly
+            GetAllTrainingAndTestData(testCaseRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, ref testImageNames, trainingLocations, testingLocations);
+
+            // need to convert both of these into a datatype the Train method accepts
+            var vectorOfTrainingImages = TestUtility.ConvertMatToImage(trainingImages);
+            var vectorOfTrainingLabels = TestUtility.ConvertIntToString(trainingLabels);
+            var vectorOfTestImages = TestUtility.ConvertMatToImage(testImages);
+            var newTestLabels = TestUtility.ConvertIntToString(testLabels);
+
+            // call general function that deals with the testing of each of the FaceRecognizer sub classes
+            TrainAndTimeRecognizer(recognizer, vectorOfTrainingImages, vectorOfTrainingLabels);
+
+            if (testCase == "Illumination")
+            {
+                PredictEigenfaceTestDataIllumination(recognizer, vectorOfTestImages, newTestLabels, testImageNames, testCaseRootFolder);
+            }
+            else
+            {
+                // Now we test the trained recognizer on the test images
+                PredictEigenfaceTestData(recognizer, vectorOfTestImages, newTestLabels, testCaseRootFolder);
             }
         }
 
@@ -153,8 +204,9 @@ namespace TestRunner
                 }
             }
         }
-        
-        private static void TrainAndTimeRecognizer(FaceRecognizer recognizer, VectorOfMat trainImages, VectorOfInt trainLabels)
+
+        // ----- Training Functions ----- //
+        private static void TrainAndTimeEmguRecognizer(FaceRecognizer recognizer, VectorOfMat trainImages, VectorOfInt trainLabels)
         {
             // Train the recogniser on the images, and time it using the stopwatch class
             Stopwatch trainingTimer = new Stopwatch();
@@ -166,8 +218,20 @@ namespace TestRunner
             trainingTime = trainingTimer.Elapsed;
         }
 
-        // all different prediction methods
-        private static void PredictTestData(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels, string testDirectory)
+        private static void TrainAndTimeRecognizer(EigenfaceAuthenticator recognizer, List<Image<Gray, byte>> trainImages, List<string> trainLabels)
+        {
+            // Train the recogniser on the images, and time it using the stopwatch class
+            Stopwatch trainingTimer = new Stopwatch();
+
+            trainingTimer.Start();
+            recognizer.TrainEigenfaceAuthenticator(trainImages, trainLabels);
+            trainingTimer.Stop();
+
+            trainingTime = trainingTimer.Elapsed;
+        }
+
+        // ----- Prediction Functions ----- //
+        private static void PredictEmguTestData(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels, string testDirectory)
         {
             // setting up our counters for correct and incorrect predictions
             int correctAmount = 0, incorrectAmount = 0, totalTestImages = testLabels.Count;
@@ -196,7 +260,7 @@ namespace TestRunner
             OutputResultsToDisk(recognizer.ToString(), testDirectory, correctAmount, incorrectAmount, totalTestImages);
         }
 
-        private static void PredictTestDataIllumination(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels, List<string> testImageNames, string testDirectory)
+        private static void PredictEmguTestDataIllumination(FaceRecognizer recognizer, VectorOfMat vectorOfTestImages, List<int> testLabels, List<string> testImageNames, string testDirectory)
         {
             var testResults = new Dictionary<string, int[]>();
             Stopwatch testingTimer = new Stopwatch();
@@ -205,6 +269,7 @@ namespace TestRunner
             for (int i = 0; i < vectorOfTestImages.Size; i++)
             {
                 var fileAzimuth = TestUtility.GetAzimuthFromYaleFile(testImageNames[i]);
+                var fileElevation = TestUtility.GetElevationFromYaleFile(testImageNames[i]);
                 // get our predicted result
                 testingTimer.Start();
                 var preictionResult = recognizer.Predict(vectorOfTestImages[i]);
@@ -214,24 +279,95 @@ namespace TestRunner
                 if (preictionResult.Label == testLabels[i])
                 {
                     TestUtility.TryIncAtKeyValue(testResults, fileAzimuth, 0);
+                    TestUtility.TryIncAtKeyValue(testResults, fileElevation, 0);
                 }
                 else
                 {
                     TestUtility.TryIncAtKeyValue(testResults, fileAzimuth, 1);
+                    TestUtility.TryIncAtKeyValue(testResults, fileElevation, 1);
                 }
 
-                // this should be already created by this point
+                // 'Total' column should be already created by this point
                 testResults[fileAzimuth][2]++;
+                testResults[fileElevation][2]++;
             }
 
+            testingTime = testingTimer.Elapsed;
             OutputResultsToDisk(recognizer.ToString(), testDirectory, testLabels.Count, testResults);
         }
-        
+
+        private static void PredictEigenfaceTestData(EigenfaceAuthenticator recognizer, List<Image<Gray, byte>> vectorOfTestImages, List<string> testLabels, string testDirectory)
+        {
+            // setting up our counters for correct and incorrect predictions
+            int correctAmount = 0, incorrectAmount = 0, totalTestImages = testLabels.Count;
+            Stopwatch testingTimer = new Stopwatch();
+
+            // Test the Recognizer
+            for (int i = 0; i < vectorOfTestImages.Count; i++)
+            {
+                // get our predicted result
+                testingTimer.Start();
+                var preictionResult = recognizer.PredictImage(vectorOfTestImages[i]);
+                testingTimer.Stop();
+
+                // if prediction is correct
+                if (preictionResult == testLabels[i])
+                {
+                    correctAmount++;
+                }
+                else
+                {
+                    incorrectAmount++;
+                }
+            }
+            testingTime = testingTimer.Elapsed;
+
+            OutputResultsToDisk(recognizer.ToString(), testDirectory, correctAmount, incorrectAmount, totalTestImages);
+        }
+
+        private static void PredictEigenfaceTestDataIllumination(EigenfaceAuthenticator recognizer, List<Image<Gray, byte>> vectorOfTestImages, List<string> testLabels, 
+            List<string> testImageNames, string testDirectory)
+        {
+            var testResults = new Dictionary<string, int[]>();
+            Stopwatch testingTimer = new Stopwatch();
+
+            // Test the Recognizer
+            for (int i = 0; i < vectorOfTestImages.Count; i++)
+            {
+                var fileAzimuth = TestUtility.GetAzimuthFromYaleFile(testImageNames[i]);
+                var fileElevation = TestUtility.GetElevationFromYaleFile(testImageNames[i]);
+                // get our predicted result
+                testingTimer.Start();
+                var preictionResult = recognizer.PredictImage(vectorOfTestImages[i]);
+                testingTimer.Stop();
+
+                // if prediction is correct
+                if (preictionResult == testLabels[i])
+                {
+                    TestUtility.TryIncAtKeyValue(testResults, fileAzimuth, 0);
+                    TestUtility.TryIncAtKeyValue(testResults, fileElevation, 0);
+                }
+                else
+                {
+                    TestUtility.TryIncAtKeyValue(testResults, fileAzimuth, 1);
+                    TestUtility.TryIncAtKeyValue(testResults, fileElevation, 1);
+                }
+
+                // 'Total' column should be already created by this point
+                testResults[fileAzimuth][2]++;
+                testResults[fileElevation][2]++;
+            }
+
+            testingTime = testingTimer.Elapsed;
+            OutputResultsToDisk(recognizer.ToString(), testDirectory, testLabels.Count, testResults);
+        }
+
+        // ----- Output results Functions ----- //
         private static void OutputResultsToDisk(string recognizerName, string testDirectory, int correctAmount, int incorrectAmount, int totalTestImages)
         {
             // calculate percentages of correct/incorrect predictions
-            double correctPercentage = (correctAmount / totalTestImages) * 100;
-            double incorrectPercentage = (incorrectAmount / totalTestImages) * 100;
+            double correctPercentage = ((double)correctAmount / totalTestImages) * 100;
+            double incorrectPercentage = ((double)incorrectAmount / totalTestImages) * 100;
 
             // output results to a file on disk
             string fileText = "Test results for recognizer: " + recognizerName + Environment.NewLine;
@@ -272,10 +408,15 @@ namespace TestRunner
             File.WriteAllText(Path.Combine(testLocation, "testResults.txt"), fileText);
         }
 
+        // ----- Other Functions ----- //
         public static void KFoldParamterTesting(string dataRootLocation, int numberOfKFolds, double percentParameterValue)
         {
             // create our authenticator, with the parameter value
             EigenfaceAuthenticator eigenfaceAuth = new EigenfaceAuthenticator(percentParameterValue);
+
+            // Stopwatches
+            Stopwatch trainingStopwatch = new Stopwatch();
+            Stopwatch testingStopwatch = new Stopwatch();
 
             var masterImageList = new List<Image<Gray, byte>>();
             var masterTestLabelsList = new List<string>();
@@ -297,6 +438,7 @@ namespace TestRunner
             var kFoldedLists = TestUtility.GetKFold(randomizedImageList, randomizedLabelList,  ref kFoldedLabels, numberOfKFolds);
 
             int totalCorrect = 0, totalIncorrect = 0;
+            string predictedLabel;
 
             for (int kFoldIter = 0; kFoldIter < numberOfKFolds; kFoldIter++)
             {
@@ -316,13 +458,18 @@ namespace TestRunner
                     }
                 }
 
+                trainingStopwatch.Start();
                 // train the authenticator with the training data
                 eigenfaceAuth.TrainEigenfaceAuthenticator(trainingData, trainingLabels);
+                trainingStopwatch.Stop();
 
                 // test the authenticator with the test data
                 for(int testIter = 0; testIter < testingData.Count; testIter++)
                 {
-                    if (testingLabels[testIter].Equals(eigenfaceAuth.PredictImage(testingData[testIter]))){
+                    testingStopwatch.Start();
+                    predictedLabel = eigenfaceAuth.PredictImage(testingData[testIter]);
+                    testingStopwatch.Stop();
+                    if (testingLabels[testIter].Equals(predictedLabel)){
                         totalCorrect++;
                     }
                     else
@@ -331,6 +478,9 @@ namespace TestRunner
                     }
                 }
             }
+            trainingTime = trainingStopwatch.Elapsed;
+            testingTime = testingStopwatch.Elapsed;
+            OutputResultsToDisk("KFoldTest", dataRootLocation, totalCorrect, totalIncorrect, indexes.Count);
         }
 
         public static void FaceDetectionTesting(string rootFaceDetectionTestLocation, int numberOfNeighbours = 3, double scaleFactor = 1.1)

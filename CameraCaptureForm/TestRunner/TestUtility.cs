@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TestRunner
 {
@@ -162,7 +163,8 @@ namespace TestRunner
 
         public static string GetElevationFromYaleFile(string fileName)
         {
-            return fileName.Split('E')[1];
+            var matches = Regex.Split(fileName, "(E)");
+            return (matches[1] += matches[2]);
         }
 
         public static void TryIncAtKeyValue(Dictionary<string, int[]> testResultDictionary, string keyVal, int locationValToInc)
@@ -176,6 +178,30 @@ namespace TestRunner
 
             // now it is created, we can incremement the index value
             testResultDictionary[keyVal][locationValToInc]++;
+        }
+
+        public static List<Image<Gray, byte>> ConvertMatToImage(List<Mat> matList)
+        {
+            var newList = new List<Image<Gray, byte>>();
+
+            foreach(var matImage in matList)
+            {
+                newList.Add(matImage.ToImage<Gray, byte>());
+            }
+
+            return newList;
+        }
+
+        public static List<string> ConvertIntToString(List<int> intList)
+        {
+            var newList = new List<string>();
+
+            foreach (var matImage in intList)
+            {
+                newList.Add(matImage.ToString());
+            }
+
+            return newList;
         }
     }
 }
