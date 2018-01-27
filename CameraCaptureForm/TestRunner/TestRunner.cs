@@ -42,6 +42,13 @@ namespace TestRunner
             // Declare the image location by using the testCase name
             var testCaseRootFolder = Path.Combine(testImagesRootFolder, testCase);
 
+            // scale test images are of a different dimension so change them here
+            if (testCase == "Scale")
+            {
+                RecognizerUtility.imageHeight = 196;
+                RecognizerUtility.imageWidth = 196;
+            }
+
             // Declaring the training and testing locations
             // these are lists incase we want more than 1 folder to be a training location
             string[] trainingLocations = new string[]
@@ -87,6 +94,13 @@ namespace TestRunner
             // Declare the image location by using the testCase name
             var testCaseRootFolder = Path.Combine(testImagesRootFolder, testCase);
             RecognizerUtility.rootFolder = testCaseRootFolder;
+
+            // scale test images are of a different dimension so change them here
+            if (testCase == "Scale")
+            {
+                RecognizerUtility.imageHeight = 196;
+                RecognizerUtility.imageWidth = 196;
+            }
 
             // Declaring the training and testing locations
             // these are lists incase we want more than 1 folder to be a training location
@@ -409,7 +423,7 @@ namespace TestRunner
         }
 
         // ----- Other Functions ----- //
-        public static void KFoldParamterTesting(string dataRootLocation, int numberOfKFolds, double percentParameterValue)
+        public static void KFoldParamterTesting(string[] testDataLocations, int numberOfKFolds, double percentParameterValue)
         {
             // create our authenticator, with the parameter value
             EigenfaceAuthenticator eigenfaceAuth = new EigenfaceAuthenticator(percentParameterValue);
@@ -422,10 +436,13 @@ namespace TestRunner
             var masterTestLabelsList = new List<string>();
 
             // Get all of the test data
-            foreach(var imageFile in Directory.GetFiles(dataRootLocation, "*.jpg", SearchOption.AllDirectories))
+            foreach(var testDir in testDataLocations)
             {
-                masterImageList.Add(new Image<Gray, byte>(imageFile));
-                masterTestLabelsList.Add(Path.GetFileName(Path.GetDirectoryName(imageFile)));
+                foreach(var imageFile in Directory.GetFiles(testDir, "*.jpg", SearchOption.AllDirectories))
+                {
+                    masterImageList.Add(new Image<Gray, byte>(imageFile));
+                    masterTestLabelsList.Add(Path.GetFileName(Path.GetDirectoryName(imageFile)));
+                }
             }
 
             // randomise the order of the lists
@@ -480,7 +497,7 @@ namespace TestRunner
             }
             trainingTime = trainingStopwatch.Elapsed;
             testingTime = testingStopwatch.Elapsed;
-            OutputResultsToDisk("KFoldTest", dataRootLocation, totalCorrect, totalIncorrect, indexes.Count);
+            OutputResultsToDisk("KFoldTest", testDataLocations[0], totalCorrect, totalIncorrect, indexes.Count);
         }
 
         public static void FaceDetectionTesting(string rootFaceDetectionTestLocation, int numberOfNeighbours = 3, double scaleFactor = 1.1)
@@ -538,9 +555,9 @@ namespace TestRunner
             }
 
             var totalTests = correctFaceNumber.Sum();
-            double correctPercentage = (correctAmount / totalTests) * 100;
-            double overPredPerctange = (overPredicted / totalTests) * 100;
-            double underPredPercentage = (underPredicted / totalTests) * 100;
+            double correctPercentage = ((double)correctAmount / totalTests) * 100;
+            double overPredPerctange = ((double)overPredicted / totalTests) * 100;
+            double underPredPercentage = ((double)underPredicted / totalTests) * 100;
 
             string fileText = "Test results for face detector" + Environment.NewLine;
             fileText += "Total amount of test images: " + totalTests;
