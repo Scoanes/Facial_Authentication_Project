@@ -156,6 +156,37 @@ namespace TestRunner
             }
         }
 
+        public static List<int> GenerateRandomList(int listSize, int maxRange)
+        {
+            // create our randomizer
+            Random randomizer = new Random();
+            List<int> testIndexValues = new List<int>();
+
+            // create an array of index's to be removed
+            while (testIndexValues.Count < listSize)
+            {
+                int numToAdd = randomizer.Next(0, maxRange);
+                if (!testIndexValues.Contains(numToAdd))
+                {
+                    testIndexValues.Add(numToAdd);
+                }
+            }
+
+            return testIndexValues;
+        }
+
+        public static List<string> GetAllDirectoryNames(string folderLocation)
+        {
+            var directoryNames = new List<string>();
+
+            foreach(var directory in Directory.GetDirectories(folderLocation))
+            {
+                directoryNames.Add(Path.GetFileName(directory));
+            }
+
+            return directoryNames;
+        }
+
         public static string GetAzimuthFromYaleFile(string fileName)
         {
             return fileName.Split('A', 'E')[1];

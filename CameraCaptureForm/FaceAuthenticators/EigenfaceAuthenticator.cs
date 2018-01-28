@@ -15,10 +15,12 @@ namespace FaceAuthenticators
         private List<float[]> weightVector;
 
         public double PercentEigenfaceCreated { get; set; }
+        public double Threshold { get; set; }
 
-        public EigenfaceAuthenticator(double percentEigenfaceCreated = 0.95)
+        public EigenfaceAuthenticator(double percentEigenfaceCreated = 0.95, float threshold = float.MaxValue)
         {
             this.PercentEigenfaceCreated = percentEigenfaceCreated;
+            this.Threshold = threshold;
         }
 
         public override string ToString()
@@ -80,7 +82,9 @@ namespace FaceAuthenticators
             // training more than once on the same instance
             faceMatrix.Clear();
             imageLabels.Clear();
-            imageLabels = trainingLabels;
+
+            // have to create new copy of List, so not to copy with reference
+            imageLabels = new List<string>(trainingLabels);
 
             // need to convert the image list to a suitable format
             foreach (var imageFile in facesToTrain)
@@ -142,6 +146,12 @@ namespace FaceAuthenticators
 
             // calculate the euclidean distance from the other weights
             var indexOfName = CalculateClosestVector(imageWeights);
+
+            // if the distance is above the threshold
+            if (indexOfName == -1)
+            {
+                return "Uknown";
+            }
 
             // Return the name of the closest label
             return imageLabels[indexOfName];
@@ -247,6 +257,12 @@ namespace FaceAuthenticators
                     lowestVal = distance;
                     indexOfLowest = i;
                 }
+            }
+
+            // if the distance is greater than the threshold = Uknown user
+            if(lowestVal > Threshold)
+            {
+                return -1;
             }
 
             return indexOfLowest;

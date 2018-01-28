@@ -179,8 +179,6 @@ namespace TestRunner
         private static void GetAllTrainingAndTestDataRandomly(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels,
             int numOfTestImagesPerPerson = 5)
         {
-            // create our randomizer
-            Random randomizer = new Random();
 
             // go through top level directory for each test person
             foreach (var directory in Directory.GetDirectories(rootFolderLocation))
@@ -188,18 +186,9 @@ namespace TestRunner
                 int iter = 0;
 
                 // we will randomly generate our training/testing values each time, based on how many images per directory
-                List<int> testIndexValues = new List<int>();
                 var totalImages = Directory.GetFiles(directory).Length;
 
-                // create an array of index's to be removed
-                while (testIndexValues.Count < numOfTestImagesPerPerson)
-                {
-                    int numToAdd = randomizer.Next(0, totalImages);
-                    if (!testIndexValues.Contains(numToAdd))
-                    {
-                        testIndexValues.Add(numToAdd);
-                    }
-                }
+                var testIndexValues = TestUtility.GenerateRandomList(numOfTestImagesPerPerson, totalImages);
 
                 foreach (var imageFile in Directory.GetFiles(directory))
                 {
@@ -422,8 +411,8 @@ namespace TestRunner
             File.WriteAllText(Path.Combine(testLocation, "testResults.txt"), fileText);
         }
 
-        // ----- Other Functions ----- //
-        public static void KFoldParamterTesting(string[] testDataLocations, int numberOfKFolds, double percentParameterValue)
+        // ----- Other - Specialized - Test Cases ----- //
+        private static void KFoldParamterTesting(string[] testDataLocations, int numberOfKFolds, double percentParameterValue)
         {
             // create our authenticator, with the parameter value
             EigenfaceAuthenticator eigenfaceAuth = new EigenfaceAuthenticator(percentParameterValue);
@@ -444,6 +433,7 @@ namespace TestRunner
                     masterTestLabelsList.Add(Path.GetFileName(Path.GetDirectoryName(imageFile)));
                 }
             }
+            
 
             // randomise the order of the lists
             var indexes = Enumerable.Range(0, masterImageList.Count).ToList();
@@ -500,7 +490,7 @@ namespace TestRunner
             OutputResultsToDisk("KFoldTest", testDataLocations[0], totalCorrect, totalIncorrect, indexes.Count);
         }
 
-        public static void FaceDetectionTesting(string rootFaceDetectionTestLocation, int numberOfNeighbours = 3, double scaleFactor = 1.1)
+        private static void FaceDetectionTesting(string rootFaceDetectionTestLocation, int numberOfNeighbours = 3, double scaleFactor = 1.1)
         {
             // Create the classifier
             CascadeClassifier faceClassifier = new CascadeClassifier(BackendGuiUtility.haarFaceFile);
@@ -568,6 +558,174 @@ namespace TestRunner
             fileText += "Total Under Predicted: " + underPredicted + " (" + underPredPercentage + "%)" + Environment.NewLine;
 
             File.WriteAllText(Path.Combine(rootFaceDetectionTestLocation, "faceDetectionResults.txt"), fileText);
+        }
+
+        private static void EnrolmentTesting(string rootEnrolmentTesting, int totalUnknownUsers, float thresholdValue)
+        {
+            // total set of images from a directory, Randomly select one of them to not be trained on
+            // use that as the 'uknown' test user
+
+            EigenfaceAuthenticator eigenfaceRecognizer = new EigenfaceAuthenticator(threshold: thresholdValue);
+            Random randomizer = new Random();
+
+            RecognizerUtility.rootFolder = rootEnrolmentTesting;
+
+            // get the images
+
+            // Declare training and testing images/labels
+            var trainingImages = new List<Image<Gray, byte>>();
+            var trainingLabels = new List<string>();
+            var testImages = new List<Image<Gray, byte>>();
+            var testLabels = new List<string>();
+
+            int correct = 0, unknownCorrect = 0, incorrect = 0, falseNeg = 0, falsePos = 0, totalUnknownLabels = 0;
+
+            var listOfUniqueLabels = TestUtility.GetAllDirectoryNames(Path.Combine(rootEnrolmentTesting, "Training"));
+            var listOfTrainingLabels = listOfUniqueLabels;
+            var listOfUnknownLabels = new List<string>();
+
+            for(int i = 0; i < totalUnknownUsers; i++)
+            {
+                var indexToRemove = randomizer.Next(listOfTrainingLabels.Count);
+
+                listOfUnknownLabels.Add(listOfTrainingLabels[indexToRemove]);
+                listOfTrainingLabels.RemoveAt(indexToRemove);
+            }
+
+            // here we get all of the training images from the training directory, that aren't in the random list
+            foreach(var dir in Directory.GetDirectories(Path.Combine(rootEnrolmentTesting, "Training")))
+            {
+                // if directory is in the list of training directories
+                if (listOfTrainingLabels.Contains(Path.GetFileName(dir)))
+                {
+                    foreach(var file in Directory.GetFiles(dir))
+                    {
+                        trainingImages.Add(new Image<Gray, byte>(file));
+                        trainingLabels.Add(Path.GetFileName(Path.GetDirectoryName(file)));
+                    }
+                }
+            }
+
+            // populate the test directory
+            foreach (var dir in Directory.GetDirectories(Path.Combine(rootEnrolmentTesting, "Testing")))
+            {
+                foreach (var file in Directory.GetFiles(dir))
+                {
+                    var labelName = Path.GetFileName(Path.GetDirectoryName(file));
+
+                    if (listOfUnknownLabels.Contains(labelName))
+                    {
+                        totalUnknownLabels++;
+                    }
+
+                    testImages.Add(new Image<Gray, byte>(file));
+                    testLabels.Add(labelName);
+                }
+            }
+
+            // train on train images
+            eigenfaceRecognizer.TrainEigenfaceAuthenticator(trainingImages, trainingLabels);
+
+            // test on set of images, with some of them not being trained on
+            for(int i = 0; i < testImages.Count; i++)
+            {
+                var predictionResult = eigenfaceRecognizer.PredictImage(testImages[i]);
+
+                // comapre which ones have been predicted as 'unknown'
+                if (predictionResult == "Uknown")
+                {
+                    // if correctly predicted unknown
+                    if (listOfUnknownLabels.Contains(testLabels[i]))
+                    {
+                        unknownCorrect++;
+                    }
+                    else
+                    {
+                        falseNeg++;
+                    }
+                }
+                else
+                {
+                    if (listOfUnknownLabels.Contains(testLabels[i]))
+                    {
+                        falsePos++;
+                    }
+                    else if(predictionResult == testLabels[i])
+                    {
+                        correct++;
+                    }
+                    else
+                    {
+                        incorrect++;
+                    }
+                }
+            }
+
+            // output these results to disk
+            string fileText = "Test results for First Test Wave" + Environment.NewLine;
+            fileText += "---------- TEST RESULTS ----------" + Environment.NewLine;
+            fileText += "Total Correct: " + correct + " (" + "%)" + Environment.NewLine;
+            fileText += "Total Incorrect: " + incorrect + " ("  + "%)" + Environment.NewLine;
+            fileText += "Total Unknown Correct: " + unknownCorrect + " (" + "%)" + Environment.NewLine;
+            fileText += "Total False Positives: " + falsePos + " (" + "%)" + Environment.NewLine;
+            fileText += "Total False Negatives: " + falseNeg + " (" + "%)" + Environment.NewLine;
+            fileText += "Total Unknown tests: " + totalUnknownLabels + Environment.NewLine;
+            fileText += "Total tests: " + testLabels.Count + " (" + (testLabels.Count - totalUnknownLabels) 
+                + " known tests)" + Environment.NewLine;
+
+            File.WriteAllText(Path.Combine(rootEnrolmentTesting, "testResultsTest1.txt"), fileText);
+
+            // retrain with the user included
+            // here we get all of the training images from the training directory, that aren't in the random list
+            foreach (var dir in Directory.GetDirectories(Path.Combine(rootEnrolmentTesting, "Training")))
+            {
+                // now we only add the images previously left out
+                if (!listOfTrainingLabels.Contains(Path.GetFileName(dir)))
+                {
+                    foreach (var file in Directory.GetFiles(dir))
+                    {
+                        trainingImages.Add(new Image<Gray, byte>(file));
+                        trainingLabels.Add(Path.GetFileName(Path.GetDirectoryName(file)));
+                    }
+                }
+            }
+
+            // retrain and test results
+            eigenfaceRecognizer.TrainEigenfaceAuthenticator(trainingImages, trainingLabels);
+
+            correct = 0; unknownCorrect = 0; incorrect = 0; falseNeg = 0; falsePos = 0;
+
+            for (int i = 0; i < testImages.Count; i++)
+            {
+                var predictionResult = eigenfaceRecognizer.PredictImage(testImages[i]);
+
+                // We should have no unknowns now
+                if (predictionResult == "Uknown")
+                {
+                    falseNeg++;
+                }
+                else
+                {
+                    if (predictionResult == testLabels[i])
+                    {
+                        correct++;
+                    }
+                    else
+                    {
+                        incorrect++;
+                    }
+                }
+            }
+            
+            // output these results to disk
+            string fileText2 = "Test results for First Test Wave" + Environment.NewLine;
+            fileText2 += "---------- TEST RESULTS ----------" + Environment.NewLine;
+            fileText2 += "Total Correct: " + correct + " (" + "%)" + Environment.NewLine;
+            fileText2 += "Total Incorrect: " + incorrect + " (" + "%)" + Environment.NewLine;
+            fileText2 += "Total False Positives: " + falsePos + " (" + "%)" + Environment.NewLine;
+            fileText2 += "Total False Negatives: " + falseNeg + " (" + "%)" + Environment.NewLine;
+
+            File.WriteAllText(Path.Combine(rootEnrolmentTesting, "testResultsTest2.txt"), fileText2);
         }
     }
 }
