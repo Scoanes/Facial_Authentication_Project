@@ -108,5 +108,10 @@ namespace CameraCaptureForm
             // Finally, save the image
             userToEnrol.Save(Path.Combine(filePath, currentCount + ".jpg"));
         }
+
+        public static void SetThreshold(float value)
+        {
+            eigenRecognizer.Threshold = value;
+        }
     }
 }

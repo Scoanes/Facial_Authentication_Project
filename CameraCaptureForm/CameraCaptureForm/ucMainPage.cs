@@ -80,5 +80,10 @@ namespace CameraCaptureForm
             // sets the camera output as the image
             pb_CameraFeed.Image = convertedCapture.Bitmap;
         }
+
+        private void btn_setThreshold_Click(object sender, EventArgs e)
+        {
+            BackendGuiUtility.SetThreshold(tBar_threshold.Value);
+        }
     }
 }
