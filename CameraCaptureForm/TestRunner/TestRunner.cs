@@ -7,7 +7,6 @@ using FaceAuthenticators;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 
@@ -31,9 +30,11 @@ namespace TestRunner
             //EigenfaceTestCaseRunner(eigenfaceRecognizer, "Pose");
 
             // TEMP!
+            /*
             var testCaseRootFolder = Path.Combine(testImagesRootFolder, "Background_Noise");
             RecognizerUtility.rootFolder = testCaseRootFolder;
             KFoldParamterTesting(testCaseRootFolder, 10, 0.45);
+            */
         }
 
         // Takes the root directory of the test case, defining what test case it will run
@@ -67,8 +68,24 @@ namespace TestRunner
             var testLabels = new List<int>();
             var testImageNames = new List<string>();
 
-            // here we get the images and labels for the training and testing, already spit randomly
-            GetAllTrainingAndTestData(testCaseRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, ref testImageNames, trainingLocations, testingLocations);
+            if (testCase == "Base")
+            {
+                testCaseRootFolder = testImagesRootFolder;
+                RecognizerUtility.rootFolder = testCaseRootFolder;
+
+                trainingLocations = new string[]
+                {
+                    Path.Combine(testCaseRootFolder, "Illumination", "Training"),
+                    Path.Combine(testCaseRootFolder, "Pose", "Training")
+                };
+
+                GetAllTrainingAndTestDataRandomly(trainingLocations, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, 3);
+            }
+            else
+            {
+                // here we get the images and labels for the training and testing, already spit randomly
+                GetAllTrainingAndTestData(testCaseRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, ref testImageNames, trainingLocations, testingLocations);
+            }
 
             // need to convert both of these into a datatype the Train method accepts
             var vectorOfTrainingImages = new VectorOfMat(trainingImages.ToArray());
@@ -120,8 +137,25 @@ namespace TestRunner
             var testLabels = new List<int>();
             var testImageNames = new List<string>();
 
-            // here we get the images and labels for the training and testing, already spit randomly
-            GetAllTrainingAndTestData(testCaseRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, ref testImageNames, trainingLocations, testingLocations);
+            if (testCase == "Base")
+            {
+                testCaseRootFolder = testImagesRootFolder;
+                RecognizerUtility.rootFolder = testCaseRootFolder;
+
+                trainingLocations = new string[]
+                {
+                    Path.Combine(testCaseRootFolder, "Illumination", "Training"),
+                    Path.Combine(testCaseRootFolder, "Pose", "Training")
+                };
+                
+                GetAllTrainingAndTestDataRandomly(trainingLocations, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, 3);
+            }
+            else
+            {
+                // here we get the images and labels for the training and testing, already spit randomly
+                GetAllTrainingAndTestData(testCaseRootFolder, ref trainingImages, ref trainingLabels, ref testImages, ref testLabels, ref testImageNames, trainingLocations, testingLocations);
+            }
+            
 
             // need to convert both of these into a datatype the Train method accepts
             var vectorOfTrainingImages = TestUtility.ConvertMatToImage(trainingImages);
@@ -176,34 +210,37 @@ namespace TestRunner
         }
 
         // this is called when you want a random split between training and test data
-        private static void GetAllTrainingAndTestDataRandomly(string rootFolderLocation, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels,
+        private static void GetAllTrainingAndTestDataRandomly(string[] rootFolderLocations, ref List<Mat> trainImages, ref List<int> trainLabels, ref List<Mat> testImages, ref List<int> testLabels,
             int numOfTestImagesPerPerson = 5)
         {
-
-            // go through top level directory for each test person
-            foreach (var directory in Directory.GetDirectories(rootFolderLocation))
+            // loop through the root directories in each of the defined locations
+            foreach(var rootDirectory in rootFolderLocations)
             {
-                int iter = 0;
-
-                // we will randomly generate our training/testing values each time, based on how many images per directory
-                var totalImages = Directory.GetFiles(directory).Length;
-
-                var testIndexValues = TestUtility.GenerateRandomList(numOfTestImagesPerPerson, totalImages);
-
-                foreach (var imageFile in Directory.GetFiles(directory))
+                // go through top level directory for each test person
+                foreach (var directory in Directory.GetDirectories(rootDirectory))
                 {
-                    if (testIndexValues.Contains(iter))
-                    {
-                        testImages.Add(new Image<Gray, byte>(imageFile).Mat);
-                        testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
-                    }
-                    else
-                    {
-                        trainImages.Add(new Image<Gray, byte>(imageFile).Mat);
-                        trainLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
-                    }
+                    int iter = 0;
 
-                    iter++;
+                    // we will randomly generate our training/testing values each time, based on how many images per directory
+                    var totalImages = Directory.GetFiles(directory).Length;
+
+                    var testIndexValues = TestUtility.GenerateRandomList(numOfTestImagesPerPerson, totalImages);
+
+                    foreach (var imageFile in Directory.GetFiles(directory))
+                    {
+                        if (testIndexValues.Contains(iter))
+                        {
+                            testImages.Add(new Image<Gray, byte>(imageFile).Mat);
+                            testLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
+                        }
+                        else
+                        {
+                            trainImages.Add(new Image<Gray, byte>(imageFile).Mat);
+                            trainLabels.Add(Convert.ToInt32(Path.GetFileName(Path.GetDirectoryName(imageFile))));
+                        }
+
+                        iter++;
+                    }
                 }
             }
         }
