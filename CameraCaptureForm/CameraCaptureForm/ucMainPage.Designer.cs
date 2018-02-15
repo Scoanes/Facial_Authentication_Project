@@ -32,6 +32,7 @@
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Stop = new System.Windows.Forms.Button();
             this.lbl_MainTitle = new System.Windows.Forms.Label();
+            this.cbox_AuthSelector = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pb_CameraFeed)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,10 +75,19 @@
             this.lbl_MainTitle.TabIndex = 7;
             this.lbl_MainTitle.Text = "Face Authenticator";
             // 
+            // cbox_AuthSelector
+            // 
+            this.cbox_AuthSelector.FormattingEnabled = true;
+            this.cbox_AuthSelector.Location = new System.Drawing.Point(533, 567);
+            this.cbox_AuthSelector.Name = "cbox_AuthSelector";
+            this.cbox_AuthSelector.Size = new System.Drawing.Size(210, 21);
+            this.cbox_AuthSelector.TabIndex = 8;
+            // 
             // ucMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbox_AuthSelector);
             this.Controls.Add(this.lbl_MainTitle);
             this.Controls.Add(this.btn_Stop);
             this.Controls.Add(this.btn_Start);
@@ -96,5 +106,6 @@
         private System.Windows.Forms.Button btn_Start;
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.Label lbl_MainTitle;
+        private System.Windows.Forms.ComboBox cbox_AuthSelector;
     }
 }

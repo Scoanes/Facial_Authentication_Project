@@ -1,4 +1,5 @@
 ﻿using Emgu.CV;
+using Emgu.CV.Face;
 using Emgu.CV.Structure;
 using System;
 using System.Drawing;
@@ -30,6 +31,12 @@ namespace CameraCaptureForm
             InitializeComponent();
             BackendGuiUtility.eigenRecognizer.TrainEigenfaceAuthenticator();
             pb_CameraFeed.InitialImage = null;
+
+            // adding the authenticators to the combo box
+            cbox_AuthSelector.Items.Add(BackendGuiUtility.eigenRecognizer);
+            cbox_AuthSelector.Items.Add(new EigenFaceRecognizer());
+            cbox_AuthSelector.Items.Add(new FisherFaceRecognizer());
+            cbox_AuthSelector.Items.Add(new LBPHFaceRecognizer());
         }
 
         public void MainPageReset()
