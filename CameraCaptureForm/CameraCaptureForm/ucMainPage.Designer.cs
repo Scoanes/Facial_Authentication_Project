@@ -32,10 +32,7 @@
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Stop = new System.Windows.Forms.Button();
             this.lbl_MainTitle = new System.Windows.Forms.Label();
-            this.tBar_threshold = new System.Windows.Forms.TrackBar();
-            this.btn_setThreshold = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pb_CameraFeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tBar_threshold)).BeginInit();
             this.SuspendLayout();
             // 
             // pb_CameraFeed
@@ -48,7 +45,7 @@
             // 
             // btn_Start
             // 
-            this.btn_Start.Location = new System.Drawing.Point(16, 547);
+            this.btn_Start.Location = new System.Drawing.Point(152, 559);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(111, 35);
             this.btn_Start.TabIndex = 4;
@@ -59,7 +56,7 @@
             // btn_Stop
             // 
             this.btn_Stop.Enabled = false;
-            this.btn_Stop.Location = new System.Drawing.Point(215, 547);
+            this.btn_Stop.Location = new System.Drawing.Point(351, 559);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(111, 35);
             this.btn_Stop.TabIndex = 5;
@@ -77,33 +74,10 @@
             this.lbl_MainTitle.TabIndex = 7;
             this.lbl_MainTitle.Text = "Face Authenticator";
             // 
-            // tBar_threshold
-            // 
-            this.tBar_threshold.Location = new System.Drawing.Point(374, 547);
-            this.tBar_threshold.Maximum = 500000000;
-            this.tBar_threshold.Minimum = 50000000;
-            this.tBar_threshold.Name = "tBar_threshold";
-            this.tBar_threshold.Size = new System.Drawing.Size(372, 45);
-            this.tBar_threshold.TabIndex = 8;
-            this.tBar_threshold.Value = 146250000;
-            // 
-            // btn_setThreshold
-            // 
-            this.btn_setThreshold.Enabled = false;
-            this.btn_setThreshold.Location = new System.Drawing.Point(781, 547);
-            this.btn_setThreshold.Name = "btn_setThreshold";
-            this.btn_setThreshold.Size = new System.Drawing.Size(111, 35);
-            this.btn_setThreshold.TabIndex = 9;
-            this.btn_setThreshold.Text = "Set Threshold";
-            this.btn_setThreshold.UseVisualStyleBackColor = true;
-            this.btn_setThreshold.Click += new System.EventHandler(this.btn_setThreshold_Click);
-            // 
             // ucMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btn_setThreshold);
-            this.Controls.Add(this.tBar_threshold);
             this.Controls.Add(this.lbl_MainTitle);
             this.Controls.Add(this.btn_Stop);
             this.Controls.Add(this.btn_Start);
@@ -111,7 +85,6 @@
             this.Name = "ucMainPage";
             this.Size = new System.Drawing.Size(910, 627);
             ((System.ComponentModel.ISupportInitialize)(this.pb_CameraFeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tBar_threshold)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,7 +96,5 @@
         private System.Windows.Forms.Button btn_Start;
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.Label lbl_MainTitle;
-        private System.Windows.Forms.TrackBar tBar_threshold;
-        private System.Windows.Forms.Button btn_setThreshold;
     }
 }
