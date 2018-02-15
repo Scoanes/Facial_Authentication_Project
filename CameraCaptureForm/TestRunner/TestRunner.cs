@@ -71,7 +71,7 @@ namespace TestRunner
             if (testCase == "Base")
             {
                 testCaseRootFolder = testImagesRootFolder;
-                RecognizerUtility.rootFolder = testCaseRootFolder;
+                RecognizerUtility.rootEnrolImagesFolder = testCaseRootFolder;
 
                 trainingLocations = new string[]
                 {
@@ -110,7 +110,7 @@ namespace TestRunner
         {
             // Declare the image location by using the testCase name
             var testCaseRootFolder = Path.Combine(testImagesRootFolder, testCase);
-            RecognizerUtility.rootFolder = testCaseRootFolder;
+            RecognizerUtility.rootEnrolImagesFolder = testCaseRootFolder;
 
             // scale test images are of a different dimension so change them here
             if (testCase == "Scale")
@@ -140,7 +140,7 @@ namespace TestRunner
             if (testCase == "Base")
             {
                 testCaseRootFolder = testImagesRootFolder;
-                RecognizerUtility.rootFolder = testCaseRootFolder;
+                RecognizerUtility.rootEnrolImagesFolder = testCaseRootFolder;
 
                 trainingLocations = new string[]
                 {
@@ -605,7 +605,7 @@ namespace TestRunner
             EigenfaceAuthenticator eigenfaceRecognizer = new EigenfaceAuthenticator(threshold: thresholdValue);
             Random randomizer = new Random();
 
-            RecognizerUtility.rootFolder = rootEnrolmentTesting;
+            RecognizerUtility.rootEnrolImagesFolder = rootEnrolmentTesting;
 
             // get the images
 

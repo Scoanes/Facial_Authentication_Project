@@ -32,11 +32,11 @@ namespace FaceAuthenticators
         {
             // safety check to ensure the matrix of saved faces is cleared, so no issues occur with 
             // training more than once on the same instance
-            faceMatrix.Clear();
-            imageLabels.Clear();
+            faceMatrix = new List<int[]>(RecognizerUtility.GetTrainingImagesAmount());
+            imageLabels = new List<string>(RecognizerUtility.GetTrainingImagesAmount());
 
             // generate the matrix of image vectors
-            RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootFolder, ref faceMatrix, ref imageLabels);
+            RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootEnrolImagesFolder, ref faceMatrix, ref imageLabels);
 
             // generate the mean or average face
             this.averageFace = RecognizerUtility.GetAverageFace(faceMatrix);
@@ -46,7 +46,7 @@ namespace FaceAuthenticators
                 Bytes = averageFace
             };
 
-            averageFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "AverageFace.jpg"));
+            averageFaceJpeg.Save(Path.Combine(RecognizerUtility.imageOutputFolder, "AverageFace.jpg"));
 
             // minus the average face from each image
             for(int i =0; i < averageFace.Length; i++)
@@ -80,8 +80,8 @@ namespace FaceAuthenticators
         {
             // safety check to ensure the matrix of saved faces is cleared, so no issues occur with 
             // training more than once on the same instance
-            faceMatrix.Clear();
-            imageLabels.Clear();
+            faceMatrix = new List<int[]>(facesToTrain.Capacity);
+            imageLabels = new List<string>(facesToTrain.Capacity);
 
             // have to create new copy of List, so not to copy with reference
             imageLabels = new List<string>(trainingLabels);
@@ -100,7 +100,7 @@ namespace FaceAuthenticators
                 Bytes = averageFace
             };
 
-            averageFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "AverageFace.jpg"));
+            averageFaceJpeg.Save(Path.Combine(RecognizerUtility.imageOutputFolder, "AverageFace.jpg"));
 
             // minus the average face from each image
             for (int i = 0; i < averageFace.Length; i++)
@@ -206,7 +206,7 @@ namespace FaceAuthenticators
                     Bytes = Array.ConvertAll(eigenFaceVector, item => (byte)item)
                 };
 
-                eigenFaceJpeg.Save(Path.Combine(RecognizerUtility.rootFolder, "EigenFace" + counter + ".jpg"));
+                eigenFaceJpeg.Save(Path.Combine(RecognizerUtility.imageOutputFolder, "EigenFace" + counter + ".jpg"));
                 counter++;
             }
 
@@ -215,8 +215,8 @@ namespace FaceAuthenticators
 
         private List<float[]> CalculateWeightMatrix(List<int[]> normalizedFaceMatrix)
         {
-            List<float[]> weightMatrix = new List<float[]>();
             int[][] normalizedMatrix = normalizedFaceMatrix.ToArray();
+            List<float[]> weightMatrix = new List<float[]>(normalizedMatrix.Length);
 
             // loop though each (normalized) training image and multiply it with each eigenface to generate our weights
             for(int i = 0; i < normalizedMatrix.Length; i++)

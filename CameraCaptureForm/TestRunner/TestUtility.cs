@@ -213,7 +213,7 @@ namespace TestRunner
 
         public static List<Image<Gray, byte>> ConvertMatToImage(List<Mat> matList)
         {
-            var newList = new List<Image<Gray, byte>>();
+            var newList = new List<Image<Gray, byte>>(matList.Capacity);
 
             foreach(var matImage in matList)
             {
@@ -225,7 +225,7 @@ namespace TestRunner
 
         public static List<string> ConvertIntToString(List<int> intList)
         {
-            var newList = new List<string>();
+            var newList = new List<string>(intList.Capacity);
 
             foreach (var matImage in intList)
             {

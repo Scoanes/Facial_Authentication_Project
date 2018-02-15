@@ -11,7 +11,8 @@ namespace FaceAuthenticators
         // Emgu CV requires these to be divisible by 4
         public static int imageHeight = 300;
         public static int imageWidth = 252;
-        public static string rootFolder = @"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation";
+        public static string rootEnrolImagesFolder = @"C:\Users\RockInTheBox\Documents\University\Project\TestEnrolLocation";
+        public static string imageOutputFolder = @"C:\Users\RockInTheBox\Documents\University\Project\Output";
 
         public static void GetAllImageVectorsAndLabels(string folderLocation, ref List<int[]> faceMatrix, ref List<string> faceLabels)
         {
@@ -80,6 +81,11 @@ namespace FaceAuthenticators
             }
             int averagePixelValue = totalValue / arrays.Length;
             return (byte)averagePixelValue;
+        }
+
+        public static int GetTrainingImagesAmount()
+        {
+            return (Directory.GetFiles(rootEnrolImagesFolder, "*.jpg", SearchOption.AllDirectories).Length);
         }
 
         public static float[,] CreateCovarianceMatrix(List<int[]> matrix)

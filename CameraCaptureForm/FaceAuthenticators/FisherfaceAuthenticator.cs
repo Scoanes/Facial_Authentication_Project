@@ -25,7 +25,7 @@ namespace FaceAuthenticators
         public void TrainFisherfaceAuthenticator()
         {
             // get all the vectorised images and class labels
-            RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootFolder, ref faceMatrix, ref classLabels);
+            RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootEnrolImagesFolder, ref faceMatrix, ref classLabels);
 
             // generate global mean image
             averageFace = RecognizerUtility.GetAverageFace(faceMatrix);
