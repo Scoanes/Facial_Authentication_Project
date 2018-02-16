@@ -264,7 +264,7 @@ namespace TestRunner
             Stopwatch trainingTimer = new Stopwatch();
 
             trainingTimer.Start();
-            recognizer.TrainEigenfaceAuthenticator(trainImages, trainLabels);
+            recognizer.TrainAuthenticator(trainImages, trainLabels);
             trainingTimer.Stop();
 
             trainingTime = trainingTimer.Elapsed;
@@ -504,7 +504,7 @@ namespace TestRunner
 
                 trainingStopwatch.Start();
                 // train the authenticator with the training data
-                eigenfaceAuth.TrainEigenfaceAuthenticator(trainingData, trainingLabels);
+                eigenfaceAuth.TrainAuthenticator(trainingData, trainingLabels);
                 trainingStopwatch.Stop();
 
                 // test the authenticator with the test data
@@ -661,7 +661,7 @@ namespace TestRunner
             }
 
             // train on train images
-            eigenfaceRecognizer.TrainEigenfaceAuthenticator(trainingImages, trainingLabels);
+            eigenfaceRecognizer.TrainAuthenticator(trainingImages, trainingLabels);
 
             // test on set of images, with some of them not being trained on
             for(int i = 0; i < testImages.Count; i++)
@@ -728,7 +728,7 @@ namespace TestRunner
             }
 
             // retrain and test results
-            eigenfaceRecognizer.TrainEigenfaceAuthenticator(trainingImages, trainingLabels);
+            eigenfaceRecognizer.TrainAuthenticator(trainingImages, trainingLabels);
 
             correct = 0; unknownCorrect = 0; incorrect = 0; falseNeg = 0; falsePos = 0;
 

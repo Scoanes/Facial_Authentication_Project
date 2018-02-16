@@ -1,5 +1,7 @@
 ﻿using Emgu.CV;
+using Emgu.CV.Face;
 using Emgu.CV.Structure;
+using Emgu.CV.Util;
 using FaceAuthenticators;
 using System;
 using System.Drawing;
@@ -12,6 +14,11 @@ namespace CameraCaptureForm
         // Declaring constants
         public static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
         public static EigenfaceAuthenticator eigenRecognizer = new EigenfaceAuthenticator();
+
+        // Define our authenticators here
+        private static bool isOwnAuthenticator;
+        private static FaceRecognizer emguAuthenticator;
+        private static IOwnAuthenticators ownAuthenticator;
 
         // Creating classifiers here
         static CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
@@ -93,7 +100,7 @@ namespace CameraCaptureForm
                 Bitmap = userImage
             };
 
-            var filePath = Path.Combine(RecognizerUtility.rootFolder, userName.ToLower());
+            var filePath = Path.Combine(RecognizerUtility.rootEnrolImagesFolder, userName.ToLower());
 
             // check to see if the user already has a folder, creates one if not
             if (!Directory.Exists(filePath))
@@ -107,6 +114,41 @@ namespace CameraCaptureForm
 
             // Finally, save the image
             userToEnrol.Save(Path.Combine(filePath, currentCount + ".jpg"));
+        }
+
+        public static void SetAuthenticator(object authenticator)
+        {
+            // if the object being passed is emgu
+            if (authenticator.ToString().Contains("Emgu"))
+            {
+                isOwnAuthenticator = false;
+                emguAuthenticator = (FaceRecognizer) authenticator;
+            }
+            // if the authenticator is our own type
+            else
+            {
+                // cast to our own type here for use
+                isOwnAuthenticator = true;
+                ownAuthenticator = (IOwnAuthenticators)authenticator;
+            }
+        }
+
+        private static string GetAuthenticatorPrediction(Image<Gray, byte> faceImage)
+        {
+            if (isOwnAuthenticator)
+            {
+                return ownAuthenticator.PredictImage(faceImage);
+            }
+            else
+            {
+                // have to convert to a list of Mat, to then convert to VectorOfMat datatype...
+                Mat[] convertedImage = new Mat[1]
+                {
+                    faceImage.Mat
+                };
+                var imageVector = new VectorOfMat(convertedImage);
+                emguAuthenticator.Predict(imageVector);
+            }
         }
     }
 }

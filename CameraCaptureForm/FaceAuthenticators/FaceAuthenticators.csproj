@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="EigenfaceAuthenticator.cs" />
     <Compile Include="FisherfaceAuthenticator.cs" />
+    <Compile Include="IOwnAuthenticators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecognizerUtility.cs" />
   </ItemGroup>

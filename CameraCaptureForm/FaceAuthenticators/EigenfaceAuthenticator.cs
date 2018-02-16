@@ -6,7 +6,7 @@ using System.IO;
 
 namespace FaceAuthenticators
 {
-    public class EigenfaceAuthenticator
+    public class EigenfaceAuthenticator : IOwnAuthenticators
     {
         private byte[] averageFace;
         private List<string> imageLabels = new List<string>();
@@ -28,7 +28,7 @@ namespace FaceAuthenticators
             return "Eigenface Recognizer - Own Implementation";
         }
 
-        public void TrainEigenfaceAuthenticator()
+        public void TrainAuthenticator()
         {
             // safety check to ensure the matrix of saved faces is cleared, so no issues occur with 
             // training more than once on the same instance
@@ -76,7 +76,7 @@ namespace FaceAuthenticators
             this.weightVector = CalculateWeightMatrix(faceMatrix);
         }
 
-        public void TrainEigenfaceAuthenticator(List<Image<Gray, byte>> facesToTrain, List<string> trainingLabels)
+        public void TrainAuthenticator(List<Image<Gray, byte>> facesToTrain, List<string> trainingLabels)
         {
             // safety check to ensure the matrix of saved faces is cleared, so no issues occur with 
             // training more than once on the same instance

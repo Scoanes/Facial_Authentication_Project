@@ -33,6 +33,7 @@
             this.btn_Stop = new System.Windows.Forms.Button();
             this.lbl_MainTitle = new System.Windows.Forms.Label();
             this.cbox_AuthSelector = new System.Windows.Forms.ComboBox();
+            this.btn_ChooseAuth = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pb_CameraFeed)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,15 +79,28 @@
             // cbox_AuthSelector
             // 
             this.cbox_AuthSelector.FormattingEnabled = true;
-            this.cbox_AuthSelector.Location = new System.Drawing.Point(533, 567);
+            this.cbox_AuthSelector.Location = new System.Drawing.Point(521, 567);
             this.cbox_AuthSelector.Name = "cbox_AuthSelector";
             this.cbox_AuthSelector.Size = new System.Drawing.Size(210, 21);
             this.cbox_AuthSelector.TabIndex = 8;
+            this.cbox_AuthSelector.Tag = "";
+            // 
+            // btn_ChooseAuth
+            // 
+            this.btn_ChooseAuth.Enabled = false;
+            this.btn_ChooseAuth.Location = new System.Drawing.Point(769, 559);
+            this.btn_ChooseAuth.Name = "btn_ChooseAuth";
+            this.btn_ChooseAuth.Size = new System.Drawing.Size(123, 35);
+            this.btn_ChooseAuth.TabIndex = 9;
+            this.btn_ChooseAuth.Text = "Choose Authenticator";
+            this.btn_ChooseAuth.UseVisualStyleBackColor = true;
+            this.btn_ChooseAuth.Click += new System.EventHandler(this.btn_ChooseAuth_Click);
             // 
             // ucMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_ChooseAuth);
             this.Controls.Add(this.cbox_AuthSelector);
             this.Controls.Add(this.lbl_MainTitle);
             this.Controls.Add(this.btn_Stop);
@@ -107,5 +121,6 @@
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.Label lbl_MainTitle;
         private System.Windows.Forms.ComboBox cbox_AuthSelector;
+        private System.Windows.Forms.Button btn_ChooseAuth;
     }
 }

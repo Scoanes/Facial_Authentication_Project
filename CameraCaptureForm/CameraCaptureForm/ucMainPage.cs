@@ -29,7 +29,7 @@ namespace CameraCaptureForm
         public ucMainPage()
         {
             InitializeComponent();
-            BackendGuiUtility.eigenRecognizer.TrainEigenfaceAuthenticator();
+            BackendGuiUtility.eigenRecognizer.TrainAuthenticator();
             pb_CameraFeed.InitialImage = null;
 
             // adding the authenticators to the combo box
@@ -72,6 +72,11 @@ namespace CameraCaptureForm
         private void btn_Stop_Click(object sender, EventArgs e)
         {
             MainPageReset();
+        }
+
+        private void btn_ChooseAuth_Click(object sender, EventArgs e)
+        {
+            BackendGuiUtility.SetAuthenticator(cbox_AuthSelector.SelectedItem);
         }
 
         private void CameraCapture_ImageGrabbed(object sender, EventArgs e)
