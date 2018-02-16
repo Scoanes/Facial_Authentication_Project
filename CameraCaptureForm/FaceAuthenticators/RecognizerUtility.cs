@@ -1,5 +1,6 @@
 ﻿using Emgu.CV;
 using Emgu.CV.Structure;
+using Emgu.CV.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +35,29 @@ namespace FaceAuthenticators
                     faceLabels.Add(Path.GetFileName(Path.GetDirectoryName(file)));
                 }
             }
+        }
+
+        // this is for the Emgu training
+        public static void GetAllImageVectorsAndLabels(string folderLocation, ref VectorOfMat faceVector, ref List<string> faceLabels, ref VectorOfInt indexLocations)
+        {
+            // Decided to keep the vector and label grabbing in 1 method, so no chance of mismatch of order
+            int iter = 0;
+            int[] iterCounter = new int[GetTrainingImagesAmount()];
+
+            // loop through the root directory and get images from each folder, using the folder as the name
+            foreach (var directory in Directory.GetDirectories(folderLocation))
+            {
+                // loop through the directory getting each file
+                foreach (var file in Directory.GetFiles(directory))
+                {
+                    faceVector.Push(new Mat(file));
+                    faceLabels.Add(Path.GetFileName(Path.GetDirectoryName(file)));
+                    iterCounter[iter] = iter++;
+                }
+            }
+
+            // for some reason this would only accept an int array, not a single int
+            indexLocations.Push(iterCounter);
         }
 
         public static int[] ImageToVector(Image<Gray, byte> imageToConvert)
@@ -199,13 +223,6 @@ namespace FaceAuthenticators
                 totalValue += (column[i] * row[i]);
             }
 
-            /*
-            // TODO: Check this is correct
-            if (totalValue < 0)
-            {
-                totalValue = Math.Abs(totalValue);
-            }
-            */
             return totalValue;
         }
     }
