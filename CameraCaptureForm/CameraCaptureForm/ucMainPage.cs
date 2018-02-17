@@ -39,10 +39,10 @@ namespace CameraCaptureForm
             cbox_AuthSelector.Items.Add(new LBPHFaceRecognizer());
 
             // set the default recognizer - fisherface for now
-            BackendGuiUtility.SetAndTrainAuthenticator(cbox_AuthSelector.Items[2]);
+            BackendGuiUtility.SetAndTrainAuthenticator(cbox_AuthSelector.Items[1]);
 
             // and set the combobox to select the default authenticator
-            cbox_AuthSelector.SelectedItem = cbox_AuthSelector.Items[2];
+            cbox_AuthSelector.SelectedItem = cbox_AuthSelector.Items[1];
         }
 
         public void MainPageReset()
@@ -73,11 +73,14 @@ namespace CameraCaptureForm
 
             btn_Start.Enabled = false;
             btn_Stop.Enabled = true;
+            btn_ChooseAuth.Enabled = false;
         }
 
         private void btn_Stop_Click(object sender, EventArgs e)
         {
             MainPageReset();
+
+            btn_ChooseAuth.Enabled = true;
         }
 
         private void btn_ChooseAuth_Click(object sender, EventArgs e)
