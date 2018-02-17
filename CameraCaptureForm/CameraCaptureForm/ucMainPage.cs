@@ -29,7 +29,7 @@ namespace CameraCaptureForm
         public ucMainPage()
         {
             InitializeComponent();
-            BackendGuiUtility.eigenRecognizer.TrainAuthenticator();
+            //BackendGuiUtility.eigenRecognizer.TrainAuthenticator();
             pb_CameraFeed.InitialImage = null;
 
             // adding the authenticators to the combo box
@@ -37,6 +37,12 @@ namespace CameraCaptureForm
             cbox_AuthSelector.Items.Add(new EigenFaceRecognizer());
             cbox_AuthSelector.Items.Add(new FisherFaceRecognizer());
             cbox_AuthSelector.Items.Add(new LBPHFaceRecognizer());
+
+            // set the default recognizer - fisherface for now
+            BackendGuiUtility.SetAndTrainAuthenticator(cbox_AuthSelector.Items[2]);
+
+            // and set the combobox to select the default authenticator
+            cbox_AuthSelector.SelectedItem = cbox_AuthSelector.Items[2];
         }
 
         public void MainPageReset()
@@ -76,7 +82,7 @@ namespace CameraCaptureForm
 
         private void btn_ChooseAuth_Click(object sender, EventArgs e)
         {
-            BackendGuiUtility.SetAuthenticator(cbox_AuthSelector.SelectedItem);
+            BackendGuiUtility.SetAndTrainAuthenticator(cbox_AuthSelector.SelectedItem);
         }
 
         private void CameraCapture_ImageGrabbed(object sender, EventArgs e)

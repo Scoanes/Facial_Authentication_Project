@@ -21,6 +21,11 @@ namespace CameraCaptureForm
         private static FaceRecognizer emguAuthenticator;
         private static IOwnAuthenticators ownAuthenticator;
 
+        // Declare these for the Emgu authenticators
+        private static VectorOfMat faceVector;
+        private static List<string> faceLabels;
+        private static VectorOfInt indexLocations;
+
         // Creating classifiers here
         static CascadeClassifier faceClassifier = new CascadeClassifier(haarFaceFile);
 
@@ -63,7 +68,7 @@ namespace CameraCaptureForm
 
                 // Copy the image from the feed into the recognizer and get the predicted name
                 cameraCapture.ROI = allFaces[i];
-                var nameToDisplay = eigenRecognizer.PredictImage(cameraCapture.Clone().Convert<Gray, byte>());
+                var nameToDisplay = GetAuthenticatorPrediction(cameraCapture.Clone().Convert<Gray, byte>());
                 CvInvoke.cvResetImageROI(cameraCapture);
 
                 // Display the name of the prediction
@@ -117,7 +122,7 @@ namespace CameraCaptureForm
             userToEnrol.Save(Path.Combine(filePath, currentCount + ".jpg"));
         }
 
-        public static void SetAuthenticator(object authenticator)
+        public static void SetAndTrainAuthenticator(object authenticator)
         {
             // if the object being passed is emgu
             if (authenticator.ToString().Contains("Emgu"))
@@ -125,9 +130,12 @@ namespace CameraCaptureForm
                 isOwnAuthenticator = false;
                 emguAuthenticator = (FaceRecognizer) authenticator;
 
-                VectorOfMat faceVector = new VectorOfMat();
-                List<string> faceLabels = new List<string>(RecognizerUtility.GetTrainingImagesAmount());
-                VectorOfInt indexLocations = new VectorOfInt();
+                var totalImages = RecognizerUtility.GetTrainingImagesAmount();
+
+                // assinging size here for sake of speed
+                VectorOfMat faceVector = new VectorOfMat(totalImages);
+                List<string> faceLabels = new List<string>(totalImages);
+                VectorOfInt indexLocations = new VectorOfInt(totalImages);
 
                 RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootEnrolImagesFolder, ref faceVector, ref faceLabels, ref indexLocations);
 
@@ -164,6 +172,8 @@ namespace CameraCaptureForm
 
                 // and even then, prediction does not support string datatype, so will only be int, signifying the index value
                 var indexValue = emguAuthenticator.Predict(imageVector);
+
+                return faceLabels[indexValue.Label];
             }
         }
     }
