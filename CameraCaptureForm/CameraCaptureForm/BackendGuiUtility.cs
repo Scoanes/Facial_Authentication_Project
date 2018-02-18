@@ -16,6 +16,9 @@ namespace CameraCaptureForm
         public static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
         public static EigenfaceAuthenticator eigenRecognizer = new EigenfaceAuthenticator();
 
+        // keep track of total images here
+        public static int totalImages = 0;
+
         // Define our authenticators here
         private static bool isOwnAuthenticator;
         private static FaceRecognizer emguAuthenticator;
@@ -122,6 +125,14 @@ namespace CameraCaptureForm
             userToEnrol.Save(Path.Combine(filePath, currentCount + ".jpg"));
         }
 
+        // this should be called at startup and when a new user is enrolled
+        // the only other time the training images will be called to check properly is when
+        // the authenticators are training
+        public static void UpdateTotalImages()
+        {
+            totalImages = RecognizerUtility.GetTrainingImagesAmount();
+        }
+
         public static void SetAndTrainAuthenticator(object authenticator)
         {
             // if the object being passed is emgu
@@ -129,8 +140,6 @@ namespace CameraCaptureForm
             {
                 isOwnAuthenticator = false;
                 emguAuthenticator = (FaceRecognizer) authenticator;
-
-                var totalImages = RecognizerUtility.GetTrainingImagesAmount();
 
                 // assinging size here for sake of speed
                 faceVector = new Mat[totalImages];

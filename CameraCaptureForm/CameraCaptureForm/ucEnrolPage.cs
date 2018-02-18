@@ -90,6 +90,8 @@ namespace CameraCaptureForm
             var faceImage = BackendGuiUtility.GetFaceFromFeed(count, facesFromFrame);
 
             BackendGuiUtility.SaveUserImage(faceImage, tBox_UserName.Text);
+
+            BackendGuiUtility.UpdateTotalImages();
         }
 
         private void btn_NextFace_Click(object sender, EventArgs e)

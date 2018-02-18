@@ -1,6 +1,7 @@
 ﻿using Emgu.CV;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
+using FaceAuthenticators;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -29,8 +30,9 @@ namespace CameraCaptureForm
         public ucMainPage()
         {
             InitializeComponent();
-            //BackendGuiUtility.eigenRecognizer.TrainAuthenticator();
             pb_CameraFeed.InitialImage = null;
+
+            BackendGuiUtility.UpdateTotalImages();
 
             // adding the authenticators to the combo box
             cbox_AuthSelector.Items.Add(BackendGuiUtility.eigenRecognizer);
@@ -85,7 +87,14 @@ namespace CameraCaptureForm
 
         private void btn_ChooseAuth_Click(object sender, EventArgs e)
         {
-            BackendGuiUtility.SetAndTrainAuthenticator(cbox_AuthSelector.SelectedItem);
+            if(BackendGuiUtility.totalImages < 2)
+            {
+                MessageBox.Show("Not enough training images, enrol more users", "Not Enough training images", MessageBoxButtons.OK);
+            }
+            else
+            {
+                BackendGuiUtility.SetAndTrainAuthenticator(cbox_AuthSelector.SelectedItem);
+            }
         }
 
         private void CameraCapture_ImageGrabbed(object sender, EventArgs e)

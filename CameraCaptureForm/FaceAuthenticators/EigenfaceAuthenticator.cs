@@ -32,8 +32,9 @@ namespace FaceAuthenticators
         {
             // safety check to ensure the matrix of saved faces is cleared, so no issues occur with 
             // training more than once on the same instance
-            faceMatrix = new List<int[]>(RecognizerUtility.GetTrainingImagesAmount());
-            imageLabels = new List<string>(RecognizerUtility.GetTrainingImagesAmount());
+            var totalImages = RecognizerUtility.GetTrainingImagesAmount();
+            faceMatrix = new List<int[]>(totalImages);
+            imageLabels = new List<string>(totalImages);
 
             // generate the matrix of image vectors
             RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootEnrolImagesFolder, ref faceMatrix, ref imageLabels);
