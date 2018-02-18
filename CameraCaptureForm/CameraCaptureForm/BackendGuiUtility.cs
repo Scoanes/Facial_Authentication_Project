@@ -18,6 +18,7 @@ namespace CameraCaptureForm
 
         // keep track of total images here
         public static int totalImages = 0;
+        private static bool isTrained = false;
 
         // Define our authenticators here
         private static bool isOwnAuthenticator;
@@ -161,28 +162,37 @@ namespace CameraCaptureForm
                 // train the authenticator
                 ownAuthenticator.TrainAuthenticator();
             }
+
+            isTrained = true;
         }
 
         private static string GetAuthenticatorPrediction(Image<Gray, byte> faceImage)
         {
-            if (isOwnAuthenticator)
+            if (isTrained)
             {
-                // much simpler
-                return ownAuthenticator.PredictImage(faceImage);
+                if (isOwnAuthenticator)
+                {
+                    // much simpler
+                    return ownAuthenticator.PredictImage(faceImage);
+                }
+                else
+                {
+                    // have to convert to a list of Mat, to then convert to VectorOfMat datatype...
+                    Mat[] convertedImage = new Mat[]
+                    {
+                        faceImage.Mat
+                    };
+                    var imageVector = new VectorOfMat(convertedImage);
+
+                    // and even then, prediction does not support string datatype, so will only be int, signifying the index value
+                    var indexValue = emguAuthenticator.Predict(imageVector[0]);
+
+                    return faceLabels[indexValue.Label];
+                }
             }
             else
             {
-                // have to convert to a list of Mat, to then convert to VectorOfMat datatype...
-                Mat[] convertedImage = new Mat[]
-                {
-                    faceImage.Mat
-                };
-                var imageVector = new VectorOfMat(convertedImage);
-
-                // and even then, prediction does not support string datatype, so will only be int, signifying the index value
-                var indexValue = emguAuthenticator.Predict(imageVector[0]);
-
-                return faceLabels[indexValue.Label];
+                return "";
             }
         }
     }

@@ -40,8 +40,12 @@ namespace CameraCaptureForm
             cbox_AuthSelector.Items.Add(new FisherFaceRecognizer());
             cbox_AuthSelector.Items.Add(new LBPHFaceRecognizer());
 
-            // set the default recognizer - fisherface for now
-            BackendGuiUtility.SetAndTrainAuthenticator(cbox_AuthSelector.Items[1]);
+            // safety check to make sure there are enough training images
+            if(BackendGuiUtility.totalImages > 2)
+            {
+                // set the default recognizer - fisherface for now
+                BackendGuiUtility.SetAndTrainAuthenticator(cbox_AuthSelector.Items[1]);
+            }
 
             // and set the combobox to select the default authenticator
             cbox_AuthSelector.SelectedItem = cbox_AuthSelector.Items[1];
