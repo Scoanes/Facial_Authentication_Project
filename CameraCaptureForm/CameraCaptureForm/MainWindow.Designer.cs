@@ -48,7 +48,7 @@
             this.btn_userControlSwitch.UseVisualStyleBackColor = true;
             this.btn_userControlSwitch.Click += new System.EventHandler(this.btn_userControlSwitch_Click);
             // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -56,8 +56,8 @@
             this.Controls.Add(this.btn_userControlSwitch);
             this.Controls.Add(this.pnl_Main);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MainWindow";
+            this.Text = "Facial Authentication Project";
             this.ResumeLayout(false);
 
         }
