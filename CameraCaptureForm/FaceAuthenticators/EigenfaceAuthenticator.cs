@@ -3,6 +3,7 @@ using Emgu.CV.Structure;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace FaceAuthenticators
 {
@@ -16,11 +17,13 @@ namespace FaceAuthenticators
 
         public double PercentEigenfaceCreated { get; set; }
         public double Threshold { get; set; }
+        public int Neighbours { get; set; }
 
-        public EigenfaceAuthenticator(double percentEigenfaceCreated = 0.95, float threshold = float.MaxValue)
+        public EigenfaceAuthenticator(double percentEigenfaceCreated = 0.95, float threshold = float.MaxValue, int neighbours = 1)
         {
             this.PercentEigenfaceCreated = percentEigenfaceCreated;
             this.Threshold = threshold;
+            this.Neighbours = neighbours;
         }
 
         public override string ToString()
@@ -146,16 +149,7 @@ namespace FaceAuthenticators
             var imageWeights = CalculateImageWeights(imageVector);
 
             // calculate the euclidean distance from the other weights
-            var indexOfName = CalculateClosestVector(imageWeights);
-
-            // if the distance is above the threshold
-            if (indexOfName == -1)
-            {
-                return "Uknown";
-            }
-
-            // Return the name of the closest label
-            return imageLabels[indexOfName];
+            return ClassifyWeights(imageWeights);
         }
 
         private List<float[]> CalculateEigenFaces(List<int[]> faceMatrix, Matrix<float> eigenVectors, Matrix<float> eigenValues)
@@ -244,29 +238,26 @@ namespace FaceAuthenticators
             return weightArray;
         }
 
-        private int CalculateClosestVector(float[] imageWeights)
+        private string ClassifyWeights(float[] imageWeights)
         {
-            double lowestVal = double.MaxValue;
-            int indexOfLowest = 0;
+            // create the list that will store the distances and names
+            List<Tuple<double, string>> distancesAndName = new List<Tuple<double, string>>(weightVector.Count);
 
             for(int i = 0; i < weightVector.Count; i++)
             {
                 var distance = CalculateEuclideanDistance(imageWeights, weightVector[i]);
 
-                if(distance < lowestVal)
-                {
-                    lowestVal = distance;
-                    indexOfLowest = i;
-                }
+                distancesAndName.Add(Tuple.Create(distance, imageLabels[i]));
             }
 
-            // if the distance is greater than the threshold = Uknown user
-            if(lowestVal > Threshold)
-            {
-                return -1;
-            }
+            // trim the list to the amount of neighbours ready for the KNN evaluation
+            var orderedDistances = distancesAndName.OrderBy(x => x.Item1).ToList();
 
-            return indexOfLowest;
+            // trim the distances list down to the required neighbours
+            orderedDistances.RemoveRange(Neighbours, distancesAndName.Count - Neighbours);
+
+            // get the name that appears the most in the neighbours
+            return orderedDistances.GroupBy(x => x.Item2).OrderByDescending(x => x.Count()).First().Key;
         }
 
         private double CalculateEuclideanDistance(float[] firstImage, float[] secondImage)
