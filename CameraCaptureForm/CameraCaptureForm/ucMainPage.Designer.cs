@@ -39,17 +39,19 @@
             // 
             // pb_CameraFeed
             // 
-            this.pb_CameraFeed.Location = new System.Drawing.Point(16, 49);
+            this.pb_CameraFeed.Location = new System.Drawing.Point(21, 60);
+            this.pb_CameraFeed.Margin = new System.Windows.Forms.Padding(4);
             this.pb_CameraFeed.Name = "pb_CameraFeed";
-            this.pb_CameraFeed.Size = new System.Drawing.Size(876, 473);
+            this.pb_CameraFeed.Size = new System.Drawing.Size(1168, 582);
             this.pb_CameraFeed.TabIndex = 0;
             this.pb_CameraFeed.TabStop = false;
             // 
             // btn_Start
             // 
-            this.btn_Start.Location = new System.Drawing.Point(152, 559);
+            this.btn_Start.Location = new System.Drawing.Point(203, 688);
+            this.btn_Start.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(111, 35);
+            this.btn_Start.Size = new System.Drawing.Size(148, 43);
             this.btn_Start.TabIndex = 4;
             this.btn_Start.Text = "Start Capture";
             this.btn_Start.UseVisualStyleBackColor = true;
@@ -58,9 +60,10 @@
             // btn_Stop
             // 
             this.btn_Stop.Enabled = false;
-            this.btn_Stop.Location = new System.Drawing.Point(351, 559);
+            this.btn_Stop.Location = new System.Drawing.Point(468, 688);
+            this.btn_Stop.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(111, 35);
+            this.btn_Stop.Size = new System.Drawing.Size(148, 43);
             this.btn_Stop.TabIndex = 5;
             this.btn_Stop.Text = "Stop Capture";
             this.btn_Stop.UseVisualStyleBackColor = true;
@@ -70,27 +73,30 @@
             // 
             this.lbl_MainTitle.AutoSize = true;
             this.lbl_MainTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_MainTitle.Location = new System.Drawing.Point(319, 10);
+            this.lbl_MainTitle.Location = new System.Drawing.Point(425, 12);
+            this.lbl_MainTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_MainTitle.Name = "lbl_MainTitle";
-            this.lbl_MainTitle.Size = new System.Drawing.Size(194, 26);
+            this.lbl_MainTitle.Size = new System.Drawing.Size(243, 31);
             this.lbl_MainTitle.TabIndex = 7;
             this.lbl_MainTitle.Text = "Face Authenticator";
             // 
             // cbox_AuthSelector
             // 
+            this.cbox_AuthSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbox_AuthSelector.FormattingEnabled = true;
-            this.cbox_AuthSelector.Location = new System.Drawing.Point(521, 567);
+            this.cbox_AuthSelector.Location = new System.Drawing.Point(695, 698);
+            this.cbox_AuthSelector.Margin = new System.Windows.Forms.Padding(4);
             this.cbox_AuthSelector.Name = "cbox_AuthSelector";
-            this.cbox_AuthSelector.Size = new System.Drawing.Size(210, 21);
+            this.cbox_AuthSelector.Size = new System.Drawing.Size(279, 24);
             this.cbox_AuthSelector.TabIndex = 8;
             this.cbox_AuthSelector.Tag = "";
             // 
             // btn_ChooseAuth
             // 
-            this.btn_ChooseAuth.Enabled = false;
-            this.btn_ChooseAuth.Location = new System.Drawing.Point(769, 559);
+            this.btn_ChooseAuth.Location = new System.Drawing.Point(1025, 688);
+            this.btn_ChooseAuth.Margin = new System.Windows.Forms.Padding(4);
             this.btn_ChooseAuth.Name = "btn_ChooseAuth";
-            this.btn_ChooseAuth.Size = new System.Drawing.Size(123, 35);
+            this.btn_ChooseAuth.Size = new System.Drawing.Size(164, 43);
             this.btn_ChooseAuth.TabIndex = 9;
             this.btn_ChooseAuth.Text = "Choose Authenticator";
             this.btn_ChooseAuth.UseVisualStyleBackColor = true;
@@ -98,7 +104,7 @@
             // 
             // ucMainPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btn_ChooseAuth);
             this.Controls.Add(this.cbox_AuthSelector);
@@ -106,8 +112,9 @@
             this.Controls.Add(this.btn_Stop);
             this.Controls.Add(this.btn_Start);
             this.Controls.Add(this.pb_CameraFeed);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ucMainPage";
-            this.Size = new System.Drawing.Size(910, 627);
+            this.Size = new System.Drawing.Size(1213, 772);
             ((System.ComponentModel.ISupportInitialize)(this.pb_CameraFeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

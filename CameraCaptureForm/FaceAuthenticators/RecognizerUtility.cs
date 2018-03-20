@@ -51,7 +51,7 @@ namespace FaceAuthenticators
                 foreach (var file in Directory.GetFiles(directory))
                 {
                     // yes this is messy, but the only way to read image as grey using emgu
-                    faceVector[iter] = new Image<Gray, byte>(file).Mat;
+                    faceMatrix[iter] = new Image<Gray, byte>(file).Mat;
                     faceLabels.Add(Path.GetFileName(Path.GetDirectoryName(file)));
                     iterCounter[iter] = iter++;
                 }

@@ -26,7 +26,7 @@ namespace CameraCaptureForm
         private static IOwnAuthenticators ownAuthenticator;
 
         // Declare these for the Emgu authenticators
-        private static Mat[] faceVector;
+        private static Mat[] faceMatrix;
         private static List<string> faceLabels;
         private static VectorOfInt indexLocations;
 
@@ -144,14 +144,14 @@ namespace CameraCaptureForm
                 emguAuthenticator = (FaceRecognizer) authenticator;
 
                 // assinging size here for sake of speed
-                faceVector = new Mat[totalImages];
+                faceMatrix = new Mat[totalImages];
                 faceLabels = new List<string>(totalImages);
                 indexLocations = new VectorOfInt();
 
-                RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootEnrolImagesFolder, ref faceVector, ref faceLabels, ref indexLocations);
+                RecognizerUtility.GetAllImageVectorsAndLabels(RecognizerUtility.rootEnrolImagesFolder, ref faceMatrix, ref faceLabels, ref indexLocations);
 
                 // train the authenticator
-                emguAuthenticator.Train(new VectorOfMat(faceVector), indexLocations);
+                emguAuthenticator.Train(new VectorOfMat(faceMatrix), indexLocations);
             }
             // if the authenticator is our own type
             else

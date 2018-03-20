@@ -86,12 +86,20 @@ namespace CameraCaptureForm
 
         private void btn_EnrolUser_Click(object sender, EventArgs e)
         {
-            // Gets the detected face from the camera feed
-            var faceImage = BackendGuiUtility.GetFaceFromFeed(count, facesFromFrame);
+            // safety check to ensure the user is enrolled with a name
+            if (string.IsNullOrWhiteSpace(tBox_UserName.Text))
+            {
+                MessageBox.Show("User must have a name", "Error when enrolling user", MessageBoxButtons.OK);
+            }
+            else
+            {
+                // Gets the detected face from the camera feed
+                var faceImage = BackendGuiUtility.GetFaceFromFeed(count, facesFromFrame);
 
-            BackendGuiUtility.SaveUserImage(faceImage, tBox_UserName.Text);
+                BackendGuiUtility.SaveUserImage(faceImage, tBox_UserName.Text);
 
-            BackendGuiUtility.UpdateTotalImages();
+                BackendGuiUtility.UpdateTotalImages();
+            }
         }
 
         private void btn_NextFace_Click(object sender, EventArgs e)

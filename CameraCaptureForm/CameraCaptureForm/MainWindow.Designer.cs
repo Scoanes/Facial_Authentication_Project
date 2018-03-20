@@ -35,27 +35,29 @@
             // pnl_Main
             // 
             this.pnl_Main.Location = new System.Drawing.Point(0, 1);
+            this.pnl_Main.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnl_Main.Name = "pnl_Main";
-            this.pnl_Main.Size = new System.Drawing.Size(910, 627);
+            this.pnl_Main.Size = new System.Drawing.Size(1213, 772);
             this.pnl_Main.TabIndex = 0;
             // 
             // btn_userControlSwitch
             // 
-            this.btn_userControlSwitch.Location = new System.Drawing.Point(12, 647);
+            this.btn_userControlSwitch.Location = new System.Drawing.Point(16, 796);
+            this.btn_userControlSwitch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_userControlSwitch.Name = "btn_userControlSwitch";
-            this.btn_userControlSwitch.Size = new System.Drawing.Size(111, 35);
+            this.btn_userControlSwitch.Size = new System.Drawing.Size(148, 43);
             this.btn_userControlSwitch.TabIndex = 4;
             this.btn_userControlSwitch.UseVisualStyleBackColor = true;
             this.btn_userControlSwitch.Click += new System.EventHandler(this.btn_userControlSwitch_Click);
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(912, 694);
+            this.ClientSize = new System.Drawing.Size(1216, 854);
             this.Controls.Add(this.btn_userControlSwitch);
             this.Controls.Add(this.pnl_Main);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainWindow";
             this.Text = "Facial Authentication Project";
             this.ResumeLayout(false);

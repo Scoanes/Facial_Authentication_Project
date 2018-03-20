@@ -45,35 +45,41 @@
             // 
             this.lbl_EnrolTitle.AutoSize = true;
             this.lbl_EnrolTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_EnrolTitle.Location = new System.Drawing.Point(366, 14);
+            this.lbl_EnrolTitle.Location = new System.Drawing.Point(488, 17);
+            this.lbl_EnrolTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_EnrolTitle.Name = "lbl_EnrolTitle";
-            this.lbl_EnrolTitle.Size = new System.Drawing.Size(115, 26);
+            this.lbl_EnrolTitle.Size = new System.Drawing.Size(142, 31);
             this.lbl_EnrolTitle.TabIndex = 0;
             this.lbl_EnrolTitle.Text = "Enrol User";
             this.lbl_EnrolTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pb_CameraFeed
             // 
-            this.pb_CameraFeed.Location = new System.Drawing.Point(22, 55);
+            this.pb_CameraFeed.Location = new System.Drawing.Point(29, 68);
+            this.pb_CameraFeed.Margin = new System.Windows.Forms.Padding(4);
             this.pb_CameraFeed.Name = "pb_CameraFeed";
-            this.pb_CameraFeed.Size = new System.Drawing.Size(861, 370);
+            this.pb_CameraFeed.Size = new System.Drawing.Size(863, 455);
+            this.pb_CameraFeed.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pb_CameraFeed.TabIndex = 1;
             this.pb_CameraFeed.TabStop = false;
             // 
             // pb_FaceOutput
             // 
-            this.pb_FaceOutput.Location = new System.Drawing.Point(314, 443);
+            this.pb_FaceOutput.Location = new System.Drawing.Point(900, 68);
+            this.pb_FaceOutput.Margin = new System.Windows.Forms.Padding(4);
             this.pb_FaceOutput.Name = "pb_FaceOutput";
-            this.pb_FaceOutput.Size = new System.Drawing.Size(296, 163);
+            this.pb_FaceOutput.Size = new System.Drawing.Size(309, 455);
+            this.pb_FaceOutput.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pb_FaceOutput.TabIndex = 2;
             this.pb_FaceOutput.TabStop = false;
             // 
             // btn_NextFace
             // 
             this.btn_NextFace.Enabled = false;
-            this.btn_NextFace.Location = new System.Drawing.Point(179, 461);
+            this.btn_NextFace.Location = new System.Drawing.Point(230, 614);
+            this.btn_NextFace.Margin = new System.Windows.Forms.Padding(4);
             this.btn_NextFace.Name = "btn_NextFace";
-            this.btn_NextFace.Size = new System.Drawing.Size(111, 35);
+            this.btn_NextFace.Size = new System.Drawing.Size(148, 43);
             this.btn_NextFace.TabIndex = 3;
             this.btn_NextFace.Text = "Next Face";
             this.btn_NextFace.UseVisualStyleBackColor = true;
@@ -82,9 +88,10 @@
             // btn_PrevFace
             // 
             this.btn_PrevFace.Enabled = false;
-            this.btn_PrevFace.Location = new System.Drawing.Point(179, 529);
+            this.btn_PrevFace.Location = new System.Drawing.Point(494, 614);
+            this.btn_PrevFace.Margin = new System.Windows.Forms.Padding(4);
             this.btn_PrevFace.Name = "btn_PrevFace";
-            this.btn_PrevFace.Size = new System.Drawing.Size(111, 35);
+            this.btn_PrevFace.Size = new System.Drawing.Size(148, 43);
             this.btn_PrevFace.TabIndex = 4;
             this.btn_PrevFace.Text = "Previous Face";
             this.btn_PrevFace.UseVisualStyleBackColor = true;
@@ -93,35 +100,40 @@
             // btn_EnrolUser
             // 
             this.btn_EnrolUser.Enabled = false;
-            this.btn_EnrolUser.Location = new System.Drawing.Point(772, 461);
+            this.btn_EnrolUser.Location = new System.Drawing.Point(1029, 567);
+            this.btn_EnrolUser.Margin = new System.Windows.Forms.Padding(4);
             this.btn_EnrolUser.Name = "btn_EnrolUser";
-            this.btn_EnrolUser.Size = new System.Drawing.Size(111, 35);
+            this.btn_EnrolUser.Size = new System.Drawing.Size(148, 43);
             this.btn_EnrolUser.TabIndex = 5;
             this.btn_EnrolUser.Text = "Enrol User";
             this.btn_EnrolUser.UseVisualStyleBackColor = true;
+            this.btn_EnrolUser.Click += new System.EventHandler(this.btn_EnrolUser_Click);
             // 
             // tBox_UserName
             // 
             this.tBox_UserName.Enabled = false;
-            this.tBox_UserName.Location = new System.Drawing.Point(630, 537);
+            this.tBox_UserName.Location = new System.Drawing.Point(840, 661);
+            this.tBox_UserName.Margin = new System.Windows.Forms.Padding(4);
             this.tBox_UserName.Name = "tBox_UserName";
-            this.tBox_UserName.Size = new System.Drawing.Size(225, 20);
+            this.tBox_UserName.Size = new System.Drawing.Size(299, 22);
             this.tBox_UserName.TabIndex = 7;
             // 
             // lbl_UserName
             // 
             this.lbl_UserName.AutoSize = true;
-            this.lbl_UserName.Location = new System.Drawing.Point(634, 520);
+            this.lbl_UserName.Location = new System.Drawing.Point(845, 640);
+            this.lbl_UserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_UserName.Name = "lbl_UserName";
-            this.lbl_UserName.Size = new System.Drawing.Size(60, 13);
+            this.lbl_UserName.Size = new System.Drawing.Size(79, 17);
             this.lbl_UserName.TabIndex = 8;
             this.lbl_UserName.Text = "User Name";
             // 
             // btn_capture
             // 
-            this.btn_capture.Location = new System.Drawing.Point(630, 461);
+            this.btn_capture.Location = new System.Drawing.Point(840, 567);
+            this.btn_capture.Margin = new System.Windows.Forms.Padding(4);
             this.btn_capture.Name = "btn_capture";
-            this.btn_capture.Size = new System.Drawing.Size(111, 35);
+            this.btn_capture.Size = new System.Drawing.Size(148, 43);
             this.btn_capture.TabIndex = 9;
             this.btn_capture.Text = "Capture Faces";
             this.btn_capture.UseVisualStyleBackColor = true;
@@ -129,7 +141,7 @@
             // 
             // ucEnrolPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btn_capture);
             this.Controls.Add(this.lbl_UserName);
@@ -140,8 +152,9 @@
             this.Controls.Add(this.pb_FaceOutput);
             this.Controls.Add(this.pb_CameraFeed);
             this.Controls.Add(this.lbl_EnrolTitle);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ucEnrolPage";
-            this.Size = new System.Drawing.Size(910, 627);
+            this.Size = new System.Drawing.Size(1213, 772);
             ((System.ComponentModel.ISupportInitialize)(this.pb_CameraFeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_FaceOutput)).EndInit();
             this.ResumeLayout(false);
