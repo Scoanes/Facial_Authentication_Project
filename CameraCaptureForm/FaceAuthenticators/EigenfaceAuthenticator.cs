@@ -246,8 +246,15 @@ namespace FaceAuthenticators
             for(int i = 0; i < weightVector.Count; i++)
             {
                 var distance = CalculateEuclideanDistance(imageWeights, weightVector[i]);
-
-                distancesAndName.Add(Tuple.Create(distance, imageLabels[i]));
+                
+                if (distance > Threshold)
+                {
+                    distancesAndName.Add(Tuple.Create(distance, "Unknown"));
+                }
+                else
+                {
+                    distancesAndName.Add(Tuple.Create(distance, imageLabels[i]));
+                }
             }
 
             // trim the list to the amount of neighbours ready for the KNN evaluation

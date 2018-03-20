@@ -184,8 +184,17 @@ namespace CameraCaptureForm
                     };
                     var imageVector = new VectorOfMat(convertedImage);
 
+                    FaceRecognizer.PredictionResult indexValue;
+
                     // and even then, prediction does not support string datatype, so will only be int, signifying the index value
-                    var indexValue = emguAuthenticator.Predict(imageVector[0]);
+                    try
+                    {
+                        indexValue = emguAuthenticator.Predict(imageVector[0]);
+                    }
+                    catch(Emgu.CV.Util.CvException e)
+                    {
+                        return "Move face to center of screen";
+                    }
 
                     return faceLabels[indexValue.Label];
                 }
