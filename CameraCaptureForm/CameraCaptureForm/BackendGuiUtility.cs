@@ -65,13 +65,13 @@ namespace CameraCaptureForm
 
             for (int i = 0; i < allFaces.Length; i++)
             {
-                cameraCapture.Draw(allFaces[i], new Bgr(Color.Green), 2);
+                //cameraCapture.Draw(allFaces[i], new Bgr(Color.Green), 2);
 
-                // update the rectange to fir the accepted size
-                allFaces[i] = ReshapeRectangle(allFaces[i]);
+                // update the rectange to fit the accepted size
+                var reshapedRectangle = ReshapeRectangle(allFaces[i]);
 
                 // Copy the image from the feed into the recognizer and get the predicted name
-                cameraCapture.ROI = allFaces[i];
+                cameraCapture.ROI = reshapedRectangle;
                 var nameToDisplay = GetAuthenticatorPrediction(cameraCapture.Clone().Convert<Gray, byte>());
                 CvInvoke.cvResetImageROI(cameraCapture);
 
@@ -80,7 +80,8 @@ namespace CameraCaptureForm
                 {
                     using (Font arialFont = new Font("Arial", 10))
                     {
-                        graphics.DrawString(nameToDisplay, arialFont, Brushes.Blue, allFaces[i].X + 25, allFaces[i].Y + 25);
+                        graphics.DrawString(nameToDisplay, arialFont, Brushes.Blue, reshapedRectangle.X + 25, reshapedRectangle.Y + 25);
+                        graphics.DrawRectangle(new Pen(Color.Green, 2), allFaces[i]);
                     }
                 }
             }
@@ -191,6 +192,7 @@ namespace CameraCaptureForm
                     {
                         indexValue = emguAuthenticator.Predict(imageVector[0]);
                     }
+                    // catching the exception thrown if the image is too close to the screen
                     catch(Emgu.CV.Util.CvException e)
                     {
                         return "Move face to center of screen";
