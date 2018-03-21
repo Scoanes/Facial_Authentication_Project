@@ -3,6 +3,7 @@ using Emgu.CV.Face;
 using Emgu.CV.Structure;
 using FaceAuthenticators;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,6 +12,7 @@ namespace CameraCaptureForm
     public partial class ucMainPage : UserControl
     {
         VideoCapture cameraCaptureMain;
+        Stopwatch authenticationTime = new Stopwatch();
 
         // singleton instance for user control class
         private static ucMainPage instance;
@@ -109,7 +111,10 @@ namespace CameraCaptureForm
             var convertedCapture = capturedImage.ToImage<Bgr, byte>();
 
             // This is where it detects and predicts the faces
-            convertedCapture = BackendGuiUtility.DetectAndPredictFaces(convertedCapture);
+            convertedCapture = BackendGuiUtility.DetectAndPredictFaces(convertedCapture, ref authenticationTime);
+
+            lbl_AuthTime.Invoke((MethodInvoker)(() => lbl_AuthTime.Text = authenticationTime.Elapsed.ToString()));
+            authenticationTime.Reset();
 
             // sets the camera output as the image
             pb_CameraFeed.Image = convertedCapture.Bitmap;

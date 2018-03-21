@@ -5,6 +5,7 @@ using Emgu.CV.Util;
 using FaceAuthenticators;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 
@@ -15,6 +16,7 @@ namespace CameraCaptureForm
         // Declaring constants
         public static string haarFaceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
         public static EigenfaceAuthenticator eigenRecognizer = new EigenfaceAuthenticator();
+        private static Pen rectangePen = new Pen(Color.Green, 2);
 
         // keep track of total images here
         public static int totalImages = 0;
@@ -57,15 +59,15 @@ namespace CameraCaptureForm
             return areaOfFace;
         }
 
-        public static Image<Bgr, byte> DetectAndPredictFaces(Image<Bgr, byte> cameraCapture)
+        public static Image<Bgr, byte> DetectAndPredictFaces(Image<Bgr, byte> cameraCapture, ref Stopwatch timer)
         {
             // Face detection
             var greyImage = cameraCapture.Convert<Gray, byte>();
             var allFaces = faceClassifier.DetectMultiScale(greyImage, 1.1, 10);
-
+            
             for (int i = 0; i < allFaces.Length; i++)
             {
-                //cameraCapture.Draw(allFaces[i], new Bgr(Color.Green), 2);
+                timer.Start();
 
                 // update the rectange to fit the accepted size
                 var reshapedRectangle = ReshapeRectangle(allFaces[i]);
@@ -81,9 +83,10 @@ namespace CameraCaptureForm
                     using (Font arialFont = new Font("Arial", 10))
                     {
                         graphics.DrawString(nameToDisplay, arialFont, Brushes.Blue, reshapedRectangle.X + 25, reshapedRectangle.Y + 25);
-                        graphics.DrawRectangle(new Pen(Color.Green, 2), allFaces[i]);
+                        graphics.DrawRectangle(rectangePen, allFaces[i]);
                     }
                 }
+                timer.Stop();
             }
 
             return cameraCapture;

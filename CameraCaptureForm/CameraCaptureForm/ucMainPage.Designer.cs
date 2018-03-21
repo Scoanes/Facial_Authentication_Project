@@ -34,6 +34,8 @@
             this.lbl_MainTitle = new System.Windows.Forms.Label();
             this.cbox_AuthSelector = new System.Windows.Forms.ComboBox();
             this.btn_ChooseAuth = new System.Windows.Forms.Button();
+            this.lbl_TimeTaken = new System.Windows.Forms.Label();
+            this.lbl_AuthTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pb_CameraFeed)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,10 +104,30 @@
             this.btn_ChooseAuth.UseVisualStyleBackColor = true;
             this.btn_ChooseAuth.Click += new System.EventHandler(this.btn_ChooseAuth_Click);
             // 
+            // lbl_TimeTaken
+            // 
+            this.lbl_TimeTaken.AutoSize = true;
+            this.lbl_TimeTaken.Location = new System.Drawing.Point(431, 650);
+            this.lbl_TimeTaken.Name = "lbl_TimeTaken";
+            this.lbl_TimeTaken.Size = new System.Drawing.Size(191, 17);
+            this.lbl_TimeTaken.TabIndex = 10;
+            this.lbl_TimeTaken.Text = "Time Taken To Authenticate:";
+            // 
+            // lbl_AuthTime
+            // 
+            this.lbl_AuthTime.AutoSize = true;
+            this.lbl_AuthTime.Location = new System.Drawing.Point(628, 650);
+            this.lbl_AuthTime.Name = "lbl_AuthTime";
+            this.lbl_AuthTime.Size = new System.Drawing.Size(24, 17);
+            this.lbl_AuthTime.TabIndex = 11;
+            this.lbl_AuthTime.Text = "00";
+            // 
             // ucMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbl_AuthTime);
+            this.Controls.Add(this.lbl_TimeTaken);
             this.Controls.Add(this.btn_ChooseAuth);
             this.Controls.Add(this.cbox_AuthSelector);
             this.Controls.Add(this.lbl_MainTitle);
@@ -129,5 +151,7 @@
         private System.Windows.Forms.Label lbl_MainTitle;
         private System.Windows.Forms.ComboBox cbox_AuthSelector;
         private System.Windows.Forms.Button btn_ChooseAuth;
+        private System.Windows.Forms.Label lbl_TimeTaken;
+        private System.Windows.Forms.Label lbl_AuthTime;
     }
 }
