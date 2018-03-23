@@ -38,7 +38,7 @@ namespace FaceAuthenticators
         }
 
         // this is for the Emgu training
-        public static void GetAllImageVectorsAndLabels(string folderLocation, ref Mat[] faceVector, ref List<string> faceLabels, ref VectorOfInt indexLocations)
+        public static void GetAllImageVectorsAndLabels(string folderLocation, ref Mat[] faceMatrix, ref List<string> faceLabels, ref VectorOfInt indexLocations)
         {
             // Decided to keep the vector and label grabbing in 1 method, so no chance of mismatch of order
             int iter = 0;
